@@ -1,4 +1,6 @@
 * text=auto !eol
+JCalendar/.classpath -text
+JCalendar/.project -text
 JCalendar/bin/runJCalendarDemo.bat -text
 JCalendar/doc/api/allclasses-frame.html -text
 JCalendar/doc/api/allclasses-noframe.html -text
@@ -90,6 +92,10 @@ JCalendar/jcalendar-license.txt -text
 JCalendar/jgoodies-looks-license.txt -text
 JCalendar/lib/jcalendar.jar -text
 JCalendar/lib/looks-1.2.2.jar -text
+JCalendar/license.txt -text
+JCalendar/misc/JCalendarIcon.jpg -text
+JCalendar/misc/JCalendarIcon.psp -text
+JCalendar/misc/JCalendarIcon2.psp -text
 JCalendar/readme.txt -text
 JCalendar/src/build.xml -text
 JCalendar/src/com/toedter/calendar/JCalendar.java -text

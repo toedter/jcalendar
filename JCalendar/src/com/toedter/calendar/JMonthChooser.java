@@ -41,7 +41,7 @@ import javax.swing.event.ChangeListener;
  * JMonthChooser is a bean for choosing a month.
  * 
  * @author Kai Toedter
- * @version 1.2
+ * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
  */
 public class JMonthChooser extends JPanel implements ItemListener, ChangeListener {
 	/** true, if the month chooser has a spinner component */
@@ -73,7 +73,7 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	 */
 	public JMonthChooser(boolean hasSpinner) {
 		super();
-
+		setName("JMonthChooser");
 		this.hasSpinner = hasSpinner;
 
 		setLayout(new BorderLayout());
@@ -324,16 +324,7 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 		return hasSpinner;
 	}
 
-    /**
-     * Returns "JMonthChooser".
-     *
-     * @return the name value
-     */
-    public String getName() {
-        return "JMonthChooser";
-    }
-
-	/**
+ 	/**
 	 * Creates a JFrame with a JMonthChooser inside and can be used for testing.
 	 * 
 	 * @param s

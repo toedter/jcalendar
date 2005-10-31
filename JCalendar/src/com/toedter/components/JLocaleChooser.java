@@ -33,7 +33,7 @@ import javax.swing.JFrame;
 /**
  * JLocaleChooser is a bean for choosing locales.
  * 
- * @version 1.2
+ * @version $LastChangedRevision: 9 $ $LastChangedDate: 2004-10-17 21:11:43 +0200 (So, 17 Okt 2004) $
  * @author Kai Toedter
  */
 public class JLocaleChooser extends JComboBox implements ItemListener {

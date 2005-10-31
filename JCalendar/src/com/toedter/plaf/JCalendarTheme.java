@@ -1,14 +1,4 @@
 /*
- * Copyright (C) Siemens AG 2004
- *
- * Transmittal, reproduction, dissemination and/or editing of this
- * source code as well as utilization of its contents and communication
- * thereof to others without express authorization are prohibited.
- * Offenders will be held liable for payment of damages.  All rights
- * created by patent grant or registration of a utility model or design
- * patent are reserved.
- */
-/*
  *  02/02/2002 - 20:54:54
  *
  *  JCalendar.java - JCalendar Java Bean
@@ -44,7 +34,7 @@ import javax.swing.plaf.metal.DefaultMetalTheme;
  * 
  * @author Kai Toedter
  * @author (Last changed by: $author$)
- * @version $Revision: 1.0 $
+ * @version $LastChangedRevision: 9 $ $LastChangedDate: 2004-10-17 21:11:43 +0200 (So, 17 Okt 2004) $
  */
 public class JCalendarTheme extends DefaultMetalTheme {
 	static final ColorUIResource secondary1 = new ColorUIResource(128, 128, 128);

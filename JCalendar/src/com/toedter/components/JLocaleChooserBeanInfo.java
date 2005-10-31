@@ -25,7 +25,7 @@ package com.toedter.components;
  * A BeanInfo class for the JLocaleChooser bean.
  * 
  * @author Kai Toedter
- * @version 1.2
+ * @version $LastChangedRevision: 9 $ $LastChangedDate: 2004-10-17 21:11:43 +0200 (So, 17 Okt 2004) $
  */
 public class JLocaleChooserBeanInfo extends GenericBeanInfo {
 	/**

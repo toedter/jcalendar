@@ -46,7 +46,7 @@ import javax.swing.event.ChangeListener;
  * internally (since J2SE SDK 1.4) rather than a scrollbar for emulating the spin buttons.
  * 
  * @author Kai Toedter
- * @version 1.2
+ * @version $LastChangedRevision: 19 $ $LastChangedDate: 2005-03-25 14:03:23 +0100 (Fr, 25 Mrz 2005) $
  */
 public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener {
 	protected JSpinner spinner;
@@ -70,6 +70,7 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 */
 	public JSpinField(int min, int max) {
 		super();
+		setName("JSpinField");
 		this.min = min;
 		if(max < min)
 		    max = min;
@@ -124,7 +125,6 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 */
 	protected void setValue(int newValue, boolean updateTextField, boolean firePropertyChange) {
 		int oldValue = value;
-
 		if (newValue < min) {
 			value = min;
 		} else if (newValue > max) {
@@ -230,10 +230,10 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	}
 
 	/**
-	 * DOCUMENT ME!
+	 * Sets the foreground
 	 * 
 	 * @param fg
-	 *            DOCUMENT ME!
+	 *           the foreground
 	 */
 	public void setForeground(Color fg) {
 		if (textField != null) {
@@ -246,7 +246,7 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 * being an integer, the value is colored green or red.
 	 * 
 	 * @param e
-	 *            Description of the Parameter
+	 *            the caret event
 	 */
 	public void caretUpdate(CaretEvent e) {
 		try {
@@ -305,15 +305,6 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	public Component getSpinner() {
 		return spinner;
 	}
-
-    /**
-     * Returns "JSpinField".
-     *
-     * @return the name value
-     */
-    public String getName() {
-        return "JSpinField";
-    }
 
 	/**
 	 * Creates a JFrame with a JSpinField inside and can be used for testing.

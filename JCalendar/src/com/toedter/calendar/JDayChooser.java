@@ -48,7 +48,7 @@ import javax.swing.JPanel;
  * JCalendar is a bean for choosing a day.
  *
  * @author Kai Toedter
- * @version 1.2.1
+ * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
  */
 public class JDayChooser extends JPanel implements ActionListener, KeyListener,
     FocusListener {
@@ -86,6 +86,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
      * @param weekOfYearVisible true, if the weeks of a year shall be shown
      */
     public JDayChooser(boolean weekOfYearVisible) {
+        setName("JDayChooser");
         setBackground(Color.blue);
         this.weekOfYearVisible = weekOfYearVisible;
         locale = Locale.getDefault();
@@ -485,15 +486,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 
             drawDays();
         }
-    }
-
-    /**
-     * Returns "JDayChooser".
-     *
-     * @return the name value
-     */
-    public String getName() {
-        return "JDayChooser";
     }
 
     /**

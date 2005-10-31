@@ -1,8 +1,8 @@
 =======================================================================
-JCalendar - v1.2.2 - 09/24/04 - Readme File  - 
+JCalendar - v@VERSION@ - @MODIFIED@ - Readme File  - 
 =======================================================================
 
-(C) 1999 - 2004 Kai Toedter
+(C) @COPYRIGHTYEAR@ Kai Toedter
 Released under GNU Lesser General Public License (see jcalendar-license.txt)
 kai@toedter.com
 www.toedter.com

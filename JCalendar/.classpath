@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry sourcepath="JDK1.5 Source/src.zip" kind="var" path="JRE_LIB"/>
+	<classpathentry kind="lib" path="lib/looks-1.2.2.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>

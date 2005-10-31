@@ -31,10 +31,11 @@ import javax.swing.JFrame;
  * JYearChooser is a bean for choosing a year.
  *
  * @author Kai Toedter
- * @version 1.2
+ * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
  */
 public class JYearChooser extends JSpinField {
     protected JDayChooser dayChooser;
+    protected int oldYear;
     protected int startYear;
     protected int endYear;
 
@@ -42,6 +43,7 @@ public class JYearChooser extends JSpinField {
      * Default JCalendar constructor.
      */
     public JYearChooser() {
+        setName("JYearChooser");
         Calendar calendar = Calendar.getInstance();
         dayChooser = null;
         setMinimum(calendar.getMinimum(Calendar.YEAR));
@@ -57,7 +59,6 @@ public class JYearChooser extends JSpinField {
      * @see #getYear
      */
     public void setYear(int y) {
-        int oldYear = getValue();
         super.setValue(y, true, false);
 
         if (dayChooser != null) {
@@ -66,6 +67,7 @@ public class JYearChooser extends JSpinField {
 
         spinner.setValue(new Integer(value));
         firePropertyChange("year", oldYear, value);
+        oldYear = value;
     }
 
     /**
@@ -93,15 +95,6 @@ public class JYearChooser extends JSpinField {
      */
     public void setDayChooser(JDayChooser dayChooser) {
         this.dayChooser = dayChooser;
-    }
-
-    /**
-     * Returns "JYearChooser".
-     *
-     * @return the name value
-     */
-    public String getName() {
-        return "JYearChooser";
     }
 
     /**

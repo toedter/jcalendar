@@ -76,7 +76,7 @@ import com.toedter.components.JTitlePanel;
  * A demonstration Applet for the JCalendar bean. The demo can also be started as Java application.
  *
  * @author Kai Toedter
- * @version 1.2
+ * @version $LastChangedRevision: 12 $ $LastChangedDate: 2004-10-17 22:27:20 +0200 (So, 17 Okt 2004) $
  */
 public class JCalendarDemo extends JApplet implements PropertyChangeListener {
     private JSplitPane splitPane;
@@ -396,9 +396,6 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
                         final Method readMethod = propertyDescriptor.getReadMethod();
                         final Method writeMethod = propertyDescriptor.getWriteMethod();
 
-                        //                        System.out.println("Property Descriptor: " +
-                        //                            propertyDescriptors[i].getDisplayName() + ": " +
-                        // type);
                         if (type.equals(types[t]) &&
                                 (((readMethod != null) && (writeMethod != null)) ||
                                 ("class java.util.Locale".equals(type)))) {

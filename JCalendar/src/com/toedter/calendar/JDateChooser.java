@@ -37,6 +37,7 @@ import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
@@ -50,7 +51,7 @@ import javax.swing.event.ChangeListener;
  * choosing a date.
  *
  * @author Kai Toedter
- * @version 1.2.2
+ * @version $LastChangedRevision: 18 $ $LastChangedDate: 2004-12-20 07:58:43 +0100 (Mo, 20 Dez 2004) $
  */
 public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener,
     ChangeListener {
@@ -65,6 +66,7 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
     protected boolean isInitialized;
     protected Date lastSelectedDate;
     protected boolean startEmpty;
+    protected boolean dateSet;
 
     /**
      * Creates a new JDateChooser object.
@@ -121,6 +123,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
      */
     public JDateChooser(JCalendar jcalendar, String dateFormatString, boolean startEmpty,
         ImageIcon icon) {
+        setName("JDateChooser");
+        
         if (jcalendar == null) {
             jcalendar = new JCalendar();
         }
@@ -156,19 +160,19 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		};
 		// End Code change by Mark Brown
 
-        String tempDateFortmatString = "";
+        String tempDateFormatString = "";
 
         if (!startEmpty) {
-            tempDateFortmatString = dateFormatString;
+            tempDateFormatString = dateFormatString;
         }
 
-        editor = new JSpinner.DateEditor(dateSpinner, tempDateFortmatString);
+        editor = new JSpinner.DateEditor(dateSpinner, tempDateFormatString);
         dateSpinner.setEditor(editor);
         add(dateSpinner, BorderLayout.CENTER);
 
         // Display a calendar button with an icon
         if (icon == null) {
-            URL iconURL = getClass().getResource("images/JDateChooserIcon.gif");
+            URL iconURL = getClass().getResource("/com/toedter/calendar/images/JDateChooserIcon.gif");
             icon = new ImageIcon(iconURL);      
         }
 
@@ -225,10 +229,12 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
      */
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("day")) {
-            dateSelected = true;
-            popup.setVisible(false);
-            setDate(jcalendar.getCalendar().getTime());
-            setDateFormatString(dateFormatString);
+            if(popup.isVisible()) {
+	            dateSelected = true;
+	            popup.setVisible(false);
+	            setDateFormatString(dateFormatString);
+	            setDate(jcalendar.getCalendar().getTime());
+            }
         } else if (evt.getPropertyName().equals("date")) {
             setDate((Date) evt.getNewValue());
         }
@@ -279,20 +285,15 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
     }
 
     /**
-     * Returns "JDateChooser".
-     *
-     * @return the name value
-     */
-    public String getName() {
-        return "JDateChooser";
-    }
-
-    /**
-     * Returns the date.
+     * Returns the date. If the JDateChooser is started with an empty date
+     * and no date is set by the user, null is returned.
      *
      * @return the current date
      */
     public Date getDate() {
+        if(startEmpty && !dateSet) {
+            return null;
+        }
         return model.getDate();
     }
 
@@ -302,6 +303,7 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
      * @param date the new date.
      */
     public void setDate(Date date) {
+        dateSet = true;
         model.setValue(date);
         if (getParent() != null) {
             getParent().validate();
@@ -317,6 +319,7 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
         if (isInitialized) {
             firePropertyChange("date", lastSelectedDate, model.getDate());
             lastSelectedDate = model.getDate();
+            dateSet = true;
         }
     }
     
@@ -333,7 +336,7 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 */
     
 	/**
-	 * Return this controls JSpinner control.
+	 * Returns this control's JSpinner control.
      *
      * @return the JSpinner control
 	 */
@@ -342,7 +345,7 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	}
 	
 	/**
-	 * Return the SpinnerDateModel associated with this control.
+	 * Returns the SpinnerDateModel associated with this control.
      *
      * @return the SpinnerDateModel
 	 */
@@ -362,8 +365,55 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
         model.setCalendarField(java.util.Calendar.WEEK_OF_MONTH);
         model.addChangeListener(this);
         // Begin Code change by Martin Pietruschka on 16 Sep 2004
-		if(dateSpinner != null)
+		if(dateSpinner != null) {
 			dateSpinner.setModel(model);
+		}
 		// End Code change by Mark Brown
 	}
+	
+    /**
+     * Returns true, if the user has set a date. This method can be used to check the
+     * JDateChooser's state when starting with an empty date field.
+     * 
+     * @return Returns true, if the user has set a date
+     */
+    public boolean isDateSet() {
+        return dateSet;
+    }
+    
+    /**
+     * Enable or disable the JDateChooser.
+     *
+     * @param enabled the new enabled value
+     */
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        dateSpinner.setEnabled(enabled);
+        calendarButton.setEnabled(enabled);
+    }
+
+    /**
+     * Returns true, if enabled.
+     *
+     * @return true, if enabled.
+     */
+    public boolean isEnabled() {
+        return super.isEnabled();
+    }
+
+    /**
+     * Creates a JFrame with a JDateChooser inside and can be used for testing.
+     *
+     * @param s The command line arguments
+     */
+    public static void main(String[] s) {
+        JFrame frame = new JFrame("JDateChooser");
+        JDateChooser dateChooser = new JDateChooser();
+        // dateChooser.setLocale(new Locale("de"));
+        dateChooser.setDateFormatString("dd. MMMM yyyy");
+        frame.getContentPane().add(dateChooser);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
 }
