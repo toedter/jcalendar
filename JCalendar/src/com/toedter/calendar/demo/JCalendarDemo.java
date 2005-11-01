@@ -18,7 +18,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package com.toedter.calendar;
+package com.toedter.calendar.demo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -68,6 +68,11 @@ import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JYearChooser;
 import com.toedter.components.JLocaleChooser;
 import com.toedter.components.JSpinField;
 import com.toedter.components.JTitlePanel;
@@ -96,13 +101,14 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
         initializeLookAndFeels();
 
         // initialize all beans to demo
-        beans = new JComponent[6];
+        beans = new JComponent[7];
         beans[0] = new JCalendar();
         beans[1] = new JDateChooser();
         beans[2] = new JDayChooser();
         beans[3] = new JMonthChooser();
         beans[4] = new JYearChooser();
         beans[5] = new JSpinField();
+        beans[6] = new DemoTable();
         ((JSpinField) beans[5]).adjustWidthToMaximumValue();
         ((JYearChooser) beans[4]).setMaximum(((JSpinField) beans[5]).getMaximum());
         ((JYearChooser) beans[4]).adjustWidthToMaximumValue();
@@ -230,7 +236,8 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
                 icon = new ImageIcon(iconURL);
                 menuItem = new JMenuItem(beans[i].getName(), icon);
             } catch (Exception e) {
-                System.out.println("JCalendarDemo.createMenuBar(): " + e);
+                System.out.println("JCalendarDemo.createMenuBar(): " + e + " for URL: " + "images/" + beans[i].getName() +
+                        "Color16.gif");
                 menuItem = new JMenuItem(beans[i].getName());
             }
 
@@ -590,8 +597,8 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
          */
         public void actionPerformed(ActionEvent event) {
             JOptionPane.showMessageDialog(demo,
-                "JCalendar Demo\nVersion 1.2.1\n\nKai Toedter\nkai@toedter.com\nwww.toedter.com",
+                "JCalendar Demo\nVersion 1.3.0\n\nKai Toedter\nkai@toedter.com\nwww.toedter.com",
                 "About...", JOptionPane.INFORMATION_MESSAGE);
         }
-    }
+    }    
 }
