@@ -101,14 +101,14 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
         initializeLookAndFeels();
 
         // initialize all beans to demo
-        beans = new JComponent[7];
-        beans[0] = new JCalendar();
-        beans[1] = new JDateChooser();
+        beans = new JComponent[6];
+        beans[0] = new DateChooserPanel();
+        beans[1] = new JCalendar();
         beans[2] = new JDayChooser();
         beans[3] = new JMonthChooser();
         beans[4] = new JYearChooser();
         beans[5] = new JSpinField();
-        beans[6] = new DemoTable();
+       
         ((JSpinField) beans[5]).adjustWidthToMaximumValue();
         ((JYearChooser) beans[4]).setMaximum(((JSpinField) beans[5]).getMaximum());
         ((JYearChooser) beans[4]).adjustWidthToMaximumValue();
@@ -360,7 +360,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
         frame.getContentPane().add(demo);
         frame.pack();
         frame.setBounds(200, 200, (int) frame.getPreferredSize().getWidth(),
-            (int) frame.getPreferredSize().getHeight());
+            (int) frame.getPreferredSize().getHeight() + 180);
         frame.setVisible(true);
     }
 

@@ -28,6 +28,8 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -52,14 +54,14 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision: 18 $ $LastChangedDate: 2004-12-20 07:58:43
  *          +0100 (Mo, 20 Dez 2004) $
  */
-public class JDateChooser extends JPanel implements ActionListener,
-        PropertyChangeListener, ChangeListener {
+public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener,
+        ChangeListener {
     protected JButton calendarButton;
 
     protected JTextField textField;
-    
+
     protected boolean hasSpinner;
-    
+
     protected JSpinner dateSpinner;
 
     protected JSpinner.DateEditor editor;
@@ -69,6 +71,8 @@ public class JDateChooser extends JPanel implements ActionListener,
     protected JPopupMenu popup;
 
     protected SpinnerDateModel model;
+
+    protected SimpleDateFormat dateFormater;
 
     protected String dateFormatString;
 
@@ -86,10 +90,21 @@ public class JDateChooser extends JPanel implements ActionListener,
      * Creates a new JDateChooser object.
      */
     public JDateChooser() {
-        this(null, null);
+        this(null, null, null, false);
     }
 
     /**
+     * Creates a new JDateChooser object.
+     * 
+     * @param spinner
+     *            if true, a JSpinner is used to display the date. Otherwise a
+     *            textfield is used.
+     */
+    public JDateChooser(boolean spinner) {
+        this(null, null, null, spinner);
+    }
+
+     /**
      * Creates a new JDateChooser.
      * 
      * @param date
@@ -105,15 +120,53 @@ public class JDateChooser extends JPanel implements ActionListener,
      * @param date
      *            the date or null
      * @param dateFormatString
-     *            the date format string or null (then "MMMMM d, yyyy" is used)
+     *            the date format string or null (then MEDIUM Date format is
+     *            used)
      */
     public JDateChooser(Date date, String dateFormatString) {
+        this(date, dateFormatString, false);
+    }
+
+    /**
+     * Creates a new JDateChooser.
+     * 
+     * @param date
+     *            the date or null
+     * @param dateFormatString
+     *            the date format string or null (then MEDIUM Date format is
+     *            used)
+     * @param spinner
+     *            if true, a JSpinner is used to display the date. Otherwise a
+     *            textfield is used.
+     */
+    public JDateChooser(Date date, String dateFormatString, boolean spinner) {
+        this(null, date, dateFormatString, spinner);
+    }
+
+    /**
+     * Creates a new JDateChooser.
+     * 
+     * @param jcal
+     *            the JCalendar to be used
+     * @param date
+     *            the date or null
+     * @param dateFormatString
+     *            the date format string or null (then MEDIUM Date format is
+     *            used)
+     * @param spinner
+     *            if true, a JSpinner is used to display the date. Otherwise a
+     *            textfield is used.
+     */
+    public JDateChooser(JCalendar jcal, Date date, String dateFormatString, boolean spinner) {
         setName("JDateChooser");
 
-        hasSpinner = false;
+        this.hasSpinner = spinner;
 
-        if (jcalendar == null) {
+        if (jcal == null) {
             jcalendar = new JCalendar(date);
+        } else {
+            jcalendar = jcal;
+            jcalendar.setDate(date);
         }
 
         setLayout(new BorderLayout());
@@ -123,9 +176,11 @@ public class JDateChooser extends JPanel implements ActionListener,
         // the already selected day again
         jcalendar.getDayChooser().setAlwaysFireDayProperty(true);
 
+        dateFormater = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
+
+
         if (hasSpinner) {
-            model = new SpinnerDateModel();
-            setModel(model);
+            setModel(new SpinnerDateModel());
             dateSpinner = new JSpinner(model) {
                 public void setEnabled(boolean enabled) {
                     super.setEnabled(enabled);
@@ -133,26 +188,15 @@ public class JDateChooser extends JPanel implements ActionListener,
                 }
             };
 
-            String tmpDateFormatString = "";
-            if (dateFormatString == null) {
-                // dateFormatString = (new
-                // JSpinner.DateEditor(dateSpinner)).getFormat().toLocalizedPattern();
-                // TODO Localize date format string
-                dateFormatString = "MMMMM d, yyyy";
-            }
-
-            if (date != null) {
-                tmpDateFormatString = dateFormatString;
-            }
-            editor = new JSpinner.DateEditor(dateSpinner, tmpDateFormatString);
+            editor = new JSpinner.DateEditor(dateSpinner);
             dateSpinner.setEditor(editor);
             add(dateSpinner, BorderLayout.CENTER);
         } else {
-            textField = new JTextField("test");
+            textField = new JTextField("");
             add(textField, BorderLayout.CENTER);
         }
-
-        this.dateFormatString = dateFormatString;
+        setDateFormatString(dateFormatString);
+        setDate(date);
 
         // Display a calendar button with an icon
         if (icon == null) {
@@ -175,10 +219,8 @@ public class JDateChooser extends JPanel implements ActionListener,
             public void setVisible(boolean b) {
                 Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
 
-                if (b
-                        || (!b && dateSelected)
-                        || ((isCanceled != null) && !b && isCanceled
-                                .booleanValue())) {
+                if (b || (!b && dateSelected)
+                        || ((isCanceled != null) && !b && isCanceled.booleanValue())) {
                     super.setVisible(b);
                 }
             }
@@ -198,12 +240,13 @@ public class JDateChooser extends JPanel implements ActionListener,
      *            the action event
      */
     public void actionPerformed(ActionEvent e) {
-        int x = calendarButton.getWidth()
-                - (int) popup.getPreferredSize().getWidth();
+        int x = calendarButton.getWidth() - (int) popup.getPreferredSize().getWidth();
         int y = calendarButton.getY() + calendarButton.getHeight();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(model.getDate());
+        if (selectedDate != null) {
+            calendar.setTime(selectedDate);
+        }
         jcalendar.setCalendar(calendar);
         popup.show(calendarButton, x, y);
         dateSelected = false;
@@ -246,20 +289,20 @@ public class JDateChooser extends JPanel implements ActionListener,
      *            The new locale value
      */
     public void setLocale(Locale l) {
-        if(hasSpinner) {
-        dateSpinner.setLocale(l);
-        String tmpDateFormatString = "";
-        if (dateFormatString == null) {
-            // TODO Localize date format string
-            dateFormatString = "MMMMM d, yyyy";
-        }
+        if (hasSpinner) {
+            dateSpinner.setLocale(l);
+            String tmpDateFormatString = "";
+            if (dateFormatString == null) {
+                // TODO Localize date format string
+                dateFormatString = "MMMMM d, yyyy";
+            }
 
-        if (selectedDate != null) {
-            tmpDateFormatString = dateFormatString;
-        }
+            if (selectedDate != null) {
+                tmpDateFormatString = dateFormatString;
+            }
 
-        editor = new JSpinner.DateEditor(dateSpinner, tmpDateFormatString);
-        dateSpinner.setEditor(editor);
+            editor = new JSpinner.DateEditor(dateSpinner, tmpDateFormatString);
+            dateSpinner.setEditor(editor);
         }
         jcalendar.setLocale(l);
     }
@@ -277,18 +320,24 @@ public class JDateChooser extends JPanel implements ActionListener,
      * Sets the date format string. E.g "MMMMM d, yyyy" will result in "July 21,
      * 2004" if this is the selected date and locale is English.
      * 
-     * @param dateFormatString
+     * @param dfString
      *            The dateFormatString to set.
      */
-    public void setDateFormatString(String dateFormatString) {
-        this.dateFormatString = dateFormatString;
-        if (selectedDate == null) {
-            editor.getFormat().applyPattern("");
+    public void setDateFormatString(String dfString) {
+        if (dfString == null) {
+            dateFormatString = dateFormater.toPattern();
         } else {
-            editor.getFormat().applyPattern(dateFormatString);
+            dateFormatString = dfString;
+            dateFormater.applyPattern(dfString);
         }
-
-        editor.invalidate();
+        if (hasSpinner) {
+            if (selectedDate == null) {
+                editor.getFormat().applyPattern("");
+            } else {
+                editor.getFormat().applyPattern(dfString);
+            }
+            editor.invalidate();
+        }
         invalidate();
     }
 
@@ -311,10 +360,19 @@ public class JDateChooser extends JPanel implements ActionListener,
     public void setDate(Date date) {
         this.selectedDate = date;
         if (date != null) {
-            model.setValue(date);
+            if (hasSpinner) {
+                model.setValue(date);
+            } else {
+                String formattedDate = dateFormater.format(date);
+                textField.setText(formattedDate);
+            }
             setDateFormatString(dateFormatString);
         } else {
-            editor.getFormat().applyPattern("");
+            if (hasSpinner) {
+                editor.getFormat().applyPattern("");
+            } else {
+                textField.setText("");
+            }
         }
         if (getParent() != null) {
             getParent().validate();

@@ -109,9 +109,11 @@ JCalendar/src/com/toedter/calendar/JMonthChooser.java -text
 JCalendar/src/com/toedter/calendar/JMonthChooserBeanInfo.java -text
 JCalendar/src/com/toedter/calendar/JYearChooser.java -text
 JCalendar/src/com/toedter/calendar/JYearChooserBeanInfo.java -text
+JCalendar/src/com/toedter/calendar/demo/DateChooserPanel.java -text
 JCalendar/src/com/toedter/calendar/demo/DemoTable.java -text
 JCalendar/src/com/toedter/calendar/demo/JCalendarDemo.java -text
 JCalendar/src/com/toedter/calendar/demo/images/DemoTableColor16.gif -text
+JCalendar/src/com/toedter/calendar/demo/images/JDateChooserColor16.gif -text
 JCalendar/src/com/toedter/calendar/images/JCalendarColor16.gif -text
 JCalendar/src/com/toedter/calendar/images/JCalendarColor32.gif -text
 JCalendar/src/com/toedter/calendar/images/JCalendarMono16.gif -text

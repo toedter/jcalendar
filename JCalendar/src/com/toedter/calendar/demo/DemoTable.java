@@ -18,7 +18,7 @@ public class DemoTable extends JPanel {
 		setName("DemoTable");
 
 		JTable table = new JTable(new DemoTableModel());
-		table.setPreferredScrollableViewportSize(new Dimension(320, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(180, 32));
 		table.setDefaultEditor(Date.class, new JDateChooserCellEditor());
 		
 		// Create the scroll pane and add the table to it.
@@ -29,16 +29,11 @@ public class DemoTable extends JPanel {
 	}
 
 	class DemoTableModel extends AbstractTableModel {
-		private String[] columnNames = { "Null Date", "Today (EN)",
-				"Heute (DE)" };
+		private String[] columnNames = { "Empty Date", "Date set" };
 
-		private Object[][] data = { { null, new Date(), new Date() },
-				{ null, new Date(), new Date() },
-				{ null, new Date(), new Date() },
-				{ null, new Date(), new Date() },
-				{ null, new Date(), new Date() },
-				{ null, new Date(), new Date() },
-				{ null, new Date(), new Date() }
+		private Object[][] data = { 
+				{ null, new Date() },
+				{ null, new Date() }
 	    };
 
 		public int getColumnCount() {
