@@ -87,7 +87,7 @@ public class JDateChooser extends JPanel implements ActionListener,
     protected Date selectedDate;
 
     /**
-     * Creates a new JDateChooser object.
+     * Creates a new JDateChooser object. By default, no date is set and the textfield is empty.
      */
     public JDateChooser() {
         this(null, null, null, false);
@@ -98,7 +98,7 @@ public class JDateChooser extends JPanel implements ActionListener,
      * 
      * @param spinner
      *            if true, a JSpinner is used to display the date. Otherwise a
-     *            textfield is used.
+     *            JTextfield is used.
      */
     public JDateChooser(boolean spinner) {
         this(null, null, null, spinner);
@@ -296,18 +296,7 @@ public class JDateChooser extends JPanel implements ActionListener,
     public void setLocale(Locale l) {
         if (hasSpinner) {
             dateSpinner.setLocale(l);
-            String tmpDateFormatString = "";
-            if (dateFormatString == null) {
-                // TODO Localize date format string
-                dateFormatString = "MMMMM d, yyyy";
-            }
-
-            if (selectedDate != null) {
-                tmpDateFormatString = dateFormatString;
-            }
-
-            editor = new JSpinner.DateEditor(dateSpinner, tmpDateFormatString);
-            dateSpinner.setEditor(editor);
+            // TODO Localize date format string
         }
         jcalendar.setLocale(l);
     }
