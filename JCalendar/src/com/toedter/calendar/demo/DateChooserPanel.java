@@ -16,7 +16,6 @@ package com.toedter.calendar.demo;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
@@ -33,7 +32,7 @@ import com.toedter.calendar.JDateChooser;
  * @author Kai Toedter
  * @version $LastChangedRevision: 12 $ $LastChangedDate: 2004-10-17 22:27:20 +0200 (So, 17 Okt 2004) $
  */
-@SuppressWarnings("serial")
+
 public class DateChooserPanel extends JPanel implements PropertyChangeListener {
     private JComponent[] components;
     
@@ -58,8 +57,6 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
         addEntry("With spinner", components[2], gridbag);
         addEntry("Date set with spinner", components[3], gridbag);
         addEntry("Table with date editors", components[4], gridbag);
-        
-        
     }
     
     private void addEntry(String text, JComponent component,
