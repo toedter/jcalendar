@@ -61,6 +61,7 @@ JCalendar/src/build.xml -text
 JCalendar/src/com/toedter/calendar/IDateEditor.java -text
 JCalendar/src/com/toedter/calendar/JCalendar.java -text
 JCalendar/src/com/toedter/calendar/JCalendarBeanInfo.java -text
+JCalendar/src/com/toedter/calendar/JDateChooser.java -text
 JCalendar/src/com/toedter/calendar/JDateChooserBeanInfo.java -text
 JCalendar/src/com/toedter/calendar/JDateChooserCellEditor.java -text
 JCalendar/src/com/toedter/calendar/JDayChooser.java -text
