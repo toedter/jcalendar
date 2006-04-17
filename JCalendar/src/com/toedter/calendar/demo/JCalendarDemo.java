@@ -469,8 +469,6 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
                                 JTextField textField = new JTextField(string);
                                 ActionListener actionListener = new ActionListener() {
                                         public void actionPerformed(ActionEvent e) {
-                                            System.out.println("JCalendarDemo.installBean(): " + e);
-
                                             try {
                                                 writeMethod.invoke(currentBean,
                                                     new Object[] { e.getActionCommand() });

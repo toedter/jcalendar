@@ -40,7 +40,6 @@ public class JDateChooserCellEditor extends AbstractCellEditor implements
 		if (value instanceof Date)
 			date = (Date) value;
 
-		dateChooser.setDateFormatString("dd.MM.yyyy");
 		dateChooser.setDate(date);
 
 		return dateChooser;
