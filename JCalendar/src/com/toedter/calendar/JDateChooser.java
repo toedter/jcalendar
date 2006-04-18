@@ -210,7 +210,6 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 
 			public void setVisible(boolean b) {
 				Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
-System.out.println(".setVisible(): b: " + b + ", isCancelled: " + isCanceled);
 				if (b || (!b && dateSelected)
 						|| ((isCanceled != null) && !b && isCanceled.booleanValue())) {
 					super.setVisible(b);
