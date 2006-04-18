@@ -71,21 +71,22 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
     }
 
     /**
-     * JCalendar constructor specifying the month spinner type.
-     *
-     * @param monthSpinner false, if no month spinner should be used
-     */
-    public JCalendar(boolean monthSpinner) {
-        this(null, null, monthSpinner, true);
-    }
-
-    /**
      * JCalendar constructor which allows the initial date to be set.
      *
      * @param date the date
      */
     public JCalendar(Date date) {
         this(date, null, true, true);
+    }
+
+    /**
+     * JCalendar constructor which allows the initial calendar to be set.
+     *
+     * @param calendar the calendar
+     */
+    public JCalendar(Calendar calendar) {
+        this(null, null, true, true);
+        setCalendar(calendar);
     }
 
     /**
@@ -128,6 +129,15 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
         this(null, locale, monthSpinner, true);
     }
 
+    /**
+     * JCalendar constructor specifying the month spinner type.
+     *
+     * @param monthSpinner false, if no month spinner should be used
+     */
+    public JCalendar(boolean monthSpinner) {
+    	this(null, null, monthSpinner, true);
+    }
+    
     /**
      * JCalendar constructor with month spinner parameter.
      *
@@ -193,7 +203,9 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
      */
     public static void main(String[] s) {
         JFrame frame = new JFrame("JCalendar");
-        frame.getContentPane().add(new JCalendar());
+
+        JCalendar jcalendar = new JCalendar();
+        frame.getContentPane().add(jcalendar);
         frame.pack();
         frame.setVisible(true);
     }
