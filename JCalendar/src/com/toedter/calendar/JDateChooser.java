@@ -280,7 +280,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the action event
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("JDateChooser.actionPerformed()");
 		int x = calendarButton.getWidth()
 				- (int) popup.getPreferredSize().getWidth();
 		int y = calendarButton.getY() + calendarButton.getHeight();
