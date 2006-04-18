@@ -324,6 +324,9 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
      * @param update the new calendar value
      */
     private void setCalendar(Calendar c, boolean update) {
+    	if(c == null) {
+    		setDate(null);
+    	}
         Calendar oldCalendar = calendar;
         calendar = c;
 

@@ -341,15 +341,15 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	}
 
 	/**
-	 * Returns the date. If the JDateChooser is started with an empty date and
-	 * no date is set by the user, null is returned.
+	 * Returns the date. If the JDateChooser is started with a null date and
+	 * no date was set by the user, null is returned.
 	 * 
 	 * @return the current date
 	 */
 	public Date getDate() {
 		return dateEditor.getDate();
 	}
-
+	
 	/**
 	 * Sets the date. Fires the property change "date" if date != null.
 	 * 
@@ -363,6 +363,35 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		}
 	}
 
+	/**
+	 * Returns the calendar. If the JDateChooser is started with a null date (or null calendar) and
+	 * no date was set by the user, null is returned.
+	 * 
+	 * @return the current calendar
+	 */
+	public Calendar getCalendar() {
+		Date date = getDate();
+		if(date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar;
+	}
+
+	/**
+	 * Sets the calendar. Value null will set the null date on the date editor.
+	 * 
+	 * @param calendar the calendar.
+	 */
+	public void setCalendar(Calendar calendar) {
+		if(calendar == null) {
+			dateEditor.setDate(null);
+		} else {
+			dateEditor.setDate(calendar.getTime());
+		}
+	}
+	
 	/**
 	 * Enable or disable the JDateChooser.
 	 * 
