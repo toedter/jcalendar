@@ -37,7 +37,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.MenuSelectionManager;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * A date chooser containig a date editor and a button, that makes a JCalendar
@@ -206,7 +210,7 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 
 			public void setVisible(boolean b) {
 				Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
-
+System.out.println(".setVisible(): b: " + b + ", isCancelled: " + isCanceled);
 				if (b || (!b && dateSelected)
 						|| ((isCanceled != null) && !b && isCanceled.booleanValue())) {
 					super.setVisible(b);
@@ -219,6 +223,39 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		popup.add(jcalendar);
 
 		lastSelectedDate = date;
+
+		
+		
+		// Corrects a problem that occured when the JMonthChooser's combobox is
+		// displayed, and a click outside the popup does not close it.
+		
+        // The following code was provided by forum user podiatanapraia:
+		MenuSelectionManager.defaultManager().addChangeListener(new ChangeListener() {
+			boolean hasListened = false;
+
+			public void stateChanged(ChangeEvent e) {
+				if (hasListened) {
+					hasListened = false;
+					return;
+				}
+				if (popup.isVisible()
+						&& JDateChooser.this.jcalendar.monthChooser.getComboBox().hasFocus()) {
+					
+					System.out.println(".stateChanged(): 2");
+					
+					MenuElement[] me = MenuSelectionManager.defaultManager().getSelectedPath();
+					MenuElement[] newMe = new MenuElement[me.length + 1];
+					newMe[0] = popup;
+					for (int i = 0; i < me.length; i++) {
+						newMe[i + 1] = me[i];
+					}
+					hasListened = true;
+					MenuSelectionManager.defaultManager().setSelectedPath(newMe);
+				}
+			}
+		});
+		// end of code provided by forum user podiatanapraia
+
 		isInitialized = true;
 	}
 
