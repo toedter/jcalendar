@@ -73,6 +73,7 @@
 		       debug="off"
 		       deprecation="on"
 		       optimize="on"
+		       source="1.4"
 		/>
 	</target>
 

@@ -45,7 +45,7 @@ public class GenericBeanInfo extends SimpleBeanInfo {
 	protected Image iconMono32;
 
 	/**
-	 * Constructs a new BeanInfo class for the JDayChooser bean.
+	 * Constructs a new BeanInfo.
 	 */
 	public GenericBeanInfo(String bean, boolean registerLocaleEditor) {
 		try {

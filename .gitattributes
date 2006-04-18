@@ -73,6 +73,7 @@ JCalendar/src/com/toedter/calendar/JTextFieldDateEditor.java -text
 JCalendar/src/com/toedter/calendar/JYearChooser.java -text
 JCalendar/src/com/toedter/calendar/JYearChooserBeanInfo.java -text
 JCalendar/src/com/toedter/calendar/demo/DateChooserPanel.java -text
+JCalendar/src/com/toedter/calendar/demo/DateChooserPanelBeanInfo.java -text
 JCalendar/src/com/toedter/calendar/demo/DemoTable.java -text
 JCalendar/src/com/toedter/calendar/demo/JCalendarDemo.java -text
 JCalendar/src/com/toedter/calendar/demo/images/DemoTableColor16.gif -text
