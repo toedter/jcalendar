@@ -29,16 +29,20 @@ picking a date. JCalendar is composed of several other Java beans, a
 JDayChooser, a JMonthChooser and a JYearChooser. All these beans have a
 locale property, provide several icons (Color 16x16, Color 32x32, Mono
 16x16 and Mono 32x32) and their own locale property editor. So they can
-easily be used in GUI builders. </p>
+easily be used in GUI builders. Also part of the package is a JDateChooser, a bean composed
+ of an IDateEditor (for direct date editing) and a button for opening a JCalendar for selecting the date.</p>
       <font color="#003366"><b>What's new in version 1.3.0 beta 1</b></font><span
  style="font-weight: bold;"></span><br>
 - Many bug fixes (thanks to all forum posters)<br>
-- Better handling of null dates in JDateChooser (Starting with empty
-date field)<br>
-- JSpinner now optional in JDateChooser<br>
-- JDateChooser Table editor (including table demo) <br>
-      <br>
-      <font color="#003366"><b>History</b></font><br>
+- Better handling of null dates in JDateChooser<br>
+- Introduction of the interface IDateEditor<br>
+- JTextFieldDateEditor (the default editor) supports custom date patterns and masks<br>
+- JSpinnerDateEditor is an implemantation of IDateEditor based on a JSpinner<br>
+- JDateChooser Table editor (including table demo)<br>
+- Both the zip and the jar files contain the version in the name, e.g. jcalendar-3.1.0.jar
+<br>
+<br>
+<font color="#003366"><b>History</b></font><br>
 1.2.2<br>
 - Bug in DateChooser.setModel fixed (thanks to Martin Pietruschka)<br>
 - NullPointer exception bug on DateChooser.setDate fixed (thanks to
@@ -75,7 +79,7 @@ Installation</b></font> <br>
 The installation is very easy, just put jcalendar.jar in your class
 path. If you want to run the JCalendar demos (see below) or just use
 the great <span style="text-decoration: underline;"></span>JGoodies
-Looks Look and Feel, put also looks-1.2.2.jar in your class path. Both
+Looks Look and Feel, put also looks-1.3.2.jar in your class path. Both
 are in the lib directory of this JCalendar distribution.<br>
       <font color="#003366"><b><br>
 Running the Demos</b></font><br>
@@ -87,7 +91,7 @@ several ways to run the demos. To start the JCalendar demo Windows
 XP/2000/NT/98 users can just right click the jcalendar.jar and open it
 with "javaw" or execute the "runJCalendarDemo.bat" batch file in the
 bin directory of this distribution. For all other operating systems,
-just put "jcalendar.jar" and looks-1.2.2.jar (both in the lib directory
+just put "jcalendar.jar" and looks-1.3.2.jar (both in the lib directory
 of the distribution) in your class path and start Java to execute the
 com.toedter.calendar.JCalendarDemo class. <b><br>
       <br>
@@ -132,9 +136,10 @@ which is bundled with the JCalendar bean. </td>
       </td>
       <td
  style="vertical-align: top; background-color: rgb(244, 243, 233);">JDateChooser
-allows you to pick a date. You could either select a part of the date
-string and use the spin buttons to increase or decrease the value or
-click the image to popup a&nbsp; JCalendar to choose the date.<br>
+allows you to pick a date. You could either edit the date directly or
+click the image to popup a JCalendar to choose the date. The default date editor provides
+coloring of invalid dates as well as optional showing a mask. Also a JSpinnerDateEditor is provided 
+that uses a JSpinner to display the date.<br>
       </td>
     </tr>
     <tr>
@@ -264,15 +269,15 @@ locale. It can be used to test or set the locales of the beans above<span
       <td colspan="4" style="vertical-align: top; text-align: center;">
       <p align="left"><font color="#003366"><b><br>
 Requirements</b></font> <br>
-All beans use JFC (Swing) components, so you need to have the J2SE
+All beans use JFC (Swing) components, so you need to have the Java SE
 installed. For more information and the latest release of the JFC take
 a look at <a href="http://www.javasoft.com/products/jfc/index.html">http://www.javasoft.com/products/jfc/index.html</a>.
-All beans also work with Java SE SDK 1.4 and JDK 5.</p>
+All beans also work with Java SE 1.4.x and  5.</p>
       <p align="left"><font color="#003366"><b>Download and Latest
 Version</b></font> <br>
 You can download a zip file, containing all the sources, libs and
 documentation at <a
- href="http://www.toedter.com/download/jcalendar-1.3.0.zip">www.toedter.com/download/jcalendar-1.3.0.zip</a>
+ href="http://www.toedter.com/download/jcalendar-@VERSION@.zip">www.toedter.com/download/jcalendar-@VERSION@.zip</a>
 (600 KB). Version 1.2.2 is still available at <a
  href="http://www.toedter.com/download/jcalendar-1.2.2.zip">www.toedter.com/download/jcalendar-1.2.2.zip</a>.
 Version 1.1.4 is still available at <a
