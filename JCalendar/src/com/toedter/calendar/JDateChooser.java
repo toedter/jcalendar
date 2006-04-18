@@ -252,9 +252,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 						if (popup.isVisible()
 								&& JDateChooser.this.jcalendar.monthChooser
 										.getComboBox().hasFocus()) {
-
-							System.out.println(".stateChanged(): 2");
-
 							MenuElement[] me = MenuSelectionManager
 									.defaultManager().getSelectedPath();
 							MenuElement[] newMe = new MenuElement[me.length + 1];
