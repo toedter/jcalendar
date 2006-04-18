@@ -207,7 +207,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 	 * After any user input, the value of the textfield is proofed. Depending on
 	 * being a valid date, the value is colored green or red.
 	 * 
-	 * @param e
+	 * @param event
 	 *            the caret event
 	 */
 	public void caretUpdate(CaretEvent event) {

@@ -1,7 +1,4 @@
 /*
- *  02/02/2002 - 20:54:54
- *
- *  JCalendar.java - JCalendar Java Bean
  *  Copyright (C) 2004 Kai Toedter
  *  kai@toedter.com
  *  www.toedter.com

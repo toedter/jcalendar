@@ -18,6 +18,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+
 package com.toedter.calendar.demo;
 
 import java.awt.BorderLayout;
@@ -84,7 +85,8 @@ import com.toedter.components.JTitlePanel;
  * @version $LastChangedRevision: 12 $ $LastChangedDate: 2004-10-17 22:27:20 +0200 (So, 17 Okt 2004) $
  */
 public class JCalendarDemo extends JApplet implements PropertyChangeListener {
-    private JSplitPane splitPane;
+	private static final long serialVersionUID = 6739986412544494316L;
+	private JSplitPane splitPane;
     private JPanel calendarPanel;
     private JComponent[] beans;
     private JPanel propertyPanel;
@@ -576,7 +578,8 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
      * @author toedter_k
      */
     class AboutAction extends AbstractAction {
-        private JCalendarDemo demo;
+		private static final long serialVersionUID = -5204865941545323214L;
+		private JCalendarDemo demo;
 
         /**
          * Constructor for the AboutAction object

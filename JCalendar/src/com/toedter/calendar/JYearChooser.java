@@ -34,7 +34,8 @@ import javax.swing.JFrame;
  * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
  */
 public class JYearChooser extends JSpinField {
-    protected JDayChooser dayChooser;
+	private static final long serialVersionUID = 2648810220491090064L;
+	protected JDayChooser dayChooser;
     protected int oldYear;
     protected int startYear;
     protected int endYear;

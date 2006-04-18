@@ -1,3 +1,24 @@
+/*
+ *  DemoTable.java  - A table to demo JDateChooser cell editors.
+  *  Copyright (C) 2006 Kai Toedter
+ *  kai@toedter.com
+ *  www.toedter.com
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public License
+ *  as published by the Free Software Foundation; either version 2
+ *  of the License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
 package com.toedter.calendar.demo;
 
 import java.awt.Dimension;
@@ -12,6 +33,8 @@ import javax.swing.table.AbstractTableModel;
 import com.toedter.calendar.JDateChooserCellEditor;
 
 public class DemoTable extends JPanel {
+	private static final long serialVersionUID = -2823838920746867592L;
+
 	public DemoTable() {
 		super(new GridLayout(1, 0));
 
@@ -29,6 +52,8 @@ public class DemoTable extends JPanel {
 	}
 
 	class DemoTableModel extends AbstractTableModel {
+		private static final long serialVersionUID = 3283465559187131559L;
+
 		private String[] columnNames = { "Empty Date", "Date set" };
 
 		private Object[][] data = { 

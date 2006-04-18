@@ -18,6 +18,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+
 package com.toedter.components;
 
 import java.awt.BorderLayout;
@@ -41,7 +42,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * JSpinField2 is a numeric field with 2 spin buttons to increase or decrease
+ * JSpinField is a numeric field with 2 spin buttons to increase or decrease
  * the value. It has the same interface as the "old" JSpinField but uses a JSpinner
  * internally (since J2SE SDK 1.4) rather than a scrollbar for emulating the spin buttons.
  * 
@@ -49,6 +50,8 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision: 19 $ $LastChangedDate: 2005-03-25 14:03:23 +0100 (Fr, 25 Mrz 2005) $
  */
 public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener {
+	private static final long serialVersionUID = 1694904792717740650L;
+
 	protected JSpinner spinner;
 
 	/** the text (number) field */

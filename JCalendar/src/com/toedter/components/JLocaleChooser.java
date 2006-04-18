@@ -37,7 +37,8 @@ import javax.swing.JFrame;
  * @author Kai Toedter
  */
 public class JLocaleChooser extends JComboBox implements ItemListener {
-    protected JComponent component;
+	private static final long serialVersionUID = 8152430789764877431L;
+	protected JComponent component;
 
 	/**
 	 * Default JLocaleChooser constructor.

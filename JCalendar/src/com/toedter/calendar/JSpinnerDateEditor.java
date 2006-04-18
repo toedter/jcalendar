@@ -11,13 +11,18 @@ import javax.swing.JComponent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
+/**
+ * JSpinnerDateEditor is a date editor based on a JSpinner.
+ * 
+ * @author Kai Toedter
+ * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
+ */
 public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 		FocusListener {
 
+	private static final long serialVersionUID = 5692204052306085316L;
 	protected Date date;
-
 	protected String dateFormatString;
-
 	protected SimpleDateFormat dateFormatter;
 
 	public JSpinnerDateEditor() {

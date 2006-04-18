@@ -82,7 +82,7 @@
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${lib.dir}" />
-		<jar jarfile="${lib.dir}/jcalendar.jar"
+		<jar jarfile="${lib.dir}/jcalendar-${version}.jar"
 		     compress="no"
 		     basedir="${build.dir}"
 		     includes="com/**"
@@ -130,8 +130,8 @@
 		<copy todir="${dist.dir}/${lib.dir}">
 			<fileset dir="${lib.dir}" />
 		</copy>
-		<copy todir="${dist.dir}/${bin.dir}">
-			<fileset dir="${bin.dir}" />
+		<copy todir="${dist.dir}/${bin.dir}" filtering="yes">
+			<fileset dir="${bin.dir}" />		
 		</copy>
 		<copy todir="${dist.dir}/${javadoc.dir}">
 			<fileset dir="${javadoc.dir}" />

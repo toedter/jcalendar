@@ -40,7 +40,8 @@ import javax.swing.border.Border;
  * @version $LastChangedRevision: 9 $ $LastChangedDate: 2004-10-17 21:11:43 +0200 (So, 17 Okt 2004) $
  */
 public class JTitlePanel extends JPanel {
-    protected JPanel northPanel;
+	private static final long serialVersionUID = 9104873267039717087L;
+	protected JPanel northPanel;
     protected JLabel label;
     
     /**
@@ -84,8 +85,11 @@ public class JTitlePanel extends JPanel {
     	this.label.setText(label);
     	this.label.setIcon(icon);
     }
+    
     private static class GradientPanel extends JPanel {
-        private GradientPanel(Color background) {
+		private static final long serialVersionUID = -6385751027379193053L;
+
+		private GradientPanel(Color background) {
             setBackground(background);
         }
 

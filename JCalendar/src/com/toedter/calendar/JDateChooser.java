@@ -40,15 +40,17 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 /**
- * A date chooser containig a date spinner and a button, that makes a JCalendar
- * visible for choosing a date.
+ * A date chooser containig a date editor and a button, that makes a JCalendar
+ * visible for choosing a date. If no date editor is specified, a
+ * JTextFieldDateEditor is used as default.
  * 
  * @author Kai Toedter
  * @version $LastChangedRevision: 18 $ $LastChangedDate: 2004-12-20 07:58:43
  *          +0100 (Mo, 20 Dez 2004) $
  */
-public class JDateChooser extends JPanel implements ActionListener,
-		PropertyChangeListener {
+public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener {
+
+	private static final long serialVersionUID = -4306412745720670722L;
 
 	protected IDateEditor dateEditor;
 
@@ -77,9 +79,9 @@ public class JDateChooser extends JPanel implements ActionListener,
 	/**
 	 * Creates a new JDateChooser object.
 	 * 
-	 * @param spinner
-	 *            if true, a JSpinner is used to display the date. Otherwise a
-	 *            JTextfield is used.
+	 * @param dateEditor
+	 *            the dateEditor to be used used to display the date. if null, a
+	 *            JTextFieldDateEditor is used.
 	 */
 	public JDateChooser(IDateEditor dateEditor) {
 		this(null, null, null, dateEditor);
@@ -101,8 +103,8 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 * @param date
 	 *            the date or null
 	 * @param dateFormatString
-	 *            the date format string or null (then MEDIUM Date format is
-	 *            used)
+	 *            the date format string or null (then MEDIUM SimpleDateFormat
+	 *            format is used)
 	 */
 	public JDateChooser(Date date, String dateFormatString) {
 		this(date, dateFormatString, null);
@@ -114,20 +116,32 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 * @param date
 	 *            the date or null
 	 * @param dateFormatString
-	 *            the date format string or null (then MEDIUM Date format is
-	 *            used)
-	 * @param spinner
-	 *            if true, a JSpinner is used to display the date. Otherwise a
-	 *            textfield is used.
+	 *            the date format string or null (then MEDIUM SimpleDateFormat
+	 *            format is used)
+	 * @param dateEditor
+	 *            the dateEditor to be used used to display the date. if null, a
+	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(Date date, String dateFormatString,
-			IDateEditor dateEditor) {
+	public JDateChooser(Date date, String dateFormatString, IDateEditor dateEditor) {
 		this(null, date, dateFormatString, dateEditor);
 	}
 
+	/**
+	 * Creates a new JDateChooser. If the JDateChooser is created with this
+	 * constructor, the mask will be always visible in the date editor. Please
+	 * note that the date pattern and the mask will not be changed if the locale
+	 * of the JDateChooser is changed.
+	 * 
+	 * @param datePattern
+	 *            the date pattern, e.g. "MM/dd/yy"
+	 * @param maskPattern
+	 *            the mask pattern, e.g. "##/##/##"
+	 * @param placeholder
+	 *            the placeholer charachter, e.g. '_'
+	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
-		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
-				maskPattern, placeholder));
+		this(null, null, datePattern, new JTextFieldDateEditor(datePattern, maskPattern,
+				placeholder));
 	}
 
 	/**
@@ -140,12 +154,11 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 * @param dateFormatString
 	 *            the date format string or null (then MEDIUM Date format is
 	 *            used)
-	 * @param spinner
-	 *            if true, a JSpinner is used to display the date. Otherwise a
-	 *            textfield is used.
+	 * @param dateEditor
+	 *            the dateEditor to be used used to display the date. if null, a
+	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(JCalendar jcal, Date date, String dateFormatString,
-			IDateEditor dateEditor) {
+	public JDateChooser(JCalendar jcal, Date date, String dateFormatString, IDateEditor dateEditor) {
 		setName("JDateChooser");
 
 		this.dateEditor = dateEditor;
@@ -189,13 +202,13 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 		calendarButton.setMargin(new Insets(0, 0, 0, 0));
 		popup = new JPopupMenu() {
+			private static final long serialVersionUID = -6078272560337577761L;
+
 			public void setVisible(boolean b) {
 				Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
 
-				if (b
-						|| (!b && dateSelected)
-						|| ((isCanceled != null) && !b && isCanceled
-								.booleanValue())) {
+				if (b || (!b && dateSelected)
+						|| ((isCanceled != null) && !b && isCanceled.booleanValue())) {
 					super.setVisible(b);
 				}
 			}
@@ -216,8 +229,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the action event
 	 */
 	public void actionPerformed(ActionEvent e) {
-		int x = calendarButton.getWidth()
-				- (int) popup.getPreferredSize().getWidth();
+		int x = calendarButton.getWidth() - (int) popup.getPreferredSize().getWidth();
 		int y = calendarButton.getY() + calendarButton.getHeight();
 
 		Calendar calendar = Calendar.getInstance();
@@ -353,8 +365,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	public static void main(String[] s) {
 		JFrame frame = new JFrame("JDateChooser");
 		// JDateChooser dateChooser = new JDateChooser();
-		JDateChooser dateChooser = new JDateChooser(null, new Date(), null,
-				null);
+		JDateChooser dateChooser = new JDateChooser(null, new Date(), null, null);
 		// dateChooser.setLocale(new Locale("de"));
 		// dateChooser.setDateFormatString("dd. MMMM yyyy");
 		frame.getContentPane().add(dateChooser);

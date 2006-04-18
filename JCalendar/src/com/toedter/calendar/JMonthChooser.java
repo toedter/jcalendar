@@ -44,6 +44,7 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
  */
 public class JMonthChooser extends JPanel implements ItemListener, ChangeListener {
+	private static final long serialVersionUID = -2028361332231218527L;
 	/** true, if the month chooser has a spinner component */
 	protected boolean hasSpinner;
 	private Locale locale;

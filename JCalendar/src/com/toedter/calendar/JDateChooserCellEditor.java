@@ -31,6 +31,8 @@ import javax.swing.table.TableCellEditor;
 public class JDateChooserCellEditor extends AbstractCellEditor implements
 		TableCellEditor {
 
+	private static final long serialVersionUID = 917881575221755609L;
+
 	private JDateChooser dateChooser = new JDateChooser();
 
 	public Component getTableCellEditorComponent(JTable table, Object value,
