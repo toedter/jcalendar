@@ -22,8 +22,11 @@ package com.toedter.calendar;
 
 import java.awt.BorderLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -52,7 +55,8 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision: 18 $ $LastChangedDate: 2004-12-20 07:58:43
  *          +0100 (Mo, 20 Dez 2004) $
  */
-public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener {
+public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener,
+		FocusListener {
 
 	private static final long serialVersionUID = -4306412745720670722L;
 
@@ -205,6 +209,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		add(this.dateEditor.getUiComponent(), BorderLayout.CENTER);
 
 		calendarButton.setMargin(new Insets(0, 0, 0, 0));
+		calendarButton.addFocusListener(this);
+		
 		popup = new JPopupMenu() {
 			private static final long serialVersionUID = -6078272560337577761L;
 
@@ -223,12 +229,10 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 
 		lastSelectedDate = date;
 
-		
-		
 		// Corrects a problem that occured when the JMonthChooser's combobox is
 		// displayed, and a click outside the popup does not close it.
-		
-        // The following code was provided by forum user podiatanapraia:
+
+		// The following code was provided by forum user podiatanapraia:
 		MenuSelectionManager.defaultManager().addChangeListener(new ChangeListener() {
 			boolean hasListened = false;
 
@@ -239,9 +243,9 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 				}
 				if (popup.isVisible()
 						&& JDateChooser.this.jcalendar.monthChooser.getComboBox().hasFocus()) {
-					
+
 					System.out.println(".stateChanged(): 2");
-					
+
 					MenuElement[] me = MenuSelectionManager.defaultManager().getSelectedPath();
 					MenuElement[] newMe = new MenuElement[me.length + 1];
 					newMe[0] = popup;
@@ -341,15 +345,15 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	}
 
 	/**
-	 * Returns the date. If the JDateChooser is started with a null date and
-	 * no date was set by the user, null is returned.
+	 * Returns the date. If the JDateChooser is started with a null date and no
+	 * date was set by the user, null is returned.
 	 * 
 	 * @return the current date
 	 */
 	public Date getDate() {
 		return dateEditor.getDate();
 	}
-	
+
 	/**
 	 * Sets the date. Fires the property change "date" if date != null.
 	 * 
@@ -364,14 +368,14 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	}
 
 	/**
-	 * Returns the calendar. If the JDateChooser is started with a null date (or null calendar) and
-	 * no date was set by the user, null is returned.
+	 * Returns the calendar. If the JDateChooser is started with a null date (or
+	 * null calendar) and no date was set by the user, null is returned.
 	 * 
 	 * @return the current calendar
 	 */
 	public Calendar getCalendar() {
 		Date date = getDate();
-		if(date == null) {
+		if (date == null) {
 			return null;
 		}
 		Calendar calendar = Calendar.getInstance();
@@ -382,16 +386,17 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	/**
 	 * Sets the calendar. Value null will set the null date on the date editor.
 	 * 
-	 * @param calendar the calendar.
+	 * @param calendar
+	 *            the calendar.
 	 */
 	public void setCalendar(Calendar calendar) {
-		if(calendar == null) {
+		if (calendar == null) {
 			dateEditor.setDate(null);
 		} else {
 			dateEditor.setDate(calendar.getTime());
 		}
 	}
-	
+
 	/**
 	 * Enable or disable the JDateChooser.
 	 * 
@@ -444,6 +449,20 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		dateEditor.removePropertyChangeListener(listener);
+	}
+
+	/**
+	 * Delegates the focus of the button to the next component.
+	 * 
+	 * @param event
+	 *            the focus event
+	 */
+	public void focusGained(FocusEvent event) {
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+	}
+
+	public void focusLost(FocusEvent e) {
+		// do nothing
 	}
 
 }
