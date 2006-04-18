@@ -22,11 +22,8 @@ package com.toedter.calendar;
 
 import java.awt.BorderLayout;
 import java.awt.Insets;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -55,8 +52,8 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision: 18 $ $LastChangedDate: 2004-12-20 07:58:43
  *          +0100 (Mo, 20 Dez 2004) $
  */
-public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener,
-		FocusListener {
+public class JDateChooser extends JPanel implements ActionListener,
+		PropertyChangeListener {
 
 	private static final long serialVersionUID = -4306412745720670722L;
 
@@ -130,7 +127,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the dateEditor to be used used to display the date. if null, a
 	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(Date date, String dateFormatString, IDateEditor dateEditor) {
+	public JDateChooser(Date date, String dateFormatString,
+			IDateEditor dateEditor) {
 		this(null, date, dateFormatString, dateEditor);
 	}
 
@@ -148,8 +146,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the placeholer charachter, e.g. '_'
 	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
-		this(null, null, datePattern, new JTextFieldDateEditor(datePattern, maskPattern,
-				placeholder));
+		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
+				maskPattern, placeholder));
 	}
 
 	/**
@@ -166,7 +164,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the dateEditor to be used used to display the date. if null, a
 	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(JCalendar jcal, Date date, String dateFormatString, IDateEditor dateEditor) {
+	public JDateChooser(JCalendar jcal, Date date, String dateFormatString,
+			IDateEditor dateEditor) {
 		setName("JDateChooser");
 
 		this.dateEditor = dateEditor;
@@ -198,7 +197,13 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 			icon = new ImageIcon(iconURL);
 		}
 
-		calendarButton = new JButton(icon);
+		calendarButton = new JButton(icon) {
+			private static final long serialVersionUID = -1913767779079949668L;
+
+			public boolean isFocusable() {
+				return false;
+			}
+		};
 		calendarButton.setMargin(new Insets(0, 0, 0, 0));
 		calendarButton.addActionListener(this);
 
@@ -209,15 +214,17 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		add(this.dateEditor.getUiComponent(), BorderLayout.CENTER);
 
 		calendarButton.setMargin(new Insets(0, 0, 0, 0));
-		calendarButton.addFocusListener(this);
-		
+		// calendarButton.addFocusListener(this);
+
 		popup = new JPopupMenu() {
 			private static final long serialVersionUID = -6078272560337577761L;
 
 			public void setVisible(boolean b) {
 				Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
-				if (b || (!b && dateSelected)
-						|| ((isCanceled != null) && !b && isCanceled.booleanValue())) {
+				if (b
+						|| (!b && dateSelected)
+						|| ((isCanceled != null) && !b && isCanceled
+								.booleanValue())) {
 					super.setVisible(b);
 				}
 			}
@@ -233,30 +240,34 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		// displayed, and a click outside the popup does not close it.
 
 		// The following code was provided by forum user podiatanapraia:
-		MenuSelectionManager.defaultManager().addChangeListener(new ChangeListener() {
-			boolean hasListened = false;
+		MenuSelectionManager.defaultManager().addChangeListener(
+				new ChangeListener() {
+					boolean hasListened = false;
 
-			public void stateChanged(ChangeEvent e) {
-				if (hasListened) {
-					hasListened = false;
-					return;
-				}
-				if (popup.isVisible()
-						&& JDateChooser.this.jcalendar.monthChooser.getComboBox().hasFocus()) {
+					public void stateChanged(ChangeEvent e) {
+						if (hasListened) {
+							hasListened = false;
+							return;
+						}
+						if (popup.isVisible()
+								&& JDateChooser.this.jcalendar.monthChooser
+										.getComboBox().hasFocus()) {
 
-					System.out.println(".stateChanged(): 2");
+							System.out.println(".stateChanged(): 2");
 
-					MenuElement[] me = MenuSelectionManager.defaultManager().getSelectedPath();
-					MenuElement[] newMe = new MenuElement[me.length + 1];
-					newMe[0] = popup;
-					for (int i = 0; i < me.length; i++) {
-						newMe[i + 1] = me[i];
+							MenuElement[] me = MenuSelectionManager
+									.defaultManager().getSelectedPath();
+							MenuElement[] newMe = new MenuElement[me.length + 1];
+							newMe[0] = popup;
+							for (int i = 0; i < me.length; i++) {
+								newMe[i + 1] = me[i];
+							}
+							hasListened = true;
+							MenuSelectionManager.defaultManager()
+									.setSelectedPath(newMe);
+						}
 					}
-					hasListened = true;
-					MenuSelectionManager.defaultManager().setSelectedPath(newMe);
-				}
-			}
-		});
+				});
 		// end of code provided by forum user podiatanapraia
 
 		isInitialized = true;
@@ -269,7 +280,9 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the action event
 	 */
 	public void actionPerformed(ActionEvent e) {
-		int x = calendarButton.getWidth() - (int) popup.getPreferredSize().getWidth();
+		System.out.println("JDateChooser.actionPerformed()");
+		int x = calendarButton.getWidth()
+				- (int) popup.getPreferredSize().getWidth();
 		int y = calendarButton.getY() + calendarButton.getHeight();
 
 		Calendar calendar = Calendar.getInstance();
@@ -435,7 +448,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	public static void main(String[] s) {
 		JFrame frame = new JFrame("JDateChooser");
 		// JDateChooser dateChooser = new JDateChooser();
-		JDateChooser dateChooser = new JDateChooser(null, new Date(), null, null);
+		JDateChooser dateChooser = new JDateChooser(null, new Date(), null,
+				null);
 		// dateChooser.setLocale(new Locale("de"));
 		// dateChooser.setDateFormatString("dd. MMMM yyyy");
 		frame.getContentPane().add(dateChooser);
@@ -450,19 +464,4 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		dateEditor.removePropertyChangeListener(listener);
 	}
-
-	/**
-	 * Delegates the focus of the button to the next component.
-	 * 
-	 * @param event
-	 *            the focus event
-	 */
-	public void focusGained(FocusEvent event) {
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-	}
-
-	public void focusLost(FocusEvent e) {
-		// do nothing
-	}
-
 }
