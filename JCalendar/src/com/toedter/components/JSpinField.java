@@ -28,6 +28,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -42,14 +44,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * JSpinField is a numeric field with 2 spin buttons to increase or decrease
- * the value. It has the same interface as the "old" JSpinField but uses a JSpinner
- * internally (since J2SE SDK 1.4) rather than a scrollbar for emulating the spin buttons.
+ * JSpinField is a numeric field with 2 spin buttons to increase or decrease the
+ * value. It has the same interface as the "old" JSpinField but uses a JSpinner
+ * internally (since J2SE SDK 1.4) rather than a scrollbar for emulating the
+ * spin buttons.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision: 19 $ $LastChangedDate: 2005-03-25 14:03:23 +0100 (Fr, 25 Mrz 2005) $
+ * @version $LastChangedRevision: 19 $ $LastChangedDate: 2005-03-25 14:03:23
+ *          +0100 (Fr, 25 Mrz 2005) $
  */
-public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener {
+public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener,
+		FocusListener {
 	private static final long serialVersionUID = 1694904792717740650L;
 
 	protected JSpinner spinner;
@@ -65,9 +70,9 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 * Default JSpinField constructor.
 	 */
 	public JSpinField() {
-	    this(0,Integer.MAX_VALUE);
+		this(0, Integer.MAX_VALUE);
 	}
-	
+
 	/**
 	 * JSpinField constructor with given minimum and maximum vaues..
 	 */
@@ -75,15 +80,15 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 		super();
 		setName("JSpinField");
 		this.min = min;
-		if(max < min)
-		    max = min;
+		if (max < min)
+			max = min;
 		this.max = max;
 		value = 0;
-		if(value < min)
-		    value = min;
-		if(value > max)
-		    value = max;
-		
+		if (value < min)
+			value = min;
+		if (value > max)
+			value = max;
+
 		darkGreen = new Color(0, 150, 0);
 		setLayout(new BorderLayout());
 		textField = new JTextField();
@@ -92,6 +97,7 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 		textField.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField.setBorder(BorderFactory.createEmptyBorder());
 		textField.setText(Integer.toString(value));
+		textField.addFocusListener(this);
 		spinner = new JSpinner();
 		spinner.setEditor(textField);
 		spinner.addChangeListener(this);
@@ -102,10 +108,10 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 		JTextField testTextField = new JTextField(Integer.toString(max));
 		int width = testTextField.getPreferredSize().width;
 		int height = testTextField.getPreferredSize().height;
-		textField.setPreferredSize(new Dimension(width,height));
+		textField.setPreferredSize(new Dimension(width, height));
 		textField.revalidate();
 	}
-	
+
 	/**
 	 * Is invoked when the spinner model changes
 	 * 
@@ -141,7 +147,7 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 			textField.setForeground(Color.black);
 		}
 
-		if(firePropertyChange) {
+		if (firePropertyChange) {
 			firePropertyChange("value", oldValue, value);
 		}
 	}
@@ -236,7 +242,7 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 * Sets the foreground
 	 * 
 	 * @param fg
-	 *           the foreground
+	 *            the foreground
 	 */
 	public void setForeground(Color fg) {
 		if (textField != null) {
@@ -316,9 +322,23 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 *            The command line arguments
 	 */
 	public static void main(String[] s) {
-		JFrame frame = new JFrame("JSpinField2");
+		JFrame frame = new JFrame("JSpinField");
 		frame.getContentPane().add(new JSpinField());
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.awt.event.FocusListener#focusGained(java.awt.event.FocusEvent)
+	 */
+	public void focusGained(FocusEvent e) {
+	}
+
+	/**
+	 * The value of the text field is checked against a valid (green) value. If valid, the value is
+	 * set and a property change is fired.
+	 */
+	public void focusLost(FocusEvent e) {
+		actionPerformed(null);
 	}
 }
