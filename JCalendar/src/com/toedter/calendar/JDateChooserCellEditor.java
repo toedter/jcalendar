@@ -28,6 +28,12 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
+/**
+ * A CellEditor for tables, using a JDateChooser.
+ * 
+ * @author Kai Toedter
+ * @version $LastChangedRevision$ $LastChangedDate$
+ */
 public class JDateChooserCellEditor extends AbstractCellEditor implements
 		TableCellEditor {
 

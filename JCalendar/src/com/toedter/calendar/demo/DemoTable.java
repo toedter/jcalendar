@@ -32,6 +32,12 @@ import javax.swing.table.AbstractTableModel;
 
 import com.toedter.calendar.JDateChooserCellEditor;
 
+/**
+ * A demonstration tabel with JDateChooserCellEditors.
+ * 
+ * @author Kai Toedter
+ * @version $LastChangedRevision$ $LastChangedDate$
+ */
 public class DemoTable extends JPanel {
 	private static final long serialVersionUID = -2823838920746867592L;
 

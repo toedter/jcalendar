@@ -31,13 +31,6 @@ import javax.swing.JComponent;
  * interface.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate: 2004-12-05 18:09:04
- *          +0100 (So, 05 Dez 2004) $
- */
-/**
- * 
- * 
- * @author Kai Toedter
  * @author $LastChangedBy$
  * @version $LastChangedDate$
  * @version $LastChangedRevision$

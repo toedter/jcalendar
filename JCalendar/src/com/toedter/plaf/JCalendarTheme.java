@@ -30,8 +30,7 @@ import javax.swing.plaf.metal.DefaultMetalTheme;
  * the great Plastic3D Look and feel by JGoddies (www.jgoodies.com)
  * 
  * @author Kai Toedter
- * @author (Last changed by: $author$)
- * @version $LastChangedRevision: 9 $ $LastChangedDate: 2004-10-17 21:11:43 +0200 (So, 17 Okt 2004) $
+ * @version $LastChangedRevision$ $LastChangedDate$
  */
 public class JCalendarTheme extends DefaultMetalTheme {
 	static final ColorUIResource secondary1 = new ColorUIResource(128, 128, 128);

@@ -15,8 +15,7 @@ import javax.swing.SpinnerDateModel;
  * JSpinnerDateEditor is a date editor based on a JSpinner.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate: 2004-12-05 18:09:04
- *          +0100 (So, 05 Dez 2004) $
+ * @version $LastChangedRevision$ $LastChangedDate$
  */
 public class JSpinnerDateEditor extends JSpinner implements IDateEditor, FocusListener {
 

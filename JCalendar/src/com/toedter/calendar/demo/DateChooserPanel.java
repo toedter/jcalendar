@@ -36,13 +36,11 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JSpinnerDateEditor;
 
 /**
- * A demonstration panel includeing several JDateChoosers.
+ * A demonstration panel including several JDateChoosers.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate: 2004-10-17 22:27:20
- *          +0200 (So, 17 Okt 2004) $
+ * @version $LastChangedRevision$ $LastChangedDate$
  */
-
 public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = -1282280858252793253L;
 	private JComponent[] components;
