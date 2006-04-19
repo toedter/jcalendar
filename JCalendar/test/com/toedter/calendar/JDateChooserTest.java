@@ -2,10 +2,13 @@ package com.toedter.calendar;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.swing.ImageIcon;
 
 import junit.framework.TestCase;
 
@@ -81,8 +84,8 @@ public class JDateChooserTest
 		}
 
 		String[] tests2 = { null, "MM/xdd/yy" };
-		String defaultFormat = ((SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM))
-				.toPattern();
+		String defaultFormat = ((SimpleDateFormat) DateFormat
+				.getDateInstance(DateFormat.MEDIUM)).toPattern();
 
 		for (int i = 0; i < tests2.length; i++) {
 			jdatechooser.setDateFormatString(tests2[i]);
@@ -126,6 +129,11 @@ public class JDateChooserTest
 
 	public void testSetIcon() throws Exception {
 		// JUnitDoclet begin method setIcon
+		URL iconURL = jdatechooser.getClass().getResource(
+				"/com/toedter/calendar/images/JMonthChooserColor32.gif");
+		ImageIcon icon = new ImageIcon(iconURL);
+		jdatechooser.setIcon(icon);
+		assertEquals(icon, jdatechooser.getCalendarButton().getIcon());
 		// JUnitDoclet end method setIcon
 	}
 
@@ -144,16 +152,37 @@ public class JDateChooserTest
 			}
 		}
 		MyListener listener = new MyListener();
-		JDateChooser chooser = new JDateChooser();
-		chooser.addPropertyChangeListener("date", listener);
-		chooser.setDate(new Date());
-		chooser.setDate(null);
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.addPropertyChangeListener("date", listener);
+		dateChooser.setDate(new Date());
 		assertTrue("Listener was not called", listener.called);
+		
+		dateChooser.removePropertyChangeListener("date", listener);
+		dateChooser.addPropertyChangeListener(listener);
+		listener.called = false;
+		dateChooser.setDate(new Date(System.currentTimeMillis() - 100));
+		assertTrue("Listener was not called", listener.called);
+		
 		// JUnitDoclet end method addPropertyChangeListener
 	}
 
 	public void testRemovePropertyChangeListener() throws Exception {
 		// JUnitDoclet begin method removePropertyChangeListener
+		class MyListener implements PropertyChangeListener {
+			boolean called = false;
+
+			public void propertyChange(PropertyChangeEvent event) {
+				called = true;
+			}
+		}
+		MyListener listener = new MyListener();
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.addPropertyChangeListener(listener);
+		dateChooser.removePropertyChangeListener(listener);
+		dateChooser.addPropertyChangeListener("date", listener);
+		dateChooser.removePropertyChangeListener("date", listener);
+		dateChooser.setDate(new Date());
+		assertFalse("Listener was called", listener.called);
 		// JUnitDoclet end method removePropertyChangeListener
 	}
 
