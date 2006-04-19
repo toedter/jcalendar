@@ -126,4 +126,14 @@ public interface IDateEditor {
 	 *            the property change listener.
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener listener);
+
+	/**
+	 * Removes the listener from the date editor's property change listeners for the specific property.
+	 * 
+	 * @param propertyName
+	 *            the property to listen for, e.g. "date"
+	 * @param listener
+	 *            the listener
+	 */
+	public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
 }
