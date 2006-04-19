@@ -116,3 +116,14 @@ JCalendar/src/com/toedter/components/images/JSpinFieldMono16.gif -text
 JCalendar/src/com/toedter/components/images/JSpinFieldMono32.gif -text
 JCalendar/src/com/toedter/plaf/JCalendarTheme.java -text
 JCalendar/src/jcalendar.manifest -text
+JCalendar/test/com/toedter/AllTests.java -text
+JCalendar/test/com/toedter/calendar/AllTests.java -text
+JCalendar/test/com/toedter/calendar/JCalendarTest.java -text
+JCalendar/test/com/toedter/calendar/JDateChooserTest.java -text
+JCalendar/test/com/toedter/calendar/JDayChooserTest.java -text
+JCalendar/test/com/toedter/calendar/JMonthChooserTest.java -text
+JCalendar/test/com/toedter/calendar/JSpinnerDateEditorTest.java -text
+JCalendar/test/com/toedter/calendar/JTextFieldDateEditorTest.java -text
+JCalendar/test/com/toedter/calendar/JYearChooserTest.java -text
+JCalendar/test/com/toedter/components/AllTests.java -text
+JCalendar/test/com/toedter/components/JSpinFieldTest.java -text
