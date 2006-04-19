@@ -4,8 +4,6 @@ import java.util.Calendar;
 
 import junit.framework.TestCase;
 // JUnitDoclet begin import
-import com.toedter.calendar.JYearChooser;
-
 // JUnitDoclet end import
 
 /**

@@ -2,7 +2,6 @@ package com.toedter.components;
 
 import junit.framework.TestCase;
 // JUnitDoclet begin import
-import com.toedter.components.JSpinField;
 // JUnitDoclet end import
 
 /**
