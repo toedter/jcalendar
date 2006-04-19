@@ -436,6 +436,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 */
 	public void setIcon(ImageIcon icon) {
 		this.icon = icon;
+		calendarButton.setIcon(icon);
 	}
 
 	/**
@@ -503,6 +504,11 @@ public class JDateChooser extends JPanel implements ActionListener,
 		// dateChooser.setPreferredSize(new Dimension(130, 20));
 		// dateChooser.setFont(new Font("Verdana", Font.PLAIN, 10));
 		// dateChooser.setDateFormatString("yyyy-MM-dd HH:mm");
+
+		// URL iconURL = dateChooser.getClass().getResource(
+		//		"/com/toedter/calendar/images/JMonthChooserColor32.gif");
+		// ImageIcon icon = new ImageIcon(iconURL);
+		// dateChooser.setIcon(icon);
 
 		frame.getContentPane().add(dateChooser);
 		frame.pack();
