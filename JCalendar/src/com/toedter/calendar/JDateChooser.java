@@ -488,6 +488,16 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
+	 * Returns the JCalendar component. THis is usefull if you want to set some
+	 * properties.
+	 * 
+	 * @return the JCalendar
+	 */
+	public JCalendar getJCalendar() {
+		return jcalendar;
+	}
+
+	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.
 	 * 
 	 * @param s
@@ -506,7 +516,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 		// dateChooser.setDateFormatString("yyyy-MM-dd HH:mm");
 
 		// URL iconURL = dateChooser.getClass().getResource(
-		//		"/com/toedter/calendar/images/JMonthChooserColor32.gif");
+		// "/com/toedter/calendar/images/JMonthChooserColor32.gif");
 		// ImageIcon icon = new ImageIcon(iconURL);
 		// dateChooser.setIcon(icon);
 
@@ -514,4 +524,5 @@ public class JDateChooser extends JPanel implements ActionListener,
 		frame.pack();
 		frame.setVisible(true);
 	}
+
 }
