@@ -31,17 +31,17 @@ import javax.swing.JComponent;
  * interface.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04
+ * @version $LastChangedRevision$ $LastChangedDate: 2004-12-05 18:09:04
  *          +0100 (So, 05 Dez 2004) $
  */
 /**
  * 
  * 
  * @author Kai Toedter
- * @author $LastChangedBy: $
- * @version $LastChangedDate: $
- * @version $LastChangedRevision: $
- *
+ * @author $LastChangedBy$
+ * @version $LastChangedDate$
+ * @version $LastChangedRevision$
+ * 
  */
 public interface IDateEditor {
 
@@ -63,9 +63,12 @@ public interface IDateEditor {
 	public void setDate(Date date);
 
 	/**
-	 * Sets the date format string, e.g. "MM/dd/yy"
+	 * Sets the date format string, e.g. "MM/dd/yy". If the date format string
+	 * is null or invalid, the date format string will be set to the MEDIUM
+	 * Simple date format of the current locale.
 	 * 
 	 * @param dateFormatString
+	 *            the date format string
 	 */
 	public void setDateFormatString(String dateFormatString);
 
@@ -117,7 +120,7 @@ public interface IDateEditor {
 	 * changes.
 	 * 
 	 * @param propertyName
-	 *           the property name, e.g. "date"
+	 *            the property name, e.g. "date"
 	 * @param listener
 	 *            the property change listener.
 	 */

@@ -15,10 +15,10 @@ import javax.swing.SpinnerDateModel;
  * JSpinnerDateEditor is a date editor based on a JSpinner.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
+ * @version $LastChangedRevision$ $LastChangedDate: 2004-12-05 18:09:04
+ *          +0100 (So, 05 Dez 2004) $
  */
-public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
-		FocusListener {
+public class JSpinnerDateEditor extends JSpinner implements IDateEditor, FocusListener {
 
 	private static final long serialVersionUID = 5692204052306085316L;
 	protected Date date;
@@ -27,14 +27,12 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 
 	public JSpinnerDateEditor() {
 		super(new SpinnerDateModel());
-		dateFormatter = (SimpleDateFormat) DateFormat
-				.getDateInstance(DateFormat.MEDIUM);
-		((JSpinner.DateEditor) getEditor()).getTextField().addFocusListener(
-				this);
+		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
+		((JSpinner.DateEditor) getEditor()).getTextField().addFocusListener(this);
 	}
 
 	public Date getDate() {
-		if(date == null) {
+		if (date == null) {
 			return null;
 		}
 		return ((SpinnerDateModel) getModel()).getDate();
@@ -46,22 +44,26 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern("");
 			((JSpinner.DateEditor) getEditor()).getTextField().setText("");
 		} else {
-			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern(
-					dateFormatString);
+			System.out.println("JSpinnerDateEditor.setDate(): " + dateFormatString);
+			if (dateFormatString != null) {
+				((JSpinner.DateEditor) getEditor()).getFormat().applyPattern(dateFormatString);
+			}
 			((SpinnerDateModel) getModel()).setValue(date);
 		}
 	}
 
 	public void setDateFormatString(String dateFormatString) {
-		if (dateFormatString == null) {
-			this.dateFormatString = dateFormatter.toPattern();
-		} else {
-			this.dateFormatString = dateFormatString;
-			dateFormatter.applyPattern(this.dateFormatString);
+		try {
+			dateFormatter.applyPattern(dateFormatString);
+		} catch (RuntimeException e) {
+			dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
+			dateFormatter.setLenient(false);
 		}
+		this.dateFormatString = dateFormatter.toPattern();
+		setToolTipText(this.dateFormatString);
+
 		if (date != null) {
-			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern(
-					this.dateFormatString);
+			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern(this.dateFormatString);
 		} else {
 			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern("");
 		}
@@ -82,8 +84,7 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 
 	public void setLocale(Locale locale) {
 		super.setLocale(locale);
-		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(
-				DateFormat.MEDIUM, locale);
+		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
 		setDateFormatString(null);
 	}
 
@@ -93,8 +94,7 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 	 * @see java.awt.event.FocusListener#focusLost(java.awt.event.FocusEvent)
 	 */
 	public void focusLost(FocusEvent focusEvent) {
-		String text = ((JSpinner.DateEditor) getEditor()).getTextField()
-				.getText();
+		String text = ((JSpinner.DateEditor) getEditor()).getTextField().getText();
 		if (text.length() == 0) {
 			setDate(null);
 		}

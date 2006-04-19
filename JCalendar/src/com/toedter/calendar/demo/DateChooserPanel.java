@@ -39,7 +39,7 @@ import com.toedter.calendar.JSpinnerDateEditor;
  * A demonstration panel includeing several JDateChoosers.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision: 12 $ $LastChangedDate: 2004-10-17 22:27:20
+ * @version $LastChangedRevision$ $LastChangedDate: 2004-10-17 22:27:20
  *          +0200 (So, 17 Okt 2004) $
  */
 

@@ -31,7 +31,7 @@ import javax.swing.JFrame;
  * JYearChooser is a bean for choosing a year.
  *
  * @author Kai Toedter
- * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04 +0100 (So, 05 Dez 2004) $
+ * @version $LastChangedRevision$ $LastChangedDate$
  */
 public class JYearChooser extends JSpinField {
 	private static final long serialVersionUID = 2648810220491090064L;

@@ -82,7 +82,7 @@ import com.toedter.components.JTitlePanel;
  * A demonstration Applet for the JCalendar bean. The demo can also be started as Java application.
  *
  * @author Kai Toedter
- * @version $LastChangedRevision: 12 $ $LastChangedDate: 2004-10-17 22:27:20 +0200 (So, 17 Okt 2004) $
+ * @version $LastChangedRevision$ $LastChangedDate$
  */
 public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 	private static final long serialVersionUID = 6739986412544494316L;

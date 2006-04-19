@@ -47,7 +47,7 @@ import javax.swing.JPanel;
  * JCalendar is a bean for choosing a day.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04
+ * @version $LastChangedRevision$ $LastChangedDate: 2004-12-05 18:09:04
  *          +0100 (So, 05 Dez 2004) $
  */
 public class JDayChooser extends JPanel implements ActionListener, KeyListener, FocusListener {
