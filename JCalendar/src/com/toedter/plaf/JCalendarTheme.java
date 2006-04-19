@@ -53,164 +53,74 @@ public class JCalendarTheme extends DefaultMetalTheme {
 	public JCalendarTheme() {
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public String getName() {
 		return "JCalendar Theme";
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected Font getFont() {
 		return new Font("Dialog", Font.PLAIN, 12);
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public FontUIResource getSystemTextFont() {
 		return standardFont;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public FontUIResource getUserTextFont() {
 		return standardFont;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public FontUIResource getControlTextFont() {
 		return standardFont;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public FontUIResource getMenuTextFont() {
 		return standardFont;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected ColorUIResource getPrimary1() {
 		return BLUE_MEDIUM_DARK;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected ColorUIResource getPrimary2() {
 		return BLUE_LOW_MEDIUM;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected ColorUIResource getPrimary3() {
 		return BLUE_LOW_LIGHTEST;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected ColorUIResource getSecondary1() {
 		return secondary1;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected ColorUIResource getSecondary2() {
 		return secondary2;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	protected ColorUIResource getSecondary3() {
 		return secondary3;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public ColorUIResource getFocusColor() {
 		return ORANGE_FOCUS;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public ColorUIResource getPrimaryControlShadow() {
 		return getPrimary3();
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public ColorUIResource getMenuSelectedBackground() {
 		return getPrimary1();
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public ColorUIResource getMenuSelectedForeground() {
 		return WHITE;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public ColorUIResource getMenuItemBackground() {
 		return WHITE;
 	}
 
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
-	 */
 	public ColorUIResource getToggleButtonCheckColor() {
 		return GREEN_CHECK;
 	}
