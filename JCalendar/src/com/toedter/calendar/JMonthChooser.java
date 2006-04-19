@@ -41,7 +41,8 @@ import javax.swing.event.ChangeListener;
  * JMonthChooser is a bean for choosing a month.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:14:13
+ *          +0200 (Mi, 19 Apr 2006) $
  */
 public class JMonthChooser extends JPanel implements ItemListener, ChangeListener {
 	private static final long serialVersionUID = -2028361332231218527L;
@@ -181,7 +182,8 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	}
 
 	/**
-	 * Sets the month attribute of the JMonthChooser object. Fires a property change "month".
+	 * Sets the month attribute of the JMonthChooser object. Fires a property
+	 * change "month".
 	 * 
 	 * @param newMonth
 	 *            the new month value
@@ -208,7 +210,9 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	}
 
 	/**
-	 * Sets the month. This is a bound property.
+	 * Sets the month. This is a bound property. Valuse are valid between 0
+	 * (January) and 11 (December). A value < 0 will be treated as 0, a value >
+	 * 11 will be treated as 11.
 	 * 
 	 * @param newMonth
 	 *            the new month value
@@ -216,9 +220,13 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	 * @see #getMonth
 	 */
 	public void setMonth(int newMonth) {
-	    if(newMonth < 0 || newMonth> 11)
-	        return;
-		setMonth(newMonth, true);
+		if (newMonth < 0 || newMonth == Integer.MIN_VALUE) {
+			setMonth(0, true);
+		} else if (newMonth > 11) {
+			setMonth(11, true);
+		} else {
+			setMonth(newMonth, true);
+		}
 	}
 
 	/**
@@ -241,8 +249,8 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	}
 
 	/**
-	 * Convenience method set a year chooser. If set, the spin for the month buttons will spin
-	 * the year as well
+	 * Convenience method set a year chooser. If set, the spin for the month
+	 * buttons will spin the year as well
 	 * 
 	 * @param yearChooser
 	 *            the new yearChooser value
@@ -325,7 +333,7 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 		return hasSpinner;
 	}
 
- 	/**
+	/**
 	 * Creates a JFrame with a JMonthChooser inside and can be used for testing.
 	 * 
 	 * @param s

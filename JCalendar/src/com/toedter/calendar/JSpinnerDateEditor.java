@@ -43,7 +43,6 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor, FocusLi
 			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern("");
 			((JSpinner.DateEditor) getEditor()).getTextField().setText("");
 		} else {
-			System.out.println("JSpinnerDateEditor.setDate(): " + dateFormatString);
 			if (dateFormatString != null) {
 				((JSpinner.DateEditor) getEditor()).getFormat().applyPattern(dateFormatString);
 			}
