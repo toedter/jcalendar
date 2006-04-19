@@ -34,6 +34,15 @@ import javax.swing.JComponent;
  * @version $LastChangedRevision: 17 $ $LastChangedDate: 2004-12-05 18:09:04
  *          +0100 (So, 05 Dez 2004) $
  */
+/**
+ * 
+ * 
+ * @author Kai Toedter
+ * @author $LastChangedBy: $
+ * @version $LastChangedDate: $
+ * @version $LastChangedRevision: $
+ *
+ */
 public interface IDateEditor {
 
 	/**
@@ -101,6 +110,18 @@ public interface IDateEditor {
 	 *            the property change listener.
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener);
+
+	/**
+	 * Adds a property change listener that should be added to the implementing
+	 * UI component. The UI component should fire a "date" property if the date
+	 * changes.
+	 * 
+	 * @param propertyName
+	 *           the property name, e.g. "date"
+	 * @param listener
+	 *            the property change listener.
+	 */
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
 
 	/**
 	 * Removes a property change listener.

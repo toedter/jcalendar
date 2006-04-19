@@ -34,6 +34,9 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 	}
 
 	public Date getDate() {
+		if(date == null) {
+			return null;
+		}
 		return ((SpinnerDateModel) getModel()).getDate();
 	}
 

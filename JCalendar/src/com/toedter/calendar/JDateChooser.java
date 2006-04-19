@@ -177,7 +177,9 @@ public class JDateChooser extends JPanel implements ActionListener,
 			jcalendar = new JCalendar(date);
 		} else {
 			jcalendar = jcal;
-			jcalendar.setDate(date);
+			if(date != null) {
+				jcalendar.setDate(date);
+			}
 		}
 
 		setLayout(new BorderLayout());
@@ -453,10 +455,30 @@ public class JDateChooser extends JPanel implements ActionListener,
 		frame.setVisible(true);
 	}
 
+	/**
+	 *  Adds the listener to the date editor's property change listener.
+	 *  
+	 *  @param listener the listener
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		dateEditor.addPropertyChangeListener(listener);
 	}
 
+	/**
+	 *  Adds the listener for the given property name to the date editor's property change listener.
+	 *  
+	 *  @param propertyName the property to listen for, e.g. "date"
+	 *  @param listener the listener
+	 */
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		dateEditor.addPropertyChangeListener(propertyName, listener);
+	}
+
+	/**
+	 *  Removes the listener from the date editor's property change listeners.
+	 *  
+	 *  @param listener the listener
+	 */
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		dateEditor.removePropertyChangeListener(listener);
 	}
