@@ -72,8 +72,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 	protected Date lastSelectedDate;
 
-	protected ImageIcon icon;
-
 	/**
 	 * Creates a new JDateChooser object. By default, no date is set and the
 	 * textfield is empty.
@@ -194,11 +192,9 @@ public class JDateChooser extends JPanel implements ActionListener,
 		setDate(date);
 
 		// Display a calendar button with an icon
-		if (icon == null) {
-			URL iconURL = getClass().getResource(
-					"/com/toedter/calendar/images/JDateChooserIcon.gif");
-			icon = new ImageIcon(iconURL);
-		}
+		URL iconURL = getClass().getResource(
+		"/com/toedter/calendar/images/JDateChooserIcon.gif");
+		ImageIcon icon = new ImageIcon(iconURL);
 
 		calendarButton = new JButton(icon) {
 			private static final long serialVersionUID = -1913767779079949668L;
@@ -209,6 +205,8 @@ public class JDateChooser extends JPanel implements ActionListener,
 		};
 		calendarButton.setMargin(new Insets(0, 0, 0, 0));
 		calendarButton.addActionListener(this);
+
+
 
 		// Alt + 'C' selects the calendar.
 		calendarButton.setMnemonic(KeyEvent.VK_C);
@@ -431,11 +429,12 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
+	 * Sets the icon of the buuton.
+	 * 
 	 * @param icon
-	 *            The icon to set.
+	 *            The new icon
 	 */
 	public void setIcon(ImageIcon icon) {
-		this.icon = icon;
 		calendarButton.setIcon(icon);
 	}
 
@@ -498,6 +497,24 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
+	 * Returns the calendar button.
+	 * 
+	 * @return the calendar button
+	 */
+	public JButton getCalendarButton() {
+		return calendarButton;
+	}
+	
+	/**
+	 * Returns the date editor.
+	 * 
+	 * @return the date editor
+	 */
+	public IDateEditor getDateEditor() {
+		return dateEditor;
+	}
+
+	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.
 	 * 
 	 * @param s
@@ -524,5 +541,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 		frame.pack();
 		frame.setVisible(true);
 	}
+
 
 }
