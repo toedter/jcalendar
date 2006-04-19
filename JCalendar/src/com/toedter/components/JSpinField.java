@@ -68,14 +68,15 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 
 	/**
 	 * Default JSpinField constructor. The valid value range is between
-	 * Integer.MIN_VALUE and Integer.MAX_VALUE.
+	 * Integer.MIN_VALUE and Integer.MAX_VALUE. The initial value is 0.
 	 */
 	public JSpinField() {
 		this(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	/**
-	 * JSpinField constructor with given minimum and maximum vaues..
+	 * JSpinField constructor with given minimum and maximum vaues and initial
+	 * value 0.
 	 */
 	public JSpinField(int min, int max) {
 		super();
