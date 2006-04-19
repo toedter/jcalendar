@@ -310,7 +310,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
      * Sets the calendar property. This is a bound property.
      *
      * @param c the new calendar
-     *
+     * @throws NullPointerException - if c is null;
      * @see #getCalendar
      */
     public void setCalendar(Calendar c) {
@@ -322,6 +322,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
      *
      * @param c the new calendar value
      * @param update the new calendar value
+    * @throws NullPointerException - if c is null;
      */
     private void setCalendar(Calendar c, boolean update) {
     	if(c == null) {
@@ -531,6 +532,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
      * Sets the date. Fires the property change "date".
      *
      * @param date the new date.
+     * @throws NullPointerException - if tha date is null
      */
     public void setDate(Date date) {
         Date oldDate = calendar.getTime();
