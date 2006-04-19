@@ -22,6 +22,7 @@ package com.toedter.calendar;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormatSymbols;
@@ -331,6 +332,16 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	 */
 	public boolean hasSpinner() {
 		return hasSpinner;
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#setFont(java.awt.Font)
+	 */
+	public void setFont(Font font) {
+		if(comboBox != null) {
+			comboBox.setFont(font);
+		}
+		super.setFont(font);
 	}
 
 	/**

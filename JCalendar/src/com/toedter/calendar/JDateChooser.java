@@ -21,6 +21,8 @@
 package com.toedter.calendar;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +51,8 @@ import javax.swing.event.ChangeListener;
  * JTextFieldDateEditor is used as default.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:19:45
+ *          +0200 (Mi, 19 Apr 2006) $
  */
 public class JDateChooser extends JPanel implements ActionListener,
 		PropertyChangeListener {
@@ -176,7 +179,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 			jcalendar = new JCalendar(date);
 		} else {
 			jcalendar = jcal;
-			if(date != null) {
+			if (date != null) {
 				jcalendar.setDate(date);
 			}
 		}
@@ -437,6 +440,54 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
+	 * Adds the listener to the date editor's property change listener.
+	 * 
+	 * @param listener
+	 *            the listener
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		dateEditor.addPropertyChangeListener(listener);
+	}
+
+	/**
+	 * Adds the listener for the given property name to the date editor's
+	 * property change listener.
+	 * 
+	 * @param propertyName
+	 *            the property to listen for, e.g. "date"
+	 * @param listener
+	 *            the listener
+	 */
+	public void addPropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		dateEditor.addPropertyChangeListener(propertyName, listener);
+	}
+
+	/**
+	 * Removes the listener from the date editor's property change listeners.
+	 * 
+	 * @param listener
+	 *            the listener
+	 */
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		dateEditor.removePropertyChangeListener(listener);
+	}
+
+	/**
+	 * Sets the font of all subcomponents.
+	 * 
+	 * @param font
+	 *            the new font
+	 */
+	public void setFont(Font font) {
+		if (isInitialized) {
+			dateEditor.getUiComponent().setFont(font);
+			jcalendar.setFont(font);
+		}
+		super.setFont(font);
+	}
+
+	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.
 	 * 
 	 * @param s
@@ -444,41 +495,18 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 */
 	public static void main(String[] s) {
 		JFrame frame = new JFrame("JDateChooser");
-		// JDateChooser dateChooser = new JDateChooser();
-		JDateChooser dateChooser = new JDateChooser(null, new Date(), null,
-				null);
+		JDateChooser dateChooser = new JDateChooser();
+		// JDateChooser dateChooser = new JDateChooser(null, new Date(), null,
+		// null);
 		// dateChooser.setLocale(new Locale("de"));
 		// dateChooser.setDateFormatString("dd. MMMM yyyy");
+
+		// dateChooser.setPreferredSize(new Dimension(130, 20));
+		// dateChooser.setFont(new Font("Verdana", Font.PLAIN, 10));
+		// dateChooser.setDateFormatString("yyyy-MM-dd HH:mm");
+
 		frame.getContentPane().add(dateChooser);
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-	/**
-	 *  Adds the listener to the date editor's property change listener.
-	 *  
-	 *  @param listener the listener
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		dateEditor.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 *  Adds the listener for the given property name to the date editor's property change listener.
-	 *  
-	 *  @param propertyName the property to listen for, e.g. "date"
-	 *  @param listener the listener
-	 */
-	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-		dateEditor.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 *  Removes the listener from the date editor's property change listeners.
-	 *  
-	 *  @param listener the listener
-	 */
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		dateEditor.removePropertyChangeListener(listener);
 	}
 }

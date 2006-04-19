@@ -481,6 +481,11 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 				days[i].setFont(font);
 			}
 		}
+		if(weeks != null) {
+			for (int i = 0; i < 7; i++) {
+				weeks[i].setFont(font);
+			}			
+		}
 	}
 
 	/**
