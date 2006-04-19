@@ -50,7 +50,8 @@ import javax.swing.event.ChangeListener;
  * spin buttons.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:19:45
+ *          +0200 (Mi, 19 Apr 2006) $
  */
 public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener,
 		FocusListener {
@@ -66,10 +67,11 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	protected Color darkGreen;
 
 	/**
-	 * Default JSpinField constructor.
+	 * Default JSpinField constructor. The valid value range is between
+	 * Integer.MIN_VALUE and Integer.MAX_VALUE.
 	 */
 	public JSpinField() {
-		this(0, Integer.MAX_VALUE);
+		this(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	/**
@@ -327,15 +329,17 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 		frame.setVisible(true);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.FocusListener#focusGained(java.awt.event.FocusEvent)
 	 */
 	public void focusGained(FocusEvent e) {
 	}
 
 	/**
-	 * The value of the text field is checked against a valid (green) value. If valid, the value is
-	 * set and a property change is fired.
+	 * The value of the text field is checked against a valid (green) value. If
+	 * valid, the value is set and a property change is fired.
 	 */
 	public void focusLost(FocusEvent e) {
 		actionPerformed(null);
