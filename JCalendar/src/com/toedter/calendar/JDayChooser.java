@@ -23,6 +23,7 @@ package com.toedter.calendar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -42,12 +43,15 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * JDayChooser is a bean for choosing a day.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$ $LastChangedDate: 2006-04-20 14:52:46
+ *          +0200 (Do, 20 Apr 2006) $
  */
 public class JDayChooser extends JPanel implements ActionListener, KeyListener, FocusListener {
 	private static final long serialVersionUID = 5876398337018781820L;
@@ -70,6 +74,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	protected boolean weekOfYearVisible;
 	protected boolean decorationBackgroundVisible = true;
 	protected boolean decorationBordersVisible;
+	protected boolean dayBordersVisible;
 	private boolean alwaysFireDayProperty;
 
 	/**
@@ -115,22 +120,24 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 					// Create a button that doesn't react on clicks or focus
 					// changes.
 					// Thanks to Thomas Schaefer for the focus hint :)
-					days[index] = new JButton() {
-						private static final long serialVersionUID = -5306477668406547496L;
-
-						public void addMouseListener(MouseListener l) {
-						}
-
-						public boolean isFocusable() {
-							return false;
-						}
-					};
-
-					days[index].setContentAreaFilled(decorationBackgroundVisible);
-					days[index].setBorderPainted(decorationBordersVisible);
-					days[index].setBackground(decorationBackgroundColor);
+					days[index] = new DecoratorButton();
 				} else {
-					days[index] = new JButton("x");
+					days[index] = new JButton("x") {
+						private static final long serialVersionUID = -7433645992591669725L;
+
+						public void paint(Graphics g) {
+							if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+								// this is a hack to get the background painted
+								// when using Windows Look & Feel
+								if (selectedDay == this) {
+									g.setColor(selectedColor);
+									g.fillRect(0, 0, getWidth(), getHeight());
+								}
+							}
+							super.paint(g);
+						}
+
+					};
 					days[index].addActionListener(this);
 					days[index].addKeyListener(this);
 					days[index].addFocusListener(this);
@@ -147,23 +154,11 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		weeks = new JButton[7];
 
 		for (int i = 0; i < 7; i++) {
-			weeks[i] = new JButton() {
-				private static final long serialVersionUID = -5780453242132894450L;
-
-				public void addMouseListener(MouseListener l) {
-				}
-
-				public boolean isFocusable() {
-					return false;
-				}
-			};
+			weeks[i] = new DecoratorButton();
 			weeks[i].setMargin(new Insets(0, 0, 0, 0));
 			weeks[i].setFocusPainted(false);
-			weeks[i].setBackground(decorationBackgroundColor);
 			weeks[i].setForeground(new Color(100, 100, 100));
 
-			weeks[i].setContentAreaFilled(decorationBackgroundVisible);
-			weeks[i].setBorderPainted(decorationBordersVisible);
 
 			if (i != 0) {
 				weeks[i].setText("0" + (i + 1));
@@ -235,8 +230,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		for (int x = 0; x < 7; x++) {
 			days[x].setContentAreaFilled(decorationBackgroundVisible);
 			days[x].setBorderPainted(decorationBordersVisible);
+			days[x].invalidate();
+			days[x].repaint();
 			weeks[x].setContentAreaFilled(decorationBackgroundVisible);
 			weeks[x].setBorderPainted(decorationBordersVisible);
+			weeks[x].invalidate();
+			weeks[x].repaint();
 		}
 	}
 
@@ -364,7 +363,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		if (d < 1) {
 			d = 1;
 		}
-
 		Calendar tmpCalendar = (Calendar) calendar.clone();
 		tmpCalendar.set(Calendar.DAY_OF_MONTH, 1);
 		tmpCalendar.add(Calendar.MONTH, 1);
@@ -388,7 +386,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 			if (days[i].getText().equals(Integer.toString(day))) {
 				selectedDay = days[i];
 				selectedDay.setBackground(selectedColor);
-
 				break;
 			}
 		}
@@ -481,10 +478,10 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 				days[i].setFont(font);
 			}
 		}
-		if(weeks != null) {
+		if (weeks != null) {
 			for (int i = 0; i < 7; i++) {
 				weeks[i].setFont(font);
-			}			
+			}
 		}
 	}
 
@@ -765,6 +762,10 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		return decorationBordersVisible;
 	}
 
+	public boolean isDayBordersVisible() {
+		return dayBordersVisible;
+	}
+
 	/**
 	 * The decoration border is the button border of the day titles and the
 	 * weeks of the year.
@@ -775,6 +776,33 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	public void setDecorationBordersVisible(boolean decorationBordersVisible) {
 		this.decorationBordersVisible = decorationBordersVisible;
 		initDecorations();
+	}
+
+	public void setDayBordersVisible(boolean dayBordersVisible) {
+		this.dayBordersVisible = dayBordersVisible;
+		for (int x = 7; x < 49; x++) {
+			days[x].setBorderPainted(dayBordersVisible);
+			if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+				days[x].setContentAreaFilled(dayBordersVisible);
+			}
+		}
+
+	}
+
+	/**
+	 * Updates the UI and sets the day button preferences.
+	 */
+	public void updateUI() {
+		super.updateUI();
+		if(weekPanel != null) {			
+			weekPanel.updateUI();
+		}
+		if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+			setDayBordersVisible(false);
+			setDecorationBackgroundVisible(true);
+			setDecorationBordersVisible(false);
+		}
+
 	}
 
 	/**
@@ -789,4 +817,41 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		frame.pack();
 		frame.setVisible(true);
 	}
+
+	class DecoratorButton extends JButton {
+		private static final long serialVersionUID = -5306477668406547496L;
+
+
+		public DecoratorButton() {
+			setBackground(decorationBackgroundColor);
+			setContentAreaFilled(decorationBackgroundVisible);
+			setBorderPainted(decorationBordersVisible);	
+		}
+		
+		public void addMouseListener(MouseListener l) {
+		}
+
+		public boolean isFocusable() {
+			return false;
+		}
+
+		public void paint(Graphics g) {
+			if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+				// this is a hack to get the background painted
+				// when using Windows Look & Feel
+				if(decorationBackgroundVisible) {
+					g.setColor(decorationBackgroundColor);
+				} else {
+					g.setColor(days[7].getBackground());
+				}
+				g.fillRect(0, 0, getWidth(), getHeight());
+				if (isBorderPainted()) {
+					setContentAreaFilled(true);
+				} else {
+					setContentAreaFilled(false);
+				}
+			}
+			super.paint(g);
+		}
+	};
 }
