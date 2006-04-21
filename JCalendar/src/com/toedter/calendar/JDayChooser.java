@@ -43,7 +43,6 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
@@ -158,7 +157,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 			weeks[i].setMargin(new Insets(0, 0, 0, 0));
 			weeks[i].setFocusPainted(false);
 			weeks[i].setForeground(new Color(100, 100, 100));
-
 
 			if (i != 0) {
 				weeks[i].setText("0" + (i + 1));
@@ -780,13 +778,14 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 
 	public void setDayBordersVisible(boolean dayBordersVisible) {
 		this.dayBordersVisible = dayBordersVisible;
-		for (int x = 7; x < 49; x++) {
-			days[x].setBorderPainted(dayBordersVisible);
-			if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
-				days[x].setContentAreaFilled(dayBordersVisible);
+		if (initialized) {
+			for (int x = 7; x < 49; x++) {
+				days[x].setBorderPainted(dayBordersVisible);
+				if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+					days[x].setContentAreaFilled(dayBordersVisible);
+				}
 			}
 		}
-
 	}
 
 	/**
@@ -794,7 +793,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 */
 	public void updateUI() {
 		super.updateUI();
-		if(weekPanel != null) {			
+		if (weekPanel != null) {
 			weekPanel.updateUI();
 		}
 		if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
@@ -821,13 +820,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	class DecoratorButton extends JButton {
 		private static final long serialVersionUID = -5306477668406547496L;
 
-
 		public DecoratorButton() {
 			setBackground(decorationBackgroundColor);
 			setContentAreaFilled(decorationBackgroundVisible);
-			setBorderPainted(decorationBordersVisible);	
+			setBorderPainted(decorationBordersVisible);
 		}
-		
+
 		public void addMouseListener(MouseListener l) {
 		}
 
@@ -839,7 +837,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 			if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
 				// this is a hack to get the background painted
 				// when using Windows Look & Feel
-				if(decorationBackgroundVisible) {
+				if (decorationBackgroundVisible) {
 					g.setColor(decorationBackgroundColor);
 				} else {
 					g.setColor(days[7].getBackground());
