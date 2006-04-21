@@ -20,6 +20,7 @@
 
 package com.toedter.calendar;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -35,7 +36,9 @@ import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.MaskFormatter;
@@ -366,4 +369,18 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		focusLost(null);
 	}
 
+	/**
+	 * Creates a JFrame with a JCalendar inside and can be used for testing.
+	 * 
+	 * @param s
+	 *            The command line arguments
+	 */
+	public static void main(String[] s) {
+		JFrame frame = new JFrame("JTextFieldDateEditor");
+		JTextFieldDateEditor jTextFieldDateEditor = new JTextFieldDateEditor();
+		jTextFieldDateEditor.setDate(new Date());
+		frame.getContentPane().add(jTextFieldDateEditor);
+		frame.pack();
+		frame.setVisible(true);
+	}
 }

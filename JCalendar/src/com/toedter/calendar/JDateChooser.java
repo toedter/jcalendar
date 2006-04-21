@@ -73,7 +73,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	protected Date lastSelectedDate;
 
 	/**
-	 * Creates a new JDateChooser object. By default, no date is set and the
+	 * Creates a new JDateChooser. By default, no date is set and the
 	 * textfield is empty.
 	 */
 	public JDateChooser() {
@@ -81,7 +81,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Creates a new JDateChooser object.
+	 * Creates a new JDateChooser with given IDateEditor.
 	 * 
 	 * @param dateEditor
 	 *            the dateEditor to be used used to display the date. if null, a
@@ -183,7 +183,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 		setLayout(new BorderLayout());
 
-		jcalendar.getDayChooser().addPropertyChangeListener(this);
+		jcalendar.getDayChooser().addPropertyChangeListener("day", this);
 		// always fire"day" property even if the user selects
 		// the already selected day again
 		jcalendar.getDayChooser().setAlwaysFireDayProperty(true);
@@ -294,7 +294,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 	/**
 	 * Listens for a "date" property change or a "day" property change event
-	 * from the JCalendar. Updates the dateSpinner and closes the popup.
+	 * from the JCalendar. Updates the date editor and closes the popup.
 	 * 
 	 * @param evt
 	 *            the event
@@ -329,6 +329,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            The new locale value
 	 */
 	public void setLocale(Locale l) {
+		super.setLocale(l);
 		dateEditor.setLocale(l);
 		jcalendar.setLocale(l);
 	}
