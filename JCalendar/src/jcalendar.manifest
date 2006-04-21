@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: com.toedter.calendar.JCalendarDemo
+Main-Class: com.toedter.calendar.demo.JCalendarDemo
 
 Name: com/toedter/components/JLocaleChooser.class
 Java-Bean: True
