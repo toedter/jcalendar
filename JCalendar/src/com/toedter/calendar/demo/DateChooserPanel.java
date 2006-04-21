@@ -131,14 +131,35 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	/**
+	 * Returns the locale of the first JDateChooser.
+	 */
 	public Locale getLocale() {
 		return ((JDateChooser) components[0]).getLocale();
 	}
 
+	/**
+	 * Sets the locale of the first 4 JDateChoosers.
+	 */
 	public void setLocale(Locale locale) {
 		for (int i = 0; i < 4; i++) {
 			((JDateChooser) components[i]).setLocale(locale);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.Component#isEnabled()
+	 */
+	public boolean isEnabled() {
+		return ((JDateChooser) components[0]).isEnabled();
+	}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#setEnabled(boolean)
+	 */
+	public void setEnabled(boolean enabled) {
+		for (int i = 0; i < 4; i++) {
+			((JDateChooser) components[i]).setEnabled(enabled);
+		}		
+	}
 }
