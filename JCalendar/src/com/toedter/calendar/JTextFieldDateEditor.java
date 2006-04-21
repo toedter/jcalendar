@@ -48,7 +48,8 @@ import javax.swing.text.MaskFormatter;
  * used.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:19:45
+ *          +0200 (Mi, 19 Apr 2006) $
  */
 public class JTextFieldDateEditor extends JFormattedTextField implements IDateEditor,
 		CaretListener, FocusListener, ActionListener {
@@ -72,15 +73,15 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 	private boolean isMaskVisible;
 
 	private boolean ignoreDatePatternChange;
-	
+
 	private int hours;
-	
+
 	private int minutes;
-	
+
 	private int seconds;
-	
+
 	private int millis;
-	
+
 	private Calendar calendar;
 
 	public JTextFieldDateEditor() {
@@ -95,11 +96,11 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 			char placeholder) {
 		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
 		dateFormatter.setLenient(false);
-		
+
 		setDateFormatString(datePattern);
 		if (datePattern != null) {
 			ignoreDatePatternChange = true;
-		}		
+		}
 
 		this.placeholder = placeholder;
 
@@ -116,7 +117,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		addFocusListener(this);
 		addActionListener(this);
 		darkGreen = new Color(0, 150, 0);
-		
+
 		calendar = Calendar.getInstance();
 	}
 
@@ -159,7 +160,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 	protected void setDate(Date date, boolean firePropertyChange) {
 		Date oldDate = this.date;
 		this.date = date;
-		
+
 		if (date == null) {
 			setText("");
 		} else {
@@ -168,7 +169,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 			minutes = calendar.get(Calendar.MINUTE);
 			seconds = calendar.get(Calendar.SECOND);
 			millis = calendar.get(Calendar.MILLISECOND);
-			
+
 			String formattedDate = dateFormatter.format(date);
 			try {
 				setText(formattedDate);
@@ -347,6 +348,10 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		}
 	}
 
+	/**
+	 * Returns the preferred size. If a date pattern is set, it is the size the
+	 * date pattern would take.
+	 */
 	public Dimension getPreferredSize() {
 		if (datePattern != null) {
 			return new JTextField(datePattern).getPreferredSize();
@@ -354,6 +359,9 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		return super.getPreferredSize();
 	}
 
+	/**
+	 * Validates the typed date and sets it (only if it is valid).
+	 */
 	public void actionPerformed(ActionEvent e) {
 		focusLost(null);
 	}
