@@ -37,6 +37,7 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.MaskFormatter;
@@ -52,8 +53,8 @@ import javax.swing.text.MaskFormatter;
  * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:19:45
  *          +0200 (Mi, 19 Apr 2006) $
  */
-public class JTextFieldDateEditor extends JFormattedTextField implements IDateEditor,
-		CaretListener, FocusListener, ActionListener {
+public class JTextFieldDateEditor extends JFormattedTextField implements
+		IDateEditor, CaretListener, FocusListener, ActionListener {
 
 	private static final long serialVersionUID = -8901842591101625304L;
 
@@ -89,13 +90,15 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		this(false, null, null, ' ');
 	}
 
-	public JTextFieldDateEditor(String datePattern, String maskPattern, char placeholder) {
+	public JTextFieldDateEditor(String datePattern, String maskPattern,
+			char placeholder) {
 		this(true, datePattern, maskPattern, placeholder);
 	}
 
-	public JTextFieldDateEditor(boolean showMask, String datePattern, String maskPattern,
-			char placeholder) {
-		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
+	public JTextFieldDateEditor(boolean showMask, String datePattern,
+			String maskPattern, char placeholder) {
+		dateFormatter = (SimpleDateFormat) DateFormat
+				.getDateInstance(DateFormat.MEDIUM);
 		dateFormatter.setLenient(false);
 
 		setDateFormatString(datePattern);
@@ -199,7 +202,8 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		try {
 			dateFormatter.applyPattern(dateFormatString);
 		} catch (RuntimeException e) {
-			dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
+			dateFormatter = (SimpleDateFormat) DateFormat
+					.getDateInstance(DateFormat.MEDIUM);
 			dateFormatter.setLenient(false);
 		}
 		this.datePattern = dateFormatter.toPattern();
@@ -282,7 +286,8 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		}
 
 		super.setLocale(locale);
-		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
+		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(
+				DateFormat.MEDIUM, locale);
 		setToolTipText(dateFormatter.toPattern());
 
 		setDate(date, false);
@@ -339,7 +344,8 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		if (isMaskVisible) {
 			if (maskFormatter == null) {
 				try {
-					maskFormatter = new MaskFormatter(createMaskFromDatePattern(datePattern));
+					maskFormatter = new MaskFormatter(
+							createMaskFromDatePattern(datePattern));
 					maskFormatter.setPlaceholderCharacter(this.placeholder);
 					maskFormatter.install(this);
 				} catch (ParseException e) {
@@ -365,6 +371,16 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 	 */
 	public void actionPerformed(ActionEvent e) {
 		focusLost(null);
+	}
+
+	/**
+	 * Enables and disabled the compoment. It also fixes the background bug
+	 * 4991597 and sets the background explicitely to a
+	 * TextField.inactiveBackground.
+	 */
+	public void setEnabled(boolean b) {
+		super.setEnabled(b);
+		super.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 	}
 
 	/**
