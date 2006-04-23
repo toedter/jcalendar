@@ -52,28 +52,50 @@ import javax.swing.UIManager;
  * @version $LastChangedRevision$ $LastChangedDate: 2006-04-20 14:52:46
  *          +0200 (Do, 20 Apr 2006) $
  */
-public class JDayChooser extends JPanel implements ActionListener, KeyListener, FocusListener {
+public class JDayChooser extends JPanel implements ActionListener, KeyListener,
+		FocusListener {
 	private static final long serialVersionUID = 5876398337018781820L;
+
 	protected JButton[] days;
+
 	protected JButton[] weeks;
+
 	protected JButton selectedDay;
+
 	protected JPanel weekPanel;
+
 	protected JPanel dayPanel;
+
 	protected int day;
+
 	protected Color oldDayBackgroundColor;
+
 	protected Color selectedColor;
+
 	protected Color sundayForeground;
+
 	protected Color weekdayForeground;
+
 	protected Color decorationBackgroundColor;
+
 	protected String[] dayNames;
+
 	protected Calendar calendar;
+
 	protected Calendar today;
+
 	protected Locale locale;
+
 	protected boolean initialized;
+
 	protected boolean weekOfYearVisible;
+
 	protected boolean decorationBackgroundVisible = true;
+
 	protected boolean decorationBordersVisible;
+
 	protected boolean dayBordersVisible;
+
 	private boolean alwaysFireDayProperty;
 
 	/**
@@ -125,7 +147,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 						private static final long serialVersionUID = -7433645992591669725L;
 
 						public void paint(Graphics g) {
-							if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+							if ("Windows".equals(UIManager.getLookAndFeel()
+									.getID())) {
 								// this is a hack to get the background painted
 								// when using Windows Look & Feel
 								if (selectedDay == this) {
@@ -176,6 +199,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		}
 
 		initialized = true;
+		updateUI();
 	}
 
 	/**
@@ -295,8 +319,10 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 			days[i + n + 7].setText(Integer.toString(n + 1));
 			days[i + n + 7].setVisible(true);
 
-			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR))
-					&& (tmpCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR))) {
+			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today
+					.get(Calendar.DAY_OF_YEAR))
+					&& (tmpCalendar.get(Calendar.YEAR) == today
+							.get(Calendar.YEAR))) {
 				days[i + n + 7].setForeground(sundayForeground);
 			} else {
 				days[i + n + 7].setForeground(foregroundColor);
@@ -554,14 +580,15 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 *            the KeyEvent
 	 */
 	public void keyPressed(KeyEvent e) {
-		int offset = (e.getKeyCode() == KeyEvent.VK_UP) ? (-7)
-				: ((e.getKeyCode() == KeyEvent.VK_DOWN) ? (+7)
-						: ((e.getKeyCode() == KeyEvent.VK_LEFT) ? (-1)
-								: ((e.getKeyCode() == KeyEvent.VK_RIGHT) ? (+1) : 0)));
+		int offset = (e.getKeyCode() == KeyEvent.VK_UP) ? (-7) : ((e
+				.getKeyCode() == KeyEvent.VK_DOWN) ? (+7)
+				: ((e.getKeyCode() == KeyEvent.VK_LEFT) ? (-1) : ((e
+						.getKeyCode() == KeyEvent.VK_RIGHT) ? (+1) : 0)));
 
 		int newDay = getDay() + offset;
 
-		if ((newDay >= 1) && (newDay <= calendar.getMaximum(Calendar.DAY_OF_MONTH))) {
+		if ((newDay >= 1)
+				&& (newDay <= calendar.getMaximum(Calendar.DAY_OF_MONTH))) {
 			setDay(newDay);
 		}
 	}
@@ -745,7 +772,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 * @param decorationBackgroundVisible
 	 *            true, if the decoration background shall be painted.
 	 */
-	public void setDecorationBackgroundVisible(boolean decorationBackgroundVisible) {
+	public void setDecorationBackgroundVisible(
+			boolean decorationBackgroundVisible) {
 		this.decorationBackgroundVisible = decorationBackgroundVisible;
 		initDecorations();
 	}
@@ -780,10 +808,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		this.dayBordersVisible = dayBordersVisible;
 		if (initialized) {
 			for (int x = 7; x < 49; x++) {
-				days[x].setBorderPainted(dayBordersVisible);
 				if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
 					days[x].setContentAreaFilled(dayBordersVisible);
+				} else {
+					days[x].setContentAreaFilled(true);
 				}
+				days[x].setBorderPainted(dayBordersVisible);
 			}
 		}
 	}
@@ -796,12 +826,17 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		if (weekPanel != null) {
 			weekPanel.updateUI();
 		}
-		if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
-			setDayBordersVisible(false);
-			setDecorationBackgroundVisible(true);
-			setDecorationBordersVisible(false);
+		if (initialized) {
+			if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+				setDayBordersVisible(false);
+				setDecorationBackgroundVisible(true);
+				setDecorationBordersVisible(false);
+			} else {
+				setDayBordersVisible(true);
+				setDecorationBackgroundVisible(decorationBackgroundVisible);
+				setDecorationBordersVisible(decorationBordersVisible);
+			}
 		}
-
 	}
 
 	/**

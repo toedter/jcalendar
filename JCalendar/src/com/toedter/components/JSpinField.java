@@ -100,9 +100,19 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 		textField.setBorder(BorderFactory.createEmptyBorder());
 		textField.setText(Integer.toString(value));
 		textField.addFocusListener(this);
-		spinner = new JSpinner();
+		spinner =  new JSpinner() {
+			private static final long serialVersionUID = -6287709243342021172L;
+			private JTextField textField = new JTextField();
+
+			public Dimension getPreferredSize() {
+				Dimension size = super.getPreferredSize();
+				return new Dimension(size.width, textField
+						.getPreferredSize().height);
+			}
+		};
 		spinner.setEditor(textField);
 		spinner.addChangeListener(this);
+		// spinner.setSize(spinner.getWidth(), textField.getHeight());
 		add(spinner, BorderLayout.CENTER);
 	}
 

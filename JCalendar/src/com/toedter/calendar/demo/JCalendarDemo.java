@@ -219,8 +219,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
      */
     public JMenuBar createMenuBar() {
         // Create the menu bar
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.putClientProperty("jgoodies.headerStyle", "Both");
+        final JMenuBar menuBar = new JMenuBar();
 
         // Menu for all beans to demo
         JMenu componentsMenu = new JMenu("Components");
@@ -288,14 +287,14 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
                                         "lnf name");
 
                                 try {
-                                    UIManager.setLookAndFeel(info.getClassName());
+                                    menuBar.putClientProperty("jgoodies.headerStyle", "Both");
 
-                                    // update the complete application's
-                                    // look & feel
+                                    UIManager.setLookAndFeel(info.getClassName());
+                                    
+                                    // update the complete application's look & feel
                                     SwingUtilities.updateComponentTreeUI(JCalendarDemo.this);
 
-                                    // set the split pane devider border to
-                                    // null
+                                    // set the split pane devider border to null
                                     BasicSplitPaneDivider divider = ((BasicSplitPaneUI) splitPane.getUI()).getDivider();
 
                                     if (divider != null) {

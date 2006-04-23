@@ -126,8 +126,10 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 	 */
 	public void setEnabled(boolean b) {
 		super.setEnabled(b);
-		((JSpinner.DateEditor) getEditor()).getTextField().setBackground(
-				UIManager.getColor("TextField.inactiveBackground"));
+		if (!b) {
+			((JSpinner.DateEditor) getEditor()).getTextField().setBackground(
+					UIManager.getColor("TextField.inactiveBackground"));
+		}
 	}
 
 }

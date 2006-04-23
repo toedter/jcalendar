@@ -380,7 +380,9 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 	 */
 	public void setEnabled(boolean b) {
 		super.setEnabled(b);
-		super.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		if(!b) {
+			super.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		}
 	}
 
 	/**

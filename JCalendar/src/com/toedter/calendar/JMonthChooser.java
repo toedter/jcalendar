@@ -22,6 +22,7 @@ package com.toedter.calendar;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -33,7 +34,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -45,20 +48,30 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:14:13
  *          +0200 (Mi, 19 Apr 2006) $
  */
-public class JMonthChooser extends JPanel implements ItemListener, ChangeListener {
+public class JMonthChooser extends JPanel implements ItemListener,
+		ChangeListener {
 	private static final long serialVersionUID = -2028361332231218527L;
+
 	/** true, if the month chooser has a spinner component */
 	protected boolean hasSpinner;
+
 	private Locale locale;
+
 	private int month;
+
 	private int oldSpinnerValue = 0;
 
 	// needed for comparison
 	private JDayChooser dayChooser;
+
 	private JYearChooser yearChooser;
+
 	private JComboBox comboBox;
+
 	private JSpinner spinner;
+
 	private boolean initialized;
+
 	private boolean localInitialize;
 
 	/**
@@ -89,10 +102,22 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 		initNames();
 
 		if (hasSpinner) {
-			spinner = new JSpinner();
+			spinner = new JSpinner() {
+				private static final long serialVersionUID = 1L;
+
+				private JTextField textField = new JTextField();
+
+				public Dimension getPreferredSize() {
+					Dimension size = super.getPreferredSize();
+					return new Dimension(size.width, textField
+							.getPreferredSize().height);
+				}
+			};
 			spinner.addChangeListener(this);
-			comboBox.setBorder(new EmptyBorder(0, 0, 0, 0));
 			spinner.setEditor(comboBox);
+			comboBox.setBorder(new EmptyBorder(0, 0, 0, 0));
+			updateUI();
+
 			add(spinner, BorderLayout.WEST);
 		} else {
 			add(comboBox, BorderLayout.WEST);
@@ -130,7 +155,8 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	 *            the change event.
 	 */
 	public void stateChanged(ChangeEvent e) {
-		SpinnerNumberModel model = (SpinnerNumberModel) ((JSpinner) e.getSource()).getModel();
+		SpinnerNumberModel model = (SpinnerNumberModel) ((JSpinner) e
+				.getSource()).getModel();
 		int value = model.getNumber().intValue();
 		boolean increase = (value > oldSpinnerValue) ? true : false;
 		oldSpinnerValue = value;
@@ -334,14 +360,27 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 		return hasSpinner;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.JComponent#setFont(java.awt.Font)
 	 */
 	public void setFont(Font font) {
-		if(comboBox != null) {
+		if (comboBox != null) {
 			comboBox.setFont(font);
 		}
 		super.setFont(font);
+	}
+
+	public void updateUI() {
+		final JSpinner testSpinner = new JSpinner();
+		if (spinner != null) {
+			if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+				spinner.setBorder(testSpinner.getBorder());
+			} else {
+				spinner.setBorder(new EmptyBorder(0, 0, 0, 0));
+			}
+		}
 	}
 
 	/**
