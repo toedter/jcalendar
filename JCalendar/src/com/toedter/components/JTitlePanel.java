@@ -25,6 +25,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -98,7 +99,8 @@ public class JTitlePanel extends JPanel {
 
             if (isOpaque()) {
                 // Color controlColor = UIManager.getColor("control");
-                Color controlColor = new Color(252, 198, 82);
+                // Color controlColor = new Color(252, 198, 82);
+                Color controlColor = new Color(99, 153, 255);
                 int width = getWidth();
                 int height = getHeight();
 

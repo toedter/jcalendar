@@ -52,8 +52,7 @@ import javax.swing.UIManager;
  * @version $LastChangedRevision$ $LastChangedDate: 2006-04-20 14:52:46
  *          +0200 (Do, 20 Apr 2006) $
  */
-public class JDayChooser extends JPanel implements ActionListener, KeyListener,
-		FocusListener {
+public class JDayChooser extends JPanel implements ActionListener, KeyListener, FocusListener {
 	private static final long serialVersionUID = 5876398337018781820L;
 
 	protected JButton[] days;
@@ -97,6 +96,16 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	protected boolean dayBordersVisible;
 
 	private boolean alwaysFireDayProperty;
+
+	protected Date minSelectableDate;
+
+	protected Date maxSelectableDate;
+
+	protected Date defaultMinSelectableDate;
+
+	protected Date defaultMaxSelectableDate;
+
+	protected int maxDayCharacters;
 
 	/**
 	 * Default JDayChooser constructor.
@@ -147,8 +156,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 						private static final long serialVersionUID = -7433645992591669725L;
 
 						public void paint(Graphics g) {
-							if ("Windows".equals(UIManager.getLookAndFeel()
-									.getID())) {
+							if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
 								// this is a hack to get the background painted
 								// when using Windows Look & Feel
 								if (selectedDay == this) {
@@ -188,8 +196,15 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 			weekPanel.add(weeks[i]);
 		}
 
+		Calendar tmpCalendar = Calendar.getInstance();
+		tmpCalendar.set(1, 0, 1, 1, 1);
+		defaultMinSelectableDate = tmpCalendar.getTime();
+		minSelectableDate = defaultMinSelectableDate;
+		tmpCalendar.set(9999, 0, 1, 1, 1);
+		defaultMaxSelectableDate = tmpCalendar.getTime();
+		maxSelectableDate = defaultMaxSelectableDate;
+
 		init();
-		drawWeeks();
 
 		setDay(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 		add(dayPanel, BorderLayout.CENTER);
@@ -229,6 +244,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 		int day = firstDayOfWeek;
 
 		for (int i = 0; i < 7; i++) {
+			if (maxDayCharacters > 0 && maxDayCharacters < 5) {
+				if (dayNames[day].length() >= maxDayCharacters) {
+					dayNames[day] = dayNames[day].substring(0, maxDayCharacters);
+				}
+			}
+
 			days[i].setText(dayNames[day]);
 
 			if (day == 1) {
@@ -290,6 +311,25 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	 */
 	protected void drawDays() {
 		Calendar tmpCalendar = (Calendar) calendar.clone();
+		tmpCalendar.set(Calendar.HOUR_OF_DAY, 0);
+		tmpCalendar.set(Calendar.MINUTE, 0);
+		tmpCalendar.set(Calendar.SECOND, 0);
+		tmpCalendar.set(Calendar.MILLISECOND, 0);
+
+		Calendar minCal = Calendar.getInstance();
+		minCal.setTime(minSelectableDate);
+		minCal.set(Calendar.HOUR_OF_DAY, 0);
+		minCal.set(Calendar.MINUTE, 0);
+		minCal.set(Calendar.SECOND, 0);
+		minCal.set(Calendar.MILLISECOND, 0);
+
+		Calendar maxCal = Calendar.getInstance();
+		maxCal.setTime(maxSelectableDate);
+		maxCal.set(Calendar.HOUR_OF_DAY, 0);
+		maxCal.set(Calendar.MINUTE, 0);
+		maxCal.set(Calendar.SECOND, 0);
+		maxCal.set(Calendar.MILLISECOND, 0);
+
 		int firstDayOfWeek = tmpCalendar.getFirstDayOfWeek();
 		tmpCalendar.set(Calendar.DAY_OF_MONTH, 1);
 
@@ -319,10 +359,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 			days[i + n + 7].setText(Integer.toString(n + 1));
 			days[i + n + 7].setVisible(true);
 
-			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today
-					.get(Calendar.DAY_OF_YEAR))
-					&& (tmpCalendar.get(Calendar.YEAR) == today
-							.get(Calendar.YEAR))) {
+			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR))
+					&& (tmpCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR))) {
 				days[i + n + 7].setForeground(sundayForeground);
 			} else {
 				days[i + n + 7].setForeground(foregroundColor);
@@ -335,6 +373,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 				days[i + n + 7].setBackground(oldDayBackgroundColor);
 			}
 
+			if (tmpCalendar.before(minCal) || tmpCalendar.after(maxCal)) {
+				days[i + n + 7].setEnabled(false);
+			} else {
+				days[i + n + 7].setEnabled(true);
+			}
+
 			n++;
 			tmpCalendar.add(Calendar.DATE, 1);
 			day = tmpCalendar.getTime();
@@ -344,6 +388,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 			days[k].setVisible(false);
 			days[k].setText("");
 		}
+		
+		drawWeeks();
 	}
 
 	/**
@@ -462,7 +508,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 		alwaysFireDayProperty = storedMode;
 
 		drawDays();
-		drawWeeks();
 	}
 
 	/**
@@ -475,7 +520,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	public void setYear(int year) {
 		calendar.set(Calendar.YEAR, year);
 		drawDays();
-		drawWeeks();
 	}
 
 	/**
@@ -580,15 +624,14 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	 *            the KeyEvent
 	 */
 	public void keyPressed(KeyEvent e) {
-		int offset = (e.getKeyCode() == KeyEvent.VK_UP) ? (-7) : ((e
-				.getKeyCode() == KeyEvent.VK_DOWN) ? (+7)
-				: ((e.getKeyCode() == KeyEvent.VK_LEFT) ? (-1) : ((e
-						.getKeyCode() == KeyEvent.VK_RIGHT) ? (+1) : 0)));
+		int offset = (e.getKeyCode() == KeyEvent.VK_UP) ? (-7)
+				: ((e.getKeyCode() == KeyEvent.VK_DOWN) ? (+7)
+						: ((e.getKeyCode() == KeyEvent.VK_LEFT) ? (-1)
+								: ((e.getKeyCode() == KeyEvent.VK_RIGHT) ? (+1) : 0)));
 
 		int newDay = getDay() + offset;
 
-		if ((newDay >= 1)
-				&& (newDay <= calendar.getMaximum(Calendar.DAY_OF_MONTH))) {
+		if ((newDay >= 1) && (newDay <= calendar.getMaximum(Calendar.DAY_OF_MONTH))) {
 			setDay(newDay);
 		}
 	}
@@ -772,8 +815,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	 * @param decorationBackgroundVisible
 	 *            true, if the decoration background shall be painted.
 	 */
-	public void setDecorationBackgroundVisible(
-			boolean decorationBackgroundVisible) {
+	public void setDecorationBackgroundVisible(boolean decorationBackgroundVisible) {
 		this.decorationBackgroundVisible = decorationBackgroundVisible;
 		initDecorations();
 	}
@@ -837,6 +879,105 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 				setDecorationBordersVisible(decorationBordersVisible);
 			}
 		}
+	}
+
+	/**
+	 * Sets a valid date range for selectable dates. If max is before min, the
+	 * default range with no limitation is set.
+	 * 
+	 * @param min
+	 *            the minimum selectable date or null (then the minimum date is
+	 *            set to 01\01\0001)
+	 * @param max
+	 *            the maximum selectable date or null (then the maximum date is
+	 *            set to 01\01\9999)
+	 */
+	public void setSelectableDateRange(Date min, Date max) {
+		if (min == null) {
+			minSelectableDate = defaultMinSelectableDate;
+		} else {
+			minSelectableDate = min;
+		}
+		if (max == null) {
+			maxSelectableDate = defaultMaxSelectableDate;
+		} else {
+			maxSelectableDate = max;
+		}
+		if (maxSelectableDate.before(minSelectableDate)) {
+			minSelectableDate = defaultMinSelectableDate;
+			maxSelectableDate = defaultMaxSelectableDate;
+		}
+		drawDays();
+	}
+
+	public void setMaxSelectableDate(Date max) {
+		if (max == null) {
+			maxSelectableDate = defaultMaxSelectableDate;
+		} else {
+			maxSelectableDate = max;
+		}
+		drawDays();
+	}
+
+	public void setMinSelectableDate(Date min) {
+		if (min == null) {
+			minSelectableDate = defaultMinSelectableDate;
+		} else {
+			minSelectableDate = min;
+		}
+		drawDays();
+	}
+
+	/**
+	 * Gets the maximum selectable date.
+	 * 
+	 * @return the maximum selectable date
+	 */
+	public Date getMaxSelectableDate() {
+		return maxSelectableDate;
+	}
+
+	/**
+	 * Gets the minimum selectable date.
+	 * 
+	 * @return the minimum selectable date
+	 */
+	public Date getMinSelectableDate() {
+		return minSelectableDate;
+	}
+
+	/**
+	 * Gets the maximum number of characters of a day name or 0. If 0 is
+	 * returned, dateFormatSymbols.getShortWeekdays() will be used.
+	 * 
+	 * @return the maximum number of characters of a day name or 0.
+	 */
+	public int getMaxDayCharacters() {
+		return maxDayCharacters;
+	}
+
+	/**
+	 * Sets the maximum number of characters per day in the day bar. Valid
+	 * values are 0-4. If set to 0, dateFormatSymbols.getShortWeekdays() will be
+	 * used, otherwise theses strings will be reduced to the maximum number of
+	 * characters.
+	 * 
+	 * @param maxDayCharacters
+	 *            the maximum number of characters of a day name.
+	 */
+	public void setMaxDayCharacters(int maxDayCharacters) {
+		if (maxDayCharacters == this.maxDayCharacters) {
+			return;
+		}
+
+		if (maxDayCharacters < 0 || maxDayCharacters > 4) {
+			this.maxDayCharacters = 0;
+		} else {
+			this.maxDayCharacters = maxDayCharacters;
+		}
+		drawDayNames();
+		drawDays();
+		invalidate();
 	}
 
 	/**

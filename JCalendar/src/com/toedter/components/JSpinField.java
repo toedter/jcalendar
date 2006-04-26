@@ -38,6 +38,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
@@ -100,14 +101,13 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 		textField.setBorder(BorderFactory.createEmptyBorder());
 		textField.setText(Integer.toString(value));
 		textField.addFocusListener(this);
-		spinner =  new JSpinner() {
+		spinner = new JSpinner() {
 			private static final long serialVersionUID = -6287709243342021172L;
 			private JTextField textField = new JTextField();
 
 			public Dimension getPreferredSize() {
 				Dimension size = super.getPreferredSize();
-				return new Dimension(size.width, textField
-						.getPreferredSize().height);
+				return new Dimension(size.width, textField.getPreferredSize().height);
 			}
 		};
 		spinner.setEditor(textField);
@@ -312,8 +312,16 @@ public class JSpinField extends JPanel implements ChangeListener, CaretListener,
 	 */
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
-		textField.setEnabled(enabled);
 		spinner.setEnabled(enabled);
+		textField.setEnabled(enabled);
+		/*
+		 * Fixes the background bug
+		 * 4991597 and sets the background explicitely to a
+		 * TextField.inactiveBackground.
+		 */
+		if (!enabled) {
+			textField.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		}
 	}
 
 	/**

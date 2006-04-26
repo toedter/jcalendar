@@ -41,6 +41,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.Date;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -497,9 +498,28 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 								addProperty(propertyDescriptors[i], localeChooser, gridbag);
 								count += 1;
 							} else if ("class java.util.Date".equals(type)) {
-								JDateChooser dateChooser = new JDateChooser();
-								dateChooser
-										.addPropertyChangeListener((PropertyChangeListener) bean);
+								Date date = null;
+
+								try {
+									date = ((Date) readMethod.invoke(bean, null));
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								
+								JDateChooser dateChooser = new JDateChooser(date);
+
+								dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+									public void propertyChange(PropertyChangeEvent evt) {
+										try {
+											if (evt.getPropertyName().equals("date")) {
+												writeMethod.invoke(currentBean, new Object[] { evt
+														.getNewValue() });
+											}
+										} catch (Exception e) {
+										}
+									}
+								});
+
 								addProperty(propertyDescriptors[i], dateChooser, gridbag);
 								count += 1;
 							} else if ("class java.awt.Color".equals(type)) {
@@ -542,9 +562,10 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 			ImageIcon icon = new ImageIcon(iconURL);
 
 			componentTitlePanel.setTitle(bean.getName(), icon);
-			bean.validate();
-			propertyPanel.validate();
-			componentPanel.validate();
+			bean.invalidate();
+			propertyPanel.invalidate();
+			componentPanel.invalidate();
+			componentPanel.repaint();
 		} catch (IntrospectionException e) {
 			e.printStackTrace();
 		}
@@ -578,6 +599,16 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		grid.setConstraints(editor, c);
 		propertyPanel.add(editor);
+		
+		JPanel blankLine  = new JPanel() {
+			private static final long serialVersionUID = 4514530330521503732L;
+
+			public Dimension getPreferredSize() {
+				return new Dimension(10,2);
+			}
+		};
+		grid.setConstraints(blankLine, c);
+		propertyPanel.add(blankLine);
 	}
 
 	/**

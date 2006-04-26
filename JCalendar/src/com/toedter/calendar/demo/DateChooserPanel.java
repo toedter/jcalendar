@@ -21,6 +21,7 @@
 
 package com.toedter.calendar.demo;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.beans.PropertyChangeEvent;
@@ -79,6 +80,15 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		grid.setConstraints(component, c);
 		add(component);
+		JPanel blankLine  = new JPanel() {
+			private static final long serialVersionUID = 4514530330521503732L;
+
+			public Dimension getPreferredSize() {
+				return new Dimension(10,3);
+			}
+		};
+		grid.setConstraints(blankLine, c);
+		add(blankLine);
 	}
 
 	/**
