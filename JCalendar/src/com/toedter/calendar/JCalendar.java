@@ -299,16 +299,17 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 
 			if (evt.getPropertyName().equals("day")) {
 				c.set(Calendar.DAY_OF_MONTH, ((Integer) evt.getNewValue()).intValue());
+				setCalendar(c, false);
 			} else if (evt.getPropertyName().equals("month")) {
 				c.set(Calendar.MONTH, ((Integer) evt.getNewValue()).intValue());
+				setCalendar(c, false);
 			} else if (evt.getPropertyName().equals("year")) {
 				c.set(Calendar.YEAR, ((Integer) evt.getNewValue()).intValue());
+				setCalendar(c, false);
 			} else if (evt.getPropertyName().equals("date")) {
 				c.setTime((Date) evt.getNewValue());
-			}
-			if (!c.equals(calendar)) {
 				setCalendar(c, true);
-			} 
+			}
 		}
 	}
 
