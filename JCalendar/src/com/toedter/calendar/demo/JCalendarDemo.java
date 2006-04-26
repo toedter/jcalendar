@@ -65,8 +65,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
@@ -156,14 +158,22 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 	}
 
 	/**
-	 * Installs the JGoodies Look & Feels, if available, in
-	 * classpath.
+	 * Installs the JGoodies Look & Feels, if available, in classpath.
 	 */
 	public final void initializeLookAndFeels() {
 		// if in classpath thry to load JGoodies Plastic Look & Feel
 		try {
-			UIManager.installLookAndFeel("JGoodies Plastic 3D",
-					"com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
+			LookAndFeelInfo[] lnfs = UIManager.getInstalledLookAndFeels();
+			boolean found = false;
+			for (int i = 0; i < lnfs.length; i++) {
+				if (lnfs[i].getName().equals("JGoodies Plastic 3D")) {
+					found = true;
+				}
+			}
+			if (!found) {
+				UIManager.installLookAndFeel("JGoodies Plastic 3D",
+						"com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
+			}
 			UIManager.setLookAndFeel("com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
 		} catch (Throwable t) {
 			try {
@@ -506,7 +516,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
-								
+
 								JDateChooser dateChooser = new JDateChooser(date);
 
 								dateChooser.addPropertyChangeListener(new PropertyChangeListener() {
@@ -600,12 +610,12 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		grid.setConstraints(editor, c);
 		propertyPanel.add(editor);
-		
-		JPanel blankLine  = new JPanel() {
+
+		JPanel blankLine = new JPanel() {
 			private static final long serialVersionUID = 4514530330521503732L;
 
 			public Dimension getPreferredSize() {
-				return new Dimension(10,2);
+				return new Dimension(10, 2);
 			}
 		};
 		grid.setConstraints(blankLine, c);
