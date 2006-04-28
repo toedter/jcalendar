@@ -25,7 +25,8 @@ package com.toedter.components;
  * A BeanInfo class for the JLocaleChooser bean.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JSpinFieldBeanInfo extends GenericBeanInfo {
 	/**

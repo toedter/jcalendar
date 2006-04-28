@@ -26,7 +26,8 @@ import com.toedter.components.GenericBeanInfo;
  * A BeanInfo class for the JDateChooser bean.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class DateChooserPanelBeanInfo extends GenericBeanInfo {
 	/**

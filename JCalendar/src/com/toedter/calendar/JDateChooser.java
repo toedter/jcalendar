@@ -50,8 +50,8 @@ import javax.swing.event.ChangeListener;
  * JTextFieldDateEditor is used as default.
  * 
  * @author Kai Toedter
- * @version $LastChangedDate$
  * @version $LastChangedRevision$
+ * @version $LastChangedDate$
 */
 public class JDateChooser extends JPanel implements ActionListener,
 		PropertyChangeListener {

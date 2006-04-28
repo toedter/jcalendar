@@ -38,7 +38,8 @@ import javax.swing.border.Border;
  * A simple JPanel with a border and a title
  *
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JTitlePanel extends JPanel {
 	private static final long serialVersionUID = 9104873267039717087L;

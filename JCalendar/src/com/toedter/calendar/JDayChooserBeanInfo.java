@@ -26,7 +26,8 @@ import com.toedter.components.GenericBeanInfo;
  * A BeanInfo class for the JDayChooser bean.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JDayChooserBeanInfo extends GenericBeanInfo {
 	/**

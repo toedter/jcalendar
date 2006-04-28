@@ -51,8 +51,8 @@ import javax.swing.event.ChangeListener;
  * spin buttons.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate: 2006-04-19 14:19:45
- *          +0200 (Mi, 19 Apr 2006) $
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener,
 		FocusListener {

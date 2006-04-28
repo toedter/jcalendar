@@ -26,7 +26,8 @@ import com.toedter.components.GenericBeanInfo;
  * A BeanInfo class for the JYearChooser bean.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JYearChooserBeanInfo extends GenericBeanInfo {
 	/**

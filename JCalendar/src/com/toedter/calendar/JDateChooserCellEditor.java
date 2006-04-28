@@ -32,7 +32,8 @@ import javax.swing.table.TableCellEditor;
  * A CellEditor for tables, using a JDateChooser.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JDateChooserCellEditor extends AbstractCellEditor implements
 		TableCellEditor {

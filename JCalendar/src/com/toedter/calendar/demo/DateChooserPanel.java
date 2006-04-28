@@ -40,7 +40,8 @@ import com.toedter.calendar.JSpinnerDateEditor;
  * A demonstration panel including several JDateChoosers.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = -1282280858252793253L;

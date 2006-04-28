@@ -26,7 +26,8 @@ import com.toedter.components.GenericBeanInfo;
  * A BeanInfo class for the JMonthChooser bean.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JMonthChooserBeanInfo extends GenericBeanInfo {
 	/**

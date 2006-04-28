@@ -85,7 +85,8 @@ import com.toedter.components.JTitlePanel;
  * as Java application.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 	private static final long serialVersionUID = 6739986412544494316L;

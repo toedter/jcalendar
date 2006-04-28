@@ -27,7 +27,8 @@ import com.toedter.components.GenericBeanInfo;
  * A BeanInfo class for JCalendar.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class JCalendarBeanInfo extends GenericBeanInfo {
 

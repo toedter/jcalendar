@@ -27,7 +27,8 @@ import java.util.Locale;
  * Property editor for locales.
  * 
  * @author Kai Toedter
- * @version $LastChangedRevision$ $LastChangedDate$
+ * @version $LastChangedRevision$
+ * @version $LastChangedDate$
  */
 public class LocaleEditor extends java.beans.PropertyEditorSupport {
 	private Locale[] locales;
