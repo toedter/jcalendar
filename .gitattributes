@@ -116,6 +116,9 @@ JCalendar/src/com/toedter/components/images/JSpinFieldMono16.gif -text
 JCalendar/src/com/toedter/components/images/JSpinFieldMono32.gif -text
 JCalendar/src/com/toedter/plaf/JCalendarTheme.java -text
 JCalendar/src/jcalendar.manifest -text
+JCalendar/test-junit4/com/toedter/calendar/AllTests.java -text
+JCalendar/test-junit4/com/toedter/calendar/JCalendarTest.java -text
+JCalendar/test-junit4/com/toedter/calendar/JDateChooserTest.java -text
 JCalendar/test/com/toedter/AllTests.java -text
 JCalendar/test/com/toedter/calendar/AllTests.java -text
 JCalendar/test/com/toedter/calendar/JCalendarTest.java -text
