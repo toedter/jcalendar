@@ -212,7 +212,6 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		if (weekOfYearVisible) {
 			add(weekPanel, BorderLayout.WEST);
 		}
-
 		initialized = true;
 		updateUI();
 	}
@@ -540,7 +539,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 * @param font
 	 *            the new font
 	 */
-	public void setFont(Font font) {
+	public void setFont(Font font) {		
 		if (days != null) {
 			for (int i = 0; i < 49; i++) {
 				days[i].setFont(font);
@@ -865,6 +864,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 */
 	public void updateUI() {
 		super.updateUI();
+		setFont(Font.decode("Dialog Plain 11"));
+
 		if (weekPanel != null) {
 			weekPanel.updateUI();
 		}
