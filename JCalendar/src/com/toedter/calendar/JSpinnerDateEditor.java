@@ -36,6 +36,9 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 				.getDateInstance(DateFormat.MEDIUM);
 		((JSpinner.DateEditor) getEditor()).getTextField().addFocusListener(
 				this);
+		DateUtil dateUtil = new DateUtil();
+		setMinSelectableDate(dateUtil.getMinSelectableDate());
+		setMaxSelectableDate(dateUtil.getMaxSelectableDate());
 	}
 
 	public Date getDate() {
@@ -130,6 +133,42 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 			((JSpinner.DateEditor) getEditor()).getTextField().setBackground(
 					UIManager.getColor("TextField.inactiveBackground"));
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.toedter.calendar.IDateEditor#getMaxSelectableDate()
+	 */
+	public Date getMaxSelectableDate() {
+		return (Date) ((SpinnerDateModel) getModel()).getEnd();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.toedter.calendar.IDateEditor#getMinSelectableDate()
+	 */
+	public Date getMinSelectableDate() {
+		return (Date) ((SpinnerDateModel) getModel()).getStart();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.toedter.calendar.IDateEditor#setMaxSelectableDate(java.util.Date)
+	 */
+	public void setMaxSelectableDate(Date max) {
+		((SpinnerDateModel) getModel()).setEnd(max);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.toedter.calendar.IDateEditor#setMinSelectableDate(java.util.Date)
+	 */
+	public void setMinSelectableDate(Date min) {
+		((SpinnerDateModel) getModel()).setStart(min);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.toedter.calendar.IDateEditor#setSelectableDateRange(java.util.Date, java.util.Date)
+	 */
+	public void setSelectableDateRange(Date min, Date max) {
+		setMaxSelectableDate(max);
+		setMinSelectableDate(min);
 	}
 
 }

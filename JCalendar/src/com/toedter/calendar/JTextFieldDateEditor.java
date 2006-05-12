@@ -53,8 +53,8 @@ import javax.swing.text.MaskFormatter;
  * @version $LastChangedRevision$
  * @version $LastChangedDate$
  */
-public class JTextFieldDateEditor extends JFormattedTextField implements
-		IDateEditor, CaretListener, FocusListener, ActionListener {
+public class JTextFieldDateEditor extends JFormattedTextField implements IDateEditor,
+		CaretListener, FocusListener, ActionListener {
 
 	private static final long serialVersionUID = -8901842591101625304L;
 
@@ -71,6 +71,8 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 	protected char placeholder;
 
 	protected Color darkGreen;
+
+	protected DateUtil dateUtil;
 
 	private boolean isMaskVisible;
 
@@ -90,15 +92,13 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 		this(false, null, null, ' ');
 	}
 
-	public JTextFieldDateEditor(String datePattern, String maskPattern,
-			char placeholder) {
+	public JTextFieldDateEditor(String datePattern, String maskPattern, char placeholder) {
 		this(true, datePattern, maskPattern, placeholder);
 	}
 
-	public JTextFieldDateEditor(boolean showMask, String datePattern,
-			String maskPattern, char placeholder) {
-		dateFormatter = (SimpleDateFormat) DateFormat
-				.getDateInstance(DateFormat.MEDIUM);
+	public JTextFieldDateEditor(boolean showMask, String datePattern, String maskPattern,
+			char placeholder) {
+		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
 		dateFormatter.setLenient(false);
 
 		setDateFormatString(datePattern);
@@ -123,6 +123,8 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 		darkGreen = new Color(0, 150, 0);
 
 		calendar = Calendar.getInstance();
+
+		dateUtil = new DateUtil();
 	}
 
 	/*
@@ -181,12 +183,13 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 				e.printStackTrace();
 			}
 		}
-		setForeground(Color.BLACK);
+		if (date != null && dateUtil.checkDate(date)) {
+			setForeground(Color.BLACK);
 
-		if (firePropertyChange) {
-			firePropertyChange("date", oldDate, date);
+			if (firePropertyChange) {
+				firePropertyChange("date", oldDate, date);
+			}
 		}
-
 	}
 
 	/*
@@ -202,8 +205,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 		try {
 			dateFormatter.applyPattern(dateFormatString);
 		} catch (RuntimeException e) {
-			dateFormatter = (SimpleDateFormat) DateFormat
-					.getDateInstance(DateFormat.MEDIUM);
+			dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM);
 			dateFormatter.setLenient(false);
 		}
 		this.datePattern = dateFormatter.toPattern();
@@ -246,8 +248,12 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 		}
 
 		try {
-			dateFormatter.parse(getText());
-			setForeground(darkGreen);
+			Date date = dateFormatter.parse(getText());
+			if (dateUtil.checkDate(date)) {
+				setForeground(darkGreen);
+			} else {
+				setForeground(Color.RED);
+			}
 		} catch (Exception e) {
 			setForeground(Color.RED);
 		}
@@ -259,6 +265,10 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 	 * @see java.awt.event.FocusListener#focusLost(java.awt.event.FocusEvent)
 	 */
 	public void focusLost(FocusEvent focusEvent) {
+		checkText();
+	}
+
+	private void checkText() {
 		try {
 			Date date = dateFormatter.parse(getText());
 			setDate(date, true);
@@ -286,8 +296,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 		}
 
 		super.setLocale(locale);
-		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(
-				DateFormat.MEDIUM, locale);
+		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
 		setToolTipText(dateFormatter.toPattern());
 
 		setDate(date, false);
@@ -344,8 +353,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 		if (isMaskVisible) {
 			if (maskFormatter == null) {
 				try {
-					maskFormatter = new MaskFormatter(
-							createMaskFromDatePattern(datePattern));
+					maskFormatter = new MaskFormatter(createMaskFromDatePattern(datePattern));
 					maskFormatter.setPlaceholderCharacter(this.placeholder);
 					maskFormatter.install(this);
 				} catch (ParseException e) {
@@ -370,7 +378,7 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 	 * Validates the typed date and sets it (only if it is valid).
 	 */
 	public void actionPerformed(ActionEvent e) {
-		focusLost(null);
+		checkText();
 	}
 
 	/**
@@ -380,9 +388,58 @@ public class JTextFieldDateEditor extends JFormattedTextField implements
 	 */
 	public void setEnabled(boolean b) {
 		super.setEnabled(b);
-		if(!b) {
+		if (!b) {
 			super.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.toedter.calendar.IDateEditor#getMaxSelectableDate()
+	 */
+	public Date getMaxSelectableDate() {
+		return dateUtil.getMaxSelectableDate();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.toedter.calendar.IDateEditor#getMinSelectableDate()
+	 */
+	public Date getMinSelectableDate() {
+		return dateUtil.getMinSelectableDate();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.toedter.calendar.IDateEditor#setMaxSelectableDate(java.util.Date)
+	 */
+	public void setMaxSelectableDate(Date max) {
+		dateUtil.setMaxSelectableDate(max);
+		checkText();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.toedter.calendar.IDateEditor#setMinSelectableDate(java.util.Date)
+	 */
+	public void setMinSelectableDate(Date min) {
+		dateUtil.setMinSelectableDate(min);
+		checkText();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.toedter.calendar.IDateEditor#setSelectableDateRange(java.util.Date,
+	 *      java.util.Date)
+	 */
+	public void setSelectableDateRange(Date min, Date max) {
+		dateUtil.setSelectableDateRange(min, max);
+		checkText();
 	}
 
 	/**

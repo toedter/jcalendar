@@ -72,6 +72,47 @@ public interface IDateEditor {
 	public String getDateFormatString();
 
 	/**
+	 * Sets a valid date range for selectable dates. If max is before
+	 * min, the default range with no limitation is set.
+	 * 
+	 * @param min
+	 *            the minimum selectable date or null (then the minimum date should be
+	 *            set to 01\01\0001)
+	 * @param max
+	 *            the maximum selectable date or null (then the maximum date should be
+	 *            set to 01\01\9999)
+	 */
+	public void setSelectableDateRange(Date min, Date max) ;
+
+	/**
+	 * Gets the minimum selectable date.
+	 * 
+	 * @return the minimum selectable date
+	 */
+	public Date getMaxSelectableDate();
+	
+	/**
+	 * Gets the maximum selectable date.
+	 * 
+	 * @return the maximum selectable date
+	 */
+	public Date getMinSelectableDate();
+
+	/**
+	 * Sets the maximum selectable date.
+	 * 
+	 * @param max maximum selectable date
+	 */
+	public void setMaxSelectableDate(Date max);
+
+	/**
+	 * Sets the minimum selectable date.
+	 * 
+	 * @param min minimum selectable date
+	 */
+	public void setMinSelectableDate(Date min);
+
+	/**
 	 * Returns the UI component, e.g. the actual JTextField implementing the
 	 * editor.
 	 * 

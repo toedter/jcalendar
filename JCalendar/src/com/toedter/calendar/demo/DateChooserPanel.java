@@ -173,4 +173,24 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 			components[i].setEnabled(enabled);
 		}		
 	}
+	
+	public Date getMinSelectableDate() {
+		return ((JDateChooser) components[0]).getMinSelectableDate();
+	}
+	
+	public void setMinSelectableDate(Date date) {
+		for (int i = 0; i < 4; i++) {
+			((JDateChooser) components[i]).setMinSelectableDate(date);
+		}
+	}
+	
+	public Date getMaxSelectableDate() {
+		return ((JDateChooser) components[0]).getMaxSelectableDate();
+	}
+	
+	public void setMaxSelectableDate(Date date) {
+		for (int i = 0; i < 4; i++) {
+			((JDateChooser) components[i]).setMaxSelectableDate(date);
+		}
+	}
 }

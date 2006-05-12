@@ -531,6 +531,51 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
+	 * Sets a valid date range for selectable dates. If max is before min, the
+	 * default range with no limitation is set.
+	 * 
+	 * @param min
+	 *            the minimum selectable date or null (then the minimum date is
+	 *            set to 01\01\0001)
+	 * @param max
+	 *            the maximum selectable date or null (then the maximum date is
+	 *            set to 01\01\9999)
+	 */
+	public void setSelectableDateRange(Date min, Date max) {
+		jcalendar.setSelectableDateRange(min, max);
+		dateEditor.setSelectableDateRange(jcalendar.getMinSelectableDate(), jcalendar.getMaxSelectableDate());
+	}
+
+	public void setMaxSelectableDate(Date max) {
+		jcalendar.setMaxSelectableDate(max);
+		dateEditor.setMaxSelectableDate(max);	
+	}
+
+	public void setMinSelectableDate(Date min) {
+		jcalendar.setMinSelectableDate(min);
+		dateEditor.setMinSelectableDate(min);	
+	}
+
+	/**
+	 * Gets the maximum selectable date.
+	 * 
+	 * @return the maximum selectable date
+	 */
+	public Date getMaxSelectableDate() {
+		return jcalendar.getMaxSelectableDate();
+	}
+
+	/**
+	 * Gets the minimum selectable date.
+	 * 
+	 * @return the minimum selectable date
+	 */
+	public Date getMinSelectableDate() {
+		return jcalendar.getMinSelectableDate();
+	}
+
+
+	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.
 	 * 
 	 * @param s

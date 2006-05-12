@@ -58,6 +58,7 @@ JCalendar/misc/JCalendarIcon.psp -text
 JCalendar/misc/JCalendarIcon2.psp -text
 JCalendar/readme.txt -text
 JCalendar/src/build.xml -text
+JCalendar/src/com/toedter/calendar/DateUtil.java -text
 JCalendar/src/com/toedter/calendar/IDateEditor.java -text
 JCalendar/src/com/toedter/calendar/JCalendar.java -text
 JCalendar/src/com/toedter/calendar/JCalendarBeanInfo.java -text
