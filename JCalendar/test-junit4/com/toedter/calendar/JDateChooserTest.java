@@ -120,7 +120,7 @@ public class JDateChooserTest {
 	}
 
 	@Test
-	public void testSetGetDate()  {
+	public void testSetGetDate() {
 		Date[] tests = { new Date(), null };
 
 		for (int i = 0; i < tests.length; i++) {
@@ -130,7 +130,7 @@ public class JDateChooserTest {
 	}
 
 	@Test
-	public void testSetGetFont()  {
+	public void testSetGetFont() {
 		Font[] tests = { Font.decode(""), Font.decode("Arial"), null };
 
 		for (int i = 0; i < tests.length; i++) {
@@ -169,7 +169,7 @@ public class JDateChooserTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testSetGetLocale()  {
+	public void testSetGetLocale() {
 		Locale[] tests = { Locale.getDefault(), Locale.GERMAN, Locale.US };
 
 		for (int i = 0; i < tests.length; i++) {
@@ -231,6 +231,66 @@ public class JDateChooserTest {
 		JDateChooser jDateChooser = new JDateChooser(new JSpinnerDateEditor());
 		jDateChooser.setDate(null);
 		assertNull("Date is not null", jDateChooser.getDate());
+	}
+
+	@Test
+	public void testDateChooserCallsListeners() {
+		class MyListener implements PropertyChangeListener {
+			boolean called = false;
+
+			public void propertyChange(PropertyChangeEvent event) {
+				if ("date".equals(event.getPropertyName())) {
+					called = true;
+				}
+			}
+		}
+
+		MyListener listener1 = new MyListener();
+		MyListener listener2 = new MyListener();
+
+		JDateChooser chooser = new JDateChooser(new JSpinnerDateEditor());
+		chooser.addPropertyChangeListener("date", listener1);
+		chooser.addPropertyChangeListener(listener2);
+
+		chooser.setDate(new Date());
+		assertTrue("listener1 was not called", listener1.called);
+		assertTrue("listener2 was not called", listener2.called);
+
+		listener1.called = false;
+		listener2.called = false;
+		chooser.setDate(null);
+		assertTrue("listener1 was not called", listener1.called);
+		assertTrue("listener2 was not called", listener2.called);
+	}
+
+	@Test
+	public void testDateChooserCallsListeners2() {
+		class MyListener implements PropertyChangeListener {
+			boolean called = false;
+
+			public void propertyChange(PropertyChangeEvent event) {
+				if ("date".equals(event.getPropertyName())) {
+					called = true;
+				}
+			}
+		}
+
+		MyListener listener1 = new MyListener();
+		MyListener listener2 = new MyListener();
+
+		JDateChooser chooser = new JDateChooser();
+		chooser.addPropertyChangeListener("date", listener1);
+		chooser.addPropertyChangeListener(listener2);
+
+		chooser.setDate(new Date());
+		assertTrue("listener1 was not called", listener1.called);
+		assertTrue("listener2 was not called", listener2.called);
+
+		listener1.called = false;
+		listener2.called = false;
+		chooser.setDate(null);
+		assertTrue("listener1 was not called", listener1.called);
+		assertTrue("listener2 was not called", listener2.called);
 	}
 
 	public static void main(String... args) {
