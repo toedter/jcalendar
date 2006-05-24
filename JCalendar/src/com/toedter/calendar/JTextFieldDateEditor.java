@@ -186,9 +186,10 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		if (date != null && dateUtil.checkDate(date)) {
 			setForeground(Color.BLACK);
 
-			if (firePropertyChange) {
-				firePropertyChange("date", oldDate, date);
-			}
+		}
+
+		if (firePropertyChange) {
+			firePropertyChange("date", oldDate, date);
 		}
 	}
 

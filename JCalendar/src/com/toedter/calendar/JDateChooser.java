@@ -52,9 +52,8 @@ import javax.swing.event.ChangeListener;
  * @author Kai Toedter
  * @version $LastChangedRevision$
  * @version $LastChangedDate$
-*/
-public class JDateChooser extends JPanel implements ActionListener,
-		PropertyChangeListener {
+ */
+public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener {
 
 	private static final long serialVersionUID = -4306412745720670722L;
 
@@ -126,8 +125,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the dateEditor to be used used to display the date. if null, a
 	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(Date date, String dateFormatString,
-			IDateEditor dateEditor) {
+	public JDateChooser(Date date, String dateFormatString, IDateEditor dateEditor) {
 		this(null, date, dateFormatString, dateEditor);
 	}
 
@@ -145,8 +143,8 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the placeholer charachter, e.g. '_'
 	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
-		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
-				maskPattern, placeholder));
+		this(null, null, datePattern, new JTextFieldDateEditor(datePattern, maskPattern,
+				placeholder));
 	}
 
 	/**
@@ -163,14 +161,14 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the dateEditor to be used used to display the date. if null, a
 	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(JCalendar jcal, Date date, String dateFormatString,
-			IDateEditor dateEditor) {
+	public JDateChooser(JCalendar jcal, Date date, String dateFormatString, IDateEditor dateEditor) {
 		setName("JDateChooser");
 
 		this.dateEditor = dateEditor;
 		if (this.dateEditor == null) {
 			this.dateEditor = new JTextFieldDateEditor();
 		}
+		this.dateEditor.addPropertyChangeListener("date", this);
 
 		if (jcal == null) {
 			jcalendar = new JCalendar(date);
@@ -192,8 +190,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 		setDate(date);
 
 		// Display a calendar button with an icon
-		URL iconURL = getClass().getResource(
-				"/com/toedter/calendar/images/JDateChooserIcon.gif");
+		URL iconURL = getClass().getResource("/com/toedter/calendar/images/JDateChooserIcon.gif");
 		ImageIcon icon = new ImageIcon(iconURL);
 
 		calendarButton = new JButton(icon) {
@@ -220,10 +217,8 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 			public void setVisible(boolean b) {
 				Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
-				if (b
-						|| (!b && dateSelected)
-						|| ((isCanceled != null) && !b && isCanceled
-								.booleanValue())) {
+				if (b || (!b && dateSelected)
+						|| ((isCanceled != null) && !b && isCanceled.booleanValue())) {
 					super.setVisible(b);
 				}
 			}
@@ -239,31 +234,27 @@ public class JDateChooser extends JPanel implements ActionListener,
 		// displayed, and a click outside the popup does not close it.
 
 		// The following code was provided by forum user podiatanapraia:
-		MenuSelectionManager.defaultManager().addChangeListener(
-				new ChangeListener() {
-					boolean hasListened = false;
+		MenuSelectionManager.defaultManager().addChangeListener(new ChangeListener() {
+			boolean hasListened = false;
 
-					public void stateChanged(ChangeEvent e) {
-						if (hasListened) {
-							hasListened = false;
-							return;
-						}
-						if (popup.isVisible()
-								&& JDateChooser.this.jcalendar.monthChooser
-										.getComboBox().hasFocus()) {
-							MenuElement[] me = MenuSelectionManager
-									.defaultManager().getSelectedPath();
-							MenuElement[] newMe = new MenuElement[me.length + 1];
-							newMe[0] = popup;
-							for (int i = 0; i < me.length; i++) {
-								newMe[i + 1] = me[i];
-							}
-							hasListened = true;
-							MenuSelectionManager.defaultManager()
-									.setSelectedPath(newMe);
-						}
+			public void stateChanged(ChangeEvent e) {
+				if (hasListened) {
+					hasListened = false;
+					return;
+				}
+				if (popup.isVisible()
+						&& JDateChooser.this.jcalendar.monthChooser.getComboBox().hasFocus()) {
+					MenuElement[] me = MenuSelectionManager.defaultManager().getSelectedPath();
+					MenuElement[] newMe = new MenuElement[me.length + 1];
+					newMe[0] = popup;
+					for (int i = 0; i < me.length; i++) {
+						newMe[i + 1] = me[i];
 					}
-				});
+					hasListened = true;
+					MenuSelectionManager.defaultManager().setSelectedPath(newMe);
+				}
+			}
+		});
 		// end of code provided by forum user podiatanapraia
 
 		isInitialized = true;
@@ -276,8 +267,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the action event
 	 */
 	public void actionPerformed(ActionEvent e) {
-		int x = calendarButton.getWidth()
-				- (int) popup.getPreferredSize().getWidth();
+		int x = calendarButton.getWidth() - (int) popup.getPreferredSize().getWidth();
 		int y = calendarButton.getY() + calendarButton.getHeight();
 
 		Calendar calendar = Calendar.getInstance();
@@ -305,7 +295,11 @@ public class JDateChooser extends JPanel implements ActionListener,
 				setDate(jcalendar.getCalendar().getTime());
 			}
 		} else if (evt.getPropertyName().equals("date")) {
-			setDate((Date) evt.getNewValue());
+			if (evt.getSource() == dateEditor) {
+				firePropertyChange("date", evt.getOldValue(), evt.getNewValue());
+			} else {
+				setDate((Date) evt.getNewValue());
+			}
 		}
 	}
 
@@ -441,54 +435,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Adds the listener to the date editor's property change listener.
-	 * 
-	 * @param listener
-	 *            the listener
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		dateEditor.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 * Adds the listener for the given property name to the date editor's
-	 * property change listener.
-	 * 
-	 * @param propertyName
-	 *            the property to listen for, e.g. "date"
-	 * @param listener
-	 *            the listener
-	 */
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
-		dateEditor.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 * Removes the listener from the date editor's property change listeners.
-	 * 
-	 * @param listener
-	 *            the listener
-	 */
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		dateEditor.removePropertyChangeListener(listener);
-	}
-
-	/**
-	 * Removes the listener from the date editor's property change listeners for
-	 * the specific property.
-	 * 
-	 * @param propertyName
-	 *            the property to listen for, e.g. "date"
-	 * @param listener
-	 *            the listener
-	 */
-	public void removePropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
-		dateEditor.removePropertyChangeListener(propertyName, listener);
-	}
-
-	/**
 	 * Sets the font of all subcomponents.
 	 * 
 	 * @param font
@@ -543,17 +489,18 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 */
 	public void setSelectableDateRange(Date min, Date max) {
 		jcalendar.setSelectableDateRange(min, max);
-		dateEditor.setSelectableDateRange(jcalendar.getMinSelectableDate(), jcalendar.getMaxSelectableDate());
+		dateEditor.setSelectableDateRange(jcalendar.getMinSelectableDate(), jcalendar
+				.getMaxSelectableDate());
 	}
 
 	public void setMaxSelectableDate(Date max) {
 		jcalendar.setMaxSelectableDate(max);
-		dateEditor.setMaxSelectableDate(max);	
+		dateEditor.setMaxSelectableDate(max);
 	}
 
 	public void setMinSelectableDate(Date min) {
 		jcalendar.setMinSelectableDate(min);
-		dateEditor.setMinSelectableDate(min);	
+		dateEditor.setMinSelectableDate(min);
 	}
 
 	/**
@@ -573,7 +520,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 	public Date getMinSelectableDate() {
 		return jcalendar.getMinSelectableDate();
 	}
-
 
 	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.

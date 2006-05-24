@@ -11,6 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * JSpinnerDateEditor is a date editor based on a JSpinner.
@@ -20,7 +22,7 @@ import javax.swing.UIManager;
  * @version $LastChangedDate$
  */
 public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
-		FocusListener {
+		FocusListener, ChangeListener {
 
 	private static final long serialVersionUID = 5692204052306085316L;
 
@@ -39,6 +41,7 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 		DateUtil dateUtil = new DateUtil();
 		setMinSelectableDate(dateUtil.getMinSelectableDate());
 		setMaxSelectableDate(dateUtil.getMaxSelectableDate());
+		addChangeListener(this);
 	}
 
 	public Date getDate() {
@@ -49,17 +52,23 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 	}
 
 	public void setDate(Date date) {
+		setDate(date, true);
+	}
+	
+	public void setDate(Date date, boolean updateModel) {
+		Date oldDate = this.date;
 		this.date = date;
 		if (date == null) {
 			((JSpinner.DateEditor) getEditor()).getFormat().applyPattern("");
 			((JSpinner.DateEditor) getEditor()).getTextField().setText("");
-		} else {
+		} else if (updateModel) {
 			if (dateFormatString != null) {
 				((JSpinner.DateEditor) getEditor()).getFormat().applyPattern(
 						dateFormatString);
 			}
 			((SpinnerDateModel) getModel()).setValue(date);
 		}
+		firePropertyChange("date", oldDate, date);
 	}
 
 	public void setDateFormatString(String dateFormatString) {
@@ -169,6 +178,13 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 	public void setSelectableDateRange(Date min, Date max) {
 		setMaxSelectableDate(max);
 		setMinSelectableDate(min);
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+	 */
+	public void stateChanged(ChangeEvent e) {
+		System.out.println("JSpinnerDateEditor.stateChanged(): " + e);
 	}
 
 }
