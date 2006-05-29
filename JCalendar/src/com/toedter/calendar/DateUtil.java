@@ -78,6 +78,13 @@ public class DateUtil {
 		}
 	}
 
+	/**
+	 * Sets the maximum selectable date. If null, the date 01\01\9999 will be set instead.
+	 * 
+	 * @param max the maximum selectable date
+	 * 
+	 * @return the maximum selectable date
+	 */
 	public Date setMaxSelectableDate(Date max) {
 		if (max == null) {
 			maxSelectableDate = defaultMaxSelectableDate;
@@ -87,6 +94,13 @@ public class DateUtil {
 		return maxSelectableDate;
 	}
 
+	/**
+	 * Sets the minimum selectable date. If null, the date 01\01\0001 will be set instead.
+	 * 
+	 * @param max the minimum selectable date
+	 * 
+	 * @return the minimum selectable date
+	 */
 	public Date setMinSelectableDate(Date min) {
 		if (min == null) {
 			minSelectableDate = defaultMinSelectableDate;
