@@ -53,7 +53,8 @@ import javax.swing.event.ChangeListener;
  * @version $LastChangedRevision$
  * @version $LastChangedDate$
  */
-public class JDateChooser extends JPanel implements ActionListener, PropertyChangeListener {
+public class JDateChooser extends JPanel implements ActionListener,
+		PropertyChangeListener {
 
 	private static final long serialVersionUID = -4306412745720670722L;
 
@@ -70,6 +71,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	protected boolean dateSelected;
 
 	protected Date lastSelectedDate;
+
+	private ChangeListener changeListener;
 
 	/**
 	 * Creates a new JDateChooser. By default, no date is set and the textfield
@@ -125,7 +128,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the dateEditor to be used used to display the date. if null, a
 	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(Date date, String dateFormatString, IDateEditor dateEditor) {
+	public JDateChooser(Date date, String dateFormatString,
+			IDateEditor dateEditor) {
 		this(null, date, dateFormatString, dateEditor);
 	}
 
@@ -143,8 +147,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the placeholer charachter, e.g. '_'
 	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
-		this(null, null, datePattern, new JTextFieldDateEditor(datePattern, maskPattern,
-				placeholder));
+		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
+				maskPattern, placeholder));
 	}
 
 	/**
@@ -161,7 +165,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the dateEditor to be used used to display the date. if null, a
 	 *            JTextFieldDateEditor is used.
 	 */
-	public JDateChooser(JCalendar jcal, Date date, String dateFormatString, IDateEditor dateEditor) {
+	public JDateChooser(JCalendar jcal, Date date, String dateFormatString,
+			IDateEditor dateEditor) {
 		setName("JDateChooser");
 
 		this.dateEditor = dateEditor;
@@ -190,7 +195,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		setDate(date);
 
 		// Display a calendar button with an icon
-		URL iconURL = getClass().getResource("/com/toedter/calendar/images/JDateChooserIcon.gif");
+		URL iconURL = getClass().getResource(
+				"/com/toedter/calendar/images/JDateChooserIcon.gif");
 		ImageIcon icon = new ImageIcon(iconURL);
 
 		calendarButton = new JButton(icon) {
@@ -217,8 +223,10 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 
 			public void setVisible(boolean b) {
 				Boolean isCanceled = (Boolean) getClientProperty("JPopupMenu.firePopupMenuCanceled");
-				if (b || (!b && dateSelected)
-						|| ((isCanceled != null) && !b && isCanceled.booleanValue())) {
+				if (b
+						|| (!b && dateSelected)
+						|| ((isCanceled != null) && !b && isCanceled
+								.booleanValue())) {
 					super.setVisible(b);
 				}
 			}
@@ -233,8 +241,9 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 		// Corrects a problem that occured when the JMonthChooser's combobox is
 		// displayed, and a click outside the popup does not close it.
 
-		// The following code was provided by forum user podiatanapraia:
-		MenuSelectionManager.defaultManager().addChangeListener(new ChangeListener() {
+		// The following idea was originally provided by forum user
+		// podiatanapraia:
+		changeListener = new ChangeListener() {
 			boolean hasListened = false;
 
 			public void stateChanged(ChangeEvent e) {
@@ -243,18 +252,22 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 					return;
 				}
 				if (popup.isVisible()
-						&& JDateChooser.this.jcalendar.monthChooser.getComboBox().hasFocus()) {
-					MenuElement[] me = MenuSelectionManager.defaultManager().getSelectedPath();
+						&& JDateChooser.this.jcalendar.monthChooser
+								.getComboBox().hasFocus()) {
+					MenuElement[] me = MenuSelectionManager.defaultManager()
+							.getSelectedPath();
 					MenuElement[] newMe = new MenuElement[me.length + 1];
 					newMe[0] = popup;
 					for (int i = 0; i < me.length; i++) {
 						newMe[i + 1] = me[i];
 					}
 					hasListened = true;
-					MenuSelectionManager.defaultManager().setSelectedPath(newMe);
+					MenuSelectionManager.defaultManager()
+							.setSelectedPath(newMe);
 				}
 			}
-		});
+		};
+		MenuSelectionManager.defaultManager().addChangeListener(changeListener);
 		// end of code provided by forum user podiatanapraia
 
 		isInitialized = true;
@@ -267,7 +280,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 *            the action event
 	 */
 	public void actionPerformed(ActionEvent e) {
-		int x = calendarButton.getWidth() - (int) popup.getPreferredSize().getWidth();
+		int x = calendarButton.getWidth()
+				- (int) popup.getPreferredSize().getWidth();
 		int y = calendarButton.getY() + calendarButton.getHeight();
 
 		Calendar calendar = Calendar.getInstance();
@@ -489,8 +503,8 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 */
 	public void setSelectableDateRange(Date min, Date max) {
 		jcalendar.setSelectableDateRange(min, max);
-		dateEditor.setSelectableDateRange(jcalendar.getMinSelectableDate(), jcalendar
-				.getMaxSelectableDate());
+		dateEditor.setSelectableDateRange(jcalendar.getMinSelectableDate(),
+				jcalendar.getMaxSelectableDate());
 	}
 
 	public void setMaxSelectableDate(Date max) {
@@ -519,6 +533,17 @@ public class JDateChooser extends JPanel implements ActionListener, PropertyChan
 	 */
 	public Date getMinSelectableDate() {
 		return jcalendar.getMinSelectableDate();
+	}
+
+	/**
+	 * Should only be invoked if the JDateChooser is not used anymore. Due to popup
+	 * handling it had to register a change listener to the default menu
+	 * selection manager which will be unregistered here. Use this method to
+	 * cleanup possible memory leaks.
+	 */
+	public void cleanup() {
+		MenuSelectionManager.defaultManager().removeChangeListener(changeListener);
+		changeListener = null;
 	}
 
 	/**
