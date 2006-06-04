@@ -496,7 +496,11 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 *            the new month
 	 */
 	public void setMonth(int month) {
+		int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		calendar.set(Calendar.MONTH, month);
+		if(maxDays == day) {
+			day = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		}
 
 		// Since the day does not change,
 		// don't fire a day property change, even if alwaysFireDayProperty is
