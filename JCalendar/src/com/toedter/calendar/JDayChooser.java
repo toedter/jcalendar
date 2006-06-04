@@ -911,22 +911,38 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		drawDays();
 	}
 
-	public void setMaxSelectableDate(Date max) {
+	/**
+	 * Sets the maximum selectable date. If null, the date 01\01\9999 will be set instead.
+	 * 
+	 * @param max the maximum selectable date
+	 * 
+	 * @return the maximum selectable date
+	 */
+	public Date setMaxSelectableDate(Date max) {
 		if (max == null) {
 			maxSelectableDate = defaultMaxSelectableDate;
 		} else {
 			maxSelectableDate = max;
 		}
 		drawDays();
+		return maxSelectableDate;
 	}
 
-	public void setMinSelectableDate(Date min) {
+	/**
+	 * Sets the minimum selectable date. If null, the date 01\01\0001 will be set instead.
+	 * 
+	 * @param max the minimum selectable date
+	 * 
+	 * @return the minimum selectable date
+	 */
+	public Date setMinSelectableDate(Date min) {
 		if (min == null) {
 			minSelectableDate = defaultMinSelectableDate;
 		} else {
 			minSelectableDate = min;
 		}
 		drawDays();
+		return minSelectableDate;
 	}
 
 	/**

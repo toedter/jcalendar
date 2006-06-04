@@ -151,28 +151,28 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 		return (Date) ((SpinnerDateModel) getModel()).getEnd();
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.toedter.calendar.IDateEditor#getMinSelectableDate()
 	 */
 	public Date getMinSelectableDate() {
 		return (Date) ((SpinnerDateModel) getModel()).getStart();
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.toedter.calendar.IDateEditor#setMaxSelectableDate(java.util.Date)
 	 */
 	public void setMaxSelectableDate(Date max) {
 		((SpinnerDateModel) getModel()).setEnd(max);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.toedter.calendar.IDateEditor#setMinSelectableDate(java.util.Date)
 	 */
 	public void setMinSelectableDate(Date min) {
 		((SpinnerDateModel) getModel()).setStart(min);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.toedter.calendar.IDateEditor#setSelectableDateRange(java.util.Date, java.util.Date)
 	 */
 	public void setSelectableDateRange(Date min, Date max) {
@@ -180,11 +180,11 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 		setMinSelectableDate(min);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
 	 */
 	public void stateChanged(ChangeEvent e) {
-		System.out.println("JSpinnerDateEditor.stateChanged(): " + e);
+		setDate(((SpinnerDateModel) getModel()).getDate(), false);
 	}
 
 }

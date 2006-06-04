@@ -360,11 +360,11 @@ public class JMonthChooser extends JPanel implements ItemListener,
 		return hasSpinner;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#setFont(java.awt.Font)
-	 */
+    /**
+     * Sets the font for this component.
+     *
+     * @param font the desired <code>Font</code> for this component
+     */
 	public void setFont(Font font) {
 		if (comboBox != null) {
 			comboBox.setFont(font);
@@ -372,6 +372,11 @@ public class JMonthChooser extends JPanel implements ItemListener,
 		super.setFont(font);
 	}
 
+	/**
+	 * Updates the UI.
+	 * 
+	 * @see javax.swing.JPanel#updateUI()
+	 */
 	public void updateUI() {
 		final JSpinner testSpinner = new JSpinner();
 		if (spinner != null) {

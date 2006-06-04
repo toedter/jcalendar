@@ -1,5 +1,5 @@
 /*
- *  JDateChooserCellEditor.java  - A bean for choosing a date
+ *  JDateChooserCellEditor.java  - A CellEditor for tables, using a JDateChooser
  *  Copyright (C) 2005 Kai Toedter
  *  kai@toedter.com
  *  www.toedter.com
