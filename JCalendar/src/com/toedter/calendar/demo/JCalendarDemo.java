@@ -651,7 +651,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 			JOptionPane
 					.showMessageDialog(
 							demo,
-							"JCalendar Demo\nVersion 1.3.0\n\nKai Toedter\nkai@toedter.com\nwww.toedter.com",
+							"JCalendar Demo\nVersion 1.3.2\n\nKai Toedter\nkai@toedter.com\nwww.toedter.com",
 							"About...", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
