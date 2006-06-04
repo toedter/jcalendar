@@ -931,7 +931,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	/**
 	 * Sets the minimum selectable date. If null, the date 01\01\0001 will be set instead.
 	 * 
-	 * @param max the minimum selectable date
+	 * @param min the minimum selectable date
 	 * 
 	 * @return the minimum selectable date
 	 */
