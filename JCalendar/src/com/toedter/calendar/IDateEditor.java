@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Kai Toedter
+ *  Copyright (C) 2007 Kai Toedter 
  *  kai@toedter.com
  *  www.toedter.com
  *
