@@ -31,21 +31,24 @@ locale property, provide several icons (Color 16x16, Color 32x32, Mono
 16x16 and Mono 32x32) and their own locale property editor. So they can
 easily be used in GUI builders. Also part of the package is a JDateChooser, a bean composed
  of an IDateEditor (for direct date editing) and a button for opening a JCalendar for selecting the date.</p>
-      <font color="#003366"><b>What's new in version 1.3.2</b></font><span
+<font color="#003366"><b>What's new in version 1.3.3</b></font><span
  style="font-weight: bold;"></span><br>
+- Bug fixed when browsing from through last days of months
+<br>
+<br>
+<font color="#003366"><b>History</b></font><br>
+1.3.2:<br>
 - Many bug fixes (thanks to all forum posters)<br>
 - Min/Max selectable dates now in the date editor interface<br>
 - Improvements regarding property change listeners (better null date support)<br>
 - New method "cleanup" in JDateChooser
 <br>
-<br>
-<font color="#003366"><b>History</b></font><br>
-1.3.1<br>
+1.3.1:<br>
 - UI & Look & Feel improvements (especially Windows L&F)<br>
 - JCalendar supports a date range of selectable dates<br>
 - JDayChooser can now limit the number of characters in day Names (e.g. Mo instead of Mon)
 <br>
-1.3.0<br>
+1.3.0:<br>
 - Many bug fixes (thanks to all forum posters)<br>
 - Better handling of null dates in JDateChooser<br>
 - Introduction of the interface IDateEditor<br>
@@ -53,7 +56,7 @@ easily be used in GUI builders. Also part of the package is a JDateChooser, a be
 - JSpinnerDateEditor is an implemantation of IDateEditor based on a JSpinner<br>
 - JDateChooser Table editor (including table demo)<br>
 - Both the zip and the jar files contain the version in the name, e.g. jcalendar-3.1.0.jar<br>
-1.2.2<br>
+1.2.2:<br>
 - Bug in DateChooser.setModel fixed (thanks to Martin Pietruschka)<br>
 - NullPointer exception bug on DateChooser.setDate fixed (thanks to
 Aleksey Gureev and others).<br>
@@ -288,9 +291,7 @@ Version</b></font> <br>
 You can download a zip file, containing all the sources, libs and
 documentation at <a
  href="http://www.toedter.com/download/jcalendar-@VERSION@.zip">www.toedter.com/download/jcalendar-@VERSION@.zip</a>
-(600 KB). Version 1.2.2 is still available at <a
- href="http://www.toedter.com/download/jcalendar-1.2.2.zip">www.toedter.com/download/jcalendar-1.2.2.zip</a>.
-Version 1.1.4 is still available at <a
+(600 KB). Version 1.1.4 is still available at <a
  href="http://www.toedter.com/download/jcalendar-1.1.4.zip">www.toedter.com/download/jcalendar-1.1.4.zip</a>.
 Version 1.1.4 works with J2SDK 1.2 and 1.3, since it does not use
 JSpinner.</p>
