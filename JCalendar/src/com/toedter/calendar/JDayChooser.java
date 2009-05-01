@@ -52,7 +52,8 @@ import javax.swing.UIManager;
  * @version $LastChangedRevision$
  * @version $LastChangedDate$
  */
-public class JDayChooser extends JPanel implements ActionListener, KeyListener, FocusListener {
+public class JDayChooser extends JPanel implements ActionListener, KeyListener,
+		FocusListener {
 	private static final long serialVersionUID = 5876398337018781820L;
 
 	protected JButton[] days;
@@ -156,7 +157,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 						private static final long serialVersionUID = -7433645992591669725L;
 
 						public void paint(Graphics g) {
-							if ("Windows".equals(UIManager.getLookAndFeel().getID())) {
+							if ("Windows".equals(UIManager.getLookAndFeel()
+									.getID())) {
 								// this is a hack to get the background painted
 								// when using Windows Look & Feel
 								if (selectedDay == this) {
@@ -245,7 +247,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 		for (int i = 0; i < 7; i++) {
 			if (maxDayCharacters > 0 && maxDayCharacters < 5) {
 				if (dayNames[day].length() >= maxDayCharacters) {
-					dayNames[day] = dayNames[day].substring(0, maxDayCharacters);
+					dayNames[day] = dayNames[day]
+							.substring(0, maxDayCharacters);
 				}
 			}
 
@@ -358,8 +361,10 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 			days[i + n + 7].setText(Integer.toString(n + 1));
 			days[i + n + 7].setVisible(true);
 
-			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR))
-					&& (tmpCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR))) {
+			if ((tmpCalendar.get(Calendar.DAY_OF_YEAR) == today
+					.get(Calendar.DAY_OF_YEAR))
+					&& (tmpCalendar.get(Calendar.YEAR) == today
+							.get(Calendar.YEAR))) {
 				days[i + n + 7].setForeground(sundayForeground);
 			} else {
 				days[i + n + 7].setForeground(foregroundColor);
@@ -387,7 +392,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 			days[k].setVisible(false);
 			days[k].setText("");
 		}
-		
+
 		drawWeeks();
 	}
 
@@ -496,19 +501,14 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 *            the new month
 	 */
 	public void setMonth(int month) {
-		int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		calendar.set(Calendar.MONTH, month);
-		if(maxDays == day) {
-			day = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		int adjustedDay = day;
+		if (day > maxDays) {
+			adjustedDay = maxDays;
+			setDay(adjustedDay);
 		}
-
-		// Since the day does not change,
-		// don't fire a day property change, even if alwaysFireDayProperty is
-		// true :)
-		boolean storedMode = alwaysFireDayProperty;
-		alwaysFireDayProperty = false;
-		setDay(day);
-		alwaysFireDayProperty = storedMode;
 
 		drawDays();
 	}
@@ -543,7 +543,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 * @param font
 	 *            the new font
 	 */
-	public void setFont(Font font) {		
+	public void setFont(Font font) {
 		if (days != null) {
 			for (int i = 0; i < 49; i++) {
 				days[i].setFont(font);
@@ -627,14 +627,15 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 *            the KeyEvent
 	 */
 	public void keyPressed(KeyEvent e) {
-		int offset = (e.getKeyCode() == KeyEvent.VK_UP) ? (-7)
-				: ((e.getKeyCode() == KeyEvent.VK_DOWN) ? (+7)
-						: ((e.getKeyCode() == KeyEvent.VK_LEFT) ? (-1)
-								: ((e.getKeyCode() == KeyEvent.VK_RIGHT) ? (+1) : 0)));
+		int offset = (e.getKeyCode() == KeyEvent.VK_UP) ? (-7) : ((e
+				.getKeyCode() == KeyEvent.VK_DOWN) ? (+7)
+				: ((e.getKeyCode() == KeyEvent.VK_LEFT) ? (-1) : ((e
+						.getKeyCode() == KeyEvent.VK_RIGHT) ? (+1) : 0)));
 
 		int newDay = getDay() + offset;
 
-		if ((newDay >= 1) && (newDay <= calendar.getMaximum(Calendar.DAY_OF_MONTH))) {
+		if ((newDay >= 1)
+				&& (newDay <= calendar.getMaximum(Calendar.DAY_OF_MONTH))) {
 			setDay(newDay);
 		}
 	}
@@ -818,7 +819,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	 * @param decorationBackgroundVisible
 	 *            true, if the decoration background shall be painted.
 	 */
-	public void setDecorationBackgroundVisible(boolean decorationBackgroundVisible) {
+	public void setDecorationBackgroundVisible(
+			boolean decorationBackgroundVisible) {
 		this.decorationBackgroundVisible = decorationBackgroundVisible;
 		initDecorations();
 	}
@@ -916,9 +918,11 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	}
 
 	/**
-	 * Sets the maximum selectable date. If null, the date 01\01\9999 will be set instead.
+	 * Sets the maximum selectable date. If null, the date 01\01\9999 will be
+	 * set instead.
 	 * 
-	 * @param max the maximum selectable date
+	 * @param max
+	 *            the maximum selectable date
 	 * 
 	 * @return the maximum selectable date
 	 */
@@ -933,9 +937,11 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener, 
 	}
 
 	/**
-	 * Sets the minimum selectable date. If null, the date 01\01\0001 will be set instead.
+	 * Sets the minimum selectable date. If null, the date 01\01\0001 will be
+	 * set instead.
 	 * 
-	 * @param min the minimum selectable date
+	 * @param min
+	 *            the minimum selectable date
 	 * 
 	 * @return the minimum selectable date
 	 */
