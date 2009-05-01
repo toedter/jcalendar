@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!-- ======================================================================= -->
-<!-- ANT-Makefile for JCalendar (C) 2006 Kai Toedter                         -->
+<!-- ANT-Makefile for JCalendar (C) 2009 Kai Toedter                         -->
 <!-- ======================================================================= -->
 
 <project name="JCalendar" default="main" basedir="..">
@@ -10,9 +10,9 @@
 	<!-- PROPERTIES                                                            -->
 	<!-- ===================================================================== -->
 
-	<property name="version" value="1.3.2" />
-	<property name="modified" value="06/04/06" />
-	<property name="copyright.year" value="1999 - 2006" />
+	<property name="version" value="1.3.3" />
+	<property name="modified" value="05/01/09" />
+	<property name="copyright.year" value="1999 - 2009" />
 
 	<property name="name" value="jcalendar" />
 	<property name="Name" value="JCalendar" />
