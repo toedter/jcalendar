@@ -131,3 +131,4 @@ JCalendar/test-junit3/com/toedter/components/JSpinFieldTest.java -text
 JCalendar/test-junit4/com/toedter/calendar/AllTests.java -text
 JCalendar/test-junit4/com/toedter/calendar/JCalendarTest.java -text
 JCalendar/test-junit4/com/toedter/calendar/JDateChooserTest.java -text
+JCalendar/test-junit4/com/toedter/calendar/JDayChooserTest.java -text
