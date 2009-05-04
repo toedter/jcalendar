@@ -1,6 +1,6 @@
 /*
  *  DemoTable.java  - A table to demo JDateChooser cell editors.
-  *  Copyright (C) 2006 Kai Toedter
+ *  Copyright (C) 2006 Kai Toedter
  *  kai@toedter.com
  *  www.toedter.com
  *
@@ -50,7 +50,7 @@ public class DemoTable extends JPanel {
 		JTable table = new JTable(new DemoTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(180, 32));
 		table.setDefaultEditor(Date.class, new JDateChooserCellEditor());
-		
+
 		// Create the scroll pane and add the table to it.
 		JScrollPane scrollPane = new JScrollPane(table);
 
@@ -61,12 +61,10 @@ public class DemoTable extends JPanel {
 	class DemoTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 3283465559187131559L;
 
-		private String[] columnNames = { "Empty Date", "Date set" };
+		private final String[] columnNames = { "Empty Date", "Date set" };
 
-		private Object[][] data = { 
-				{ null, new Date() },
-				{ null, new Date() }
-	    };
+		private final Object[][] data = { { null, new Date() },
+				{ null, new Date() } };
 
 		public int getColumnCount() {
 			return columnNames.length;
@@ -76,6 +74,7 @@ public class DemoTable extends JPanel {
 			return data.length;
 		}
 
+		@Override
 		public String getColumnName(int col) {
 			return columnNames[col];
 		}
@@ -89,6 +88,8 @@ public class DemoTable extends JPanel {
 		 * each cell. If we didn't implement this method, then the last column
 		 * would contain text ("true"/"false"), rather than a check box.
 		 */
+		@Override
+		@SuppressWarnings("unchecked")
 		public Class getColumnClass(int c) {
 			return getValueAt(0, 1).getClass();
 		}
@@ -96,14 +97,16 @@ public class DemoTable extends JPanel {
 		/*
 		 * Don't need to implement this method unless your table's editable.
 		 */
+		@Override
 		public boolean isCellEditable(int row, int col) {
-				return true;
+			return true;
 		}
 
 		/*
 		 * Don't need to implement this method unless your table's data can
 		 * change.
 		 */
+		@Override
 		public void setValueAt(Object value, int row, int col) {
 			data[row][col] = value;
 			fireTableCellUpdated(row, col);
