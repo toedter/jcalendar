@@ -26,7 +26,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses( { JCalendarTest.class, JDateChooserTest.class })
+@SuiteClasses( { JCalendarTest.class, JDateChooserTest.class, JDayChooserTest.class })
 public class AllTests {
 	public static Test suite() {
 		return new JUnit4TestAdapter(AllTests.class);
