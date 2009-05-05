@@ -12,13 +12,11 @@
 
 	<property name="version" value="1.3.4" />
 	<property name="modified" value="05/01/09" />
-    <property name="copyright.year" value="1999 - 2009" />
-    <property name="looks.jar" value="looks-2.2.1.jar" />
+	<property name="copyright.year" value="1999 - 2009" />
+	<property name="looks.jar" value="looks-2.2.1.jar" />
 
 	<property name="name" value="jcalendar" />
 	<property name="Name" value="JCalendar" />
-
-	<property name="classpath" value="" />
 
 	<property name="jcalendar.home" value=".." />
 
@@ -30,15 +28,18 @@
 	<property name="lib.dir" value="lib" />
 	<property name="src.dir" value="src" />
 
+	<property name="src.tests" value="test-junit4" />
+	<property name="reports.tests" value="test-reports" />
+	<property name="junit.jar" value="junit-4.6.jar" />
+
 	<!-- ===================================================================== -->
 	<!-- COMPILER: classic (JDK 1.1 & 1.2), modern or jikes                    -->
 	<!-- ===================================================================== -->
 	<property name="build.compiler" value="modern" />
 
 	<property name="manifest" value="src/jcalendar.manifest" />
-	<property name="packages"
-	          value="com.toedter.calendar.*,com.toedter.components.*, com.toedter.calendar.demo.*"
-	/>
+	<property name="packages" value="com.toedter.calendar.*,com.toedter.components.*, com.toedter.calendar.demo.*" />
+
 
 	<!-- ===================================================================== -->
 	<!-- MAIN                                                                  -->
@@ -68,14 +69,7 @@
 				</patternset>
 			</fileset>
 		</copy>
-		<javac srcdir="${src.dir}"
-		       destdir="${build.dir}"
-		       classpath="${classpath};lib/${looks.jar}"
-		       debug="off"
-		       deprecation="on"
-		       optimize="on"
-		       source="1.4"
-		/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpath="lib/${looks.jar}" debug="off" deprecation="on" optimize="on" source="1.4" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -84,12 +78,7 @@
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${lib.dir}" />
-		<jar jarfile="${lib.dir}/jcalendar-${version}.jar"
-		     compress="no"
-		     basedir="${build.dir}"
-		     includes="com/**"
-		     manifest="${manifest}"
-		/>
+		<jar jarfile="${lib.dir}/jcalendar-${version}.jar" compress="no" basedir="${build.dir}" includes="com/**" manifest="${manifest}" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -98,23 +87,14 @@
 
 	<target name="javadocs" depends="prepare">
 		<mkdir dir="${javadoc.dir}" />
-		<javadoc packagenames="${packages}"
-		         sourcepath="${basedir}/${src.dir}"
-		         classpath=".;lib/${looks.jar}"
-		         destdir="${javadoc.dir}"
-		         author="true"
-		         version="true"
-		         windowtitle="${Name} API"
-		         doctitle="${Name}"
-		         bottom="Copyright &#169; ${copyright.year} Kai Toedter."
-		/>
+		<javadoc packagenames="${packages}" sourcepath="${basedir}/${src.dir}" classpath=".;lib/${looks.jar}" destdir="${javadoc.dir}" author="true" version="true" windowtitle="${Name} API" doctitle="${Name}" bottom="Copyright &#169; ${copyright.year} Kai Toedter." />
 	</target>
 
 	<!-- ===================================================================== -->
 	<!-- DISTRIBUTION                                                          -->
 	<!-- ===================================================================== -->
 
-	<target name="dist" depends="jar, javadocs">
+	<target name="dist" depends="jar, javadocs,runTests">
 		<filter token="VERSION" value="${version}" />
 		<filter token="MODIFIED" value="${modified}" />
 		<filter token="COPYRIGHTYEAR" value="${copyright.year}" />
@@ -133,37 +113,25 @@
 			<fileset dir="${lib.dir}" />
 		</copy>
 		<copy todir="${dist.dir}/${bin.dir}" filtering="yes">
-			<fileset dir="${bin.dir}" />		
+			<fileset dir="${bin.dir}" />
 		</copy>
 		<copy todir="${dist.dir}/${javadoc.dir}">
 			<fileset dir="${javadoc.dir}" />
 		</copy>
 		<copy todir="${dist.dir}/${doc.dir}/images">
-			<fileset dir="${doc.dir}/images"  />
+			<fileset dir="${doc.dir}/images" />
 		</copy>
 
 		<copy todir="${dist.dir}" filtering="yes">
 			<fileset dir="${basedir}">
-				  <include name="**/*.txt"/>
-				  <exclude name="**/license.txt"/>
+				<include name="**/*.txt" />
+				<exclude name="**/license.txt" />
 			</fileset>
 		</copy>
-		<copy file="${doc.dir}/license.html"
-		      todir="${dist.dir}/${doc.dir}/"
-		      filtering="no"
-		/>
-		<copy file="${doc.dir}/index.html"
-		      todir="${dist.dir}/${doc.dir}/"
-		      filtering="yes"
-		/>
-		<copy file="${doc.dir}/demo.html"
-		      todir="${dist.dir}/${doc.dir}/"
-		      filtering="yes"
-		/>
-		<copy file="${doc.dir}/style.css"
-		      todir="${dist.dir}/${doc.dir}/"
-		      filtering="no"
-		/>
+		<copy file="${doc.dir}/license.html" todir="${dist.dir}/${doc.dir}/" filtering="no" />
+		<copy file="${doc.dir}/index.html" todir="${dist.dir}/${doc.dir}/" filtering="yes" />
+		<copy file="${doc.dir}/demo.html" todir="${dist.dir}/${doc.dir}/" filtering="yes" />
+		<copy file="${doc.dir}/style.css" todir="${dist.dir}/${doc.dir}/" filtering="no" />
 
 		<!-- create a zip file -->
 		<zip zipfile="jcalendar-${version}.zip">
@@ -179,11 +147,48 @@
 
 	<target name="runDemo" depends="jar">
 		<echo message="Running JCalendar demo ..." />
-		<java classpath="lib/jcalendar.jar;lib/${looks.jar}"
-		      classname="com.toedter.calendar.demo.JCalendarDemo"
-		      fork="yes"
-		>
+		<java classpath="lib/jcalendar-${version}.jar;lib/${looks.jar}" classname="com.toedter.calendar.demo.JCalendarDemo" fork="yes">
 		</java>
+	</target>
+
+
+	<!-- =================================================================== -->
+	<!-- Run Tests                                                          -->
+	<!-- =================================================================== -->
+
+	<target name="runTests" depends="compile">
+		<echo message="Running JCalendar JUnit tests ..." />
+
+		<javac srcdir="${src.tests}" destdir="${build.dir}" classpath="${build.dir};lib/${junit.jar};lib/${looks.jar}" debug="off" deprecation="on" optimize="on" source="1.5" />
+
+        <delete dir="${reports.tests}" />
+		<mkdir dir="${reports.tests}/xml" />
+		
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="lib/${junit.jar}" />
+				<pathelement location="${build.dir}" />
+				<pathelement location="${src.tests}" />
+				<pathelement path="${java.class.path}" />
+			</classpath>
+
+			<batchtest fork="yes" todir="${reports.tests}/xml">
+				<formatter type="xml" />
+				<fileset dir="${src.tests}">
+					<include name="**/*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<junitreport todir="${reports.tests}">
+			<fileset dir="${reports.tests}/xml">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.tests}" />
+		</junitreport>
+
+
 	</target>
 
 	<!-- =================================================================== -->
@@ -192,7 +197,7 @@
 
 	<target name="clean">
 		<delete>
-		    <fileset dir="${lib.dir}" includes="jcalendar*"/>
+			<fileset dir="${lib.dir}" includes="jcalendar*" />
 		</delete>
 		<delete dir="${build.dir}" />
 		<delete dir="${dist.dir}" />
