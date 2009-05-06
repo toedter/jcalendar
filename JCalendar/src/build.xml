@@ -95,6 +95,8 @@
 	<!-- ===================================================================== -->
 
 	<target name="dist" depends="jar, javadocs,runTests">
+		<echo message="Running JCalendar integration distribution veryion  ${version}, modification date ${modified}" />
+
 		<filter token="VERSION" value="${version}" />
 		<filter token="MODIFIED" value="${modified}" />
 		<filter token="COPYRIGHTYEAR" value="${copyright.year}" />
@@ -142,6 +144,23 @@
 	</target>
 
 	<!-- =================================================================== -->
+	<!-- Non Release Distribution                                   -->
+	<!-- =================================================================== -->
+
+	<target name="integrationDist">
+		<tstamp />
+		<tstamp>
+		    <format property="today" pattern="MM/dd/yyyy" locale="en,US"/>
+		</tstamp>
+
+		<antcall target="dist">
+			<param name="version" value="${version}.v${DSTAMP}${TSTAMP}" />
+			<param name="modified" value="${today}" />
+		</antcall>
+	</target>
+
+
+	<!-- =================================================================== -->
 	<!-- Run Demo                                                            -->
 	<!-- =================================================================== -->
 
@@ -161,9 +180,9 @@
 
 		<javac srcdir="${src.tests}" destdir="${build.dir}" classpath="${build.dir};lib/${junit.jar};lib/${looks.jar}" debug="off" deprecation="on" optimize="on" source="1.5" />
 
-        <delete dir="${reports.tests}" />
+		<delete dir="${reports.tests}" />
 		<mkdir dir="${reports.tests}/xml" />
-		
+
 		<junit printsummary="yes" haltonfailure="yes">
 			<classpath>
 				<pathelement location="lib/${junit.jar}" />
