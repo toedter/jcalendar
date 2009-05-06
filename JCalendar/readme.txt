@@ -31,11 +31,11 @@ They are listed and descibed below:
 
   bin\             contains a launch script for the JCalendar
                    demo application for Windows XP/2000/NT/98.
-  lib\             contains the software binaries (jar files)
-                   for JCalendar and the Kunststoff Look & Feel.
+  lib\             contains the software binaries (jar files) for
+                   JCalendar, JUnit and the JGoodies Looks Look & Feel.
   doc              contains HTML documentation (start with index.html).
   doc\api          contains JavaDoc documentation.
-  src\             contains all the sources to make a distribution.
+  src\             contains all the sources to create a distribution.
                
 
 =======================================================================
