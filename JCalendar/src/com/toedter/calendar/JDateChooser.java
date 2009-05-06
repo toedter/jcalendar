@@ -35,6 +35,7 @@ import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -546,6 +547,15 @@ public class JDateChooser extends JPanel implements ActionListener,
 		changeListener = null;
 	}
 
+	@Override
+	public boolean requestFocusInWindow() {
+		if (dateEditor instanceof JComponent) {
+			return ((JComponent) dateEditor).requestFocusInWindow();
+		}
+		return super.requestFocusInWindow();
+	}
+
+
 	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.
 	 * 
@@ -572,6 +582,8 @@ public class JDateChooser extends JPanel implements ActionListener,
 		frame.getContentPane().add(dateChooser);
 		frame.pack();
 		frame.setVisible(true);
+		
+		dateChooser.requestFocusInWindow();
 	}
 
 }
