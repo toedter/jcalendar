@@ -19,6 +19,7 @@ UPDATES
 JCalendar is updated from time to time.
 Check the web site to stay informed about the updates:
   http://www.toedter.com
+  http://max-server.myftp.org/trac/jcalendar
 
 =======================================================================
 CONTENTS
