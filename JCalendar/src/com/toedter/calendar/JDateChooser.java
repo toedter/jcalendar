@@ -45,7 +45,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * A date chooser containig a date editor and a button, that makes a JCalendar
+ * A date chooser containing a date editor and a button, that makes a JCalendar
  * visible for choosing a date. If no date editor is specified, a
  * JTextFieldDateEditor is used as default.
  * 
@@ -144,7 +144,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 * @param maskPattern
 	 *            the mask pattern, e.g. "##/##/##"
 	 * @param placeholder
-	 *            the placeholer charachter, e.g. '_'
+	 *            the place holder character, e.g. '_'
 	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
 		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
@@ -238,7 +238,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 		lastSelectedDate = date;
 
-		// Corrects a problem that occured when the JMonthChooser's combobox is
+		// Corrects a problem that occurred when the JMonthChooser's combobox is
 		// displayed, and a click outside the popup does not close it.
 
 		// The following idea was originally provided by forum user
@@ -274,7 +274,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Called when the jalendar button was pressed.
+	 * Called when the calendar button was pressed.
 	 * 
 	 * @param e
 	 *            the action event
