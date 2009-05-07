@@ -31,6 +31,7 @@
 	<property name="src.tests" value="test-junit4" />
 	<property name="reports.tests" value="test-reports" />
 	<property name="junit.jar" value="junit-4.6.jar" />
+	<property name="web.dir" value="d:/Apache2.2/htdocs/jcalendar/ibuild" />
 
 	<!-- ===================================================================== -->
 	<!-- COMPILER: classic (JDK 1.1 & 1.2), modern or jikes                    -->
@@ -158,6 +159,12 @@
 			<param name="version" value="${version}.v${DSTAMP}${TSTAMP}" />
 			<param name="modified" value="${today}" />
 		</antcall>
+		
+		<copy todir="${web.dir}/${dist.dir}">
+			<fileset dir="${dist.dir}" />
+		</copy>
+		<copy file="jcalendar-${version}.zip" todir="${web.dir}" filtering="no" />
+
 	</target>
 
 
