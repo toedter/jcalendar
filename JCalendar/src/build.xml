@@ -160,6 +160,8 @@
 			<param name="modified" value="${today}" />
 		</antcall>
 		
+		<delete dir="${web.dir}" />
+		<mkdir dir="${web.dir}" />
 		<copy todir="${web.dir}/${dist.dir}">
 			<fileset dir="${dist.dir}" />
 		</copy>
