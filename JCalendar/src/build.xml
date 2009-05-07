@@ -165,7 +165,7 @@
 		<copy todir="${web.dir}/${dist.dir}">
 			<fileset dir="${dist.dir}" />
 		</copy>
-		<copy file="jcalendar-${version}.zip" todir="${web.dir}" filtering="no" />
+		<copy file="jcalendar-${version}.v${DSTAMP}${TSTAMP}.zip" todir="${web.dir}" filtering="no" />
 
 	</target>
 
