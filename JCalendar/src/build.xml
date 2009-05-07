@@ -100,6 +100,7 @@
 		<filter token="VERSION" value="${version}" />
 		<filter token="MODIFIED" value="${modified}" />
 		<filter token="COPYRIGHTYEAR" value="${copyright.year}" />
+		<filter token="LOOKS" value="${looks.jar}" />
 
 		<delete dir="${dist.dir}" />
 		<mkdir dir="${dist.dir}" />
