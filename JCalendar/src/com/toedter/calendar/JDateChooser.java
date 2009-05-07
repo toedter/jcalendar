@@ -547,7 +547,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 		changeListener = null;
 	}
 
-	@Override
 	public boolean requestFocusInWindow() {
 		if (dateEditor instanceof JComponent) {
 			return ((JComponent) dateEditor).requestFocusInWindow();
