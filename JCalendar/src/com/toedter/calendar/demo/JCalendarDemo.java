@@ -129,7 +129,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		splitPane.setDividerSize(4);
-		splitPane.setDividerLocation(200);
+		splitPane.setDividerLocation(225);
 
 		BasicSplitPaneDivider divider = ((BasicSplitPaneUI) splitPane.getUI())
 				.getDivider();
@@ -718,7 +718,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 			JOptionPane
 					.showMessageDialog(
 							demo,
-							"JCalendar Demo\nVersion 1.3.2\n\nKai Toedter\nkai@toedter.com\nwww.toedter.com",
+							"JCalendar Demo\nVersion 1.3.4\n\nKai Toedter\nkai@toedter.com\nwww.toedter.com",
 							"About...", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
