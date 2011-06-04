@@ -504,10 +504,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 		calendar.set(Calendar.MONTH, month);
 		int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		
-		int adjustedDay = day;
 		if (day > maxDays) {
-			adjustedDay = maxDays;
-			setDay(adjustedDay);
+			day = maxDays;
 		}
 
 		drawDays();
