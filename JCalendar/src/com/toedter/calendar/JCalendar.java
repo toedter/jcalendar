@@ -61,7 +61,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 
 	private JPanel monthYearPanel;
 
-	/** the year chhoser */
+	/** the year chooser */
 	protected JYearChooser yearChooser;
 
 	protected Date minSelectableDate;
@@ -175,13 +175,13 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		yearChooser = null;
 		this.weekOfYearVisible = weekOfYearVisible;
 
-		this.locale = locale;
-
 		if (locale == null) {
 			this.locale = Locale.getDefault();
+		} else {			
+			this.locale = locale;
 		}
 
-		calendar = Calendar.getInstance();
+		calendar = Calendar.getInstance(this.locale);
 
 		setLayout(new BorderLayout());
 
