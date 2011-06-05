@@ -65,7 +65,7 @@ public interface IDateEditor {
 	public void setDateFormatString(String dateFormatString);
 
 	/**
-	 * Returns tha date format string.
+	 * Returns the date format string.
 	 * 
 	 * @return the date format string
 	 */

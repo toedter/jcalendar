@@ -537,13 +537,14 @@ public class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	/**
-	 * Should only be invoked if the JDateChooser is not used anymore. Due to popup
-	 * handling it had to register a change listener to the default menu
+	 * Should only be invoked if the JDateChooser is not used anymore. Due to
+	 * popup handling it had to register a change listener to the default menu
 	 * selection manager which will be unregistered here. Use this method to
 	 * cleanup possible memory leaks.
 	 */
 	public void cleanup() {
-		MenuSelectionManager.defaultManager().removeChangeListener(changeListener);
+		MenuSelectionManager.defaultManager().removeChangeListener(
+				changeListener);
 		changeListener = null;
 	}
 
@@ -553,7 +554,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 		}
 		return super.requestFocusInWindow();
 	}
-
 
 	/**
 	 * Creates a JFrame with a JDateChooser inside and can be used for testing.
@@ -581,7 +581,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 		frame.getContentPane().add(dateChooser);
 		frame.pack();
 		frame.setVisible(true);
-		
+
 		dateChooser.requestFocusInWindow();
 	}
 
