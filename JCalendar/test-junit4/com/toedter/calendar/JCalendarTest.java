@@ -26,6 +26,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import junit.framework.JUnit4TestAdapter;
 
@@ -138,6 +139,16 @@ public class JCalendarTest {
 		assertFalse("Listener was called", listener.called);
 	}
 
+	@Test
+	public void testLocale() {
+		Locale testLocale = Locale.ENGLISH;
+		jCalendar = new JCalendar(testLocale);
+		Locale monthChooserLocale = jCalendar.getMonthChooser().getLocale();
+		assertEquals(testLocale, monthChooserLocale);
+		Locale dayChooserLocale = jCalendar.getDayChooser().getLocale();
+		assertEquals(testLocale, dayChooserLocale);		
+	}
+	
 	public static void main(String... args) {
 		junit.textui.TestRunner.run(suite());
 	}

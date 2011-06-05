@@ -191,12 +191,15 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		monthChooser = new JMonthChooser(monthSpinner);
 		yearChooser = new JYearChooser();
 		monthChooser.setYearChooser(yearChooser);
+		monthChooser.setLocale(this.locale);
 		monthYearPanel.add(monthChooser, BorderLayout.WEST);
 		monthYearPanel.add(yearChooser, BorderLayout.CENTER);
 		monthYearPanel.setBorder(BorderFactory.createEmptyBorder());
 
 		dayChooser = new JDayChooser(weekOfYearVisible);
 		dayChooser.addPropertyChangeListener(this);
+		dayChooser.setLocale(this.locale);
+		
 		monthChooser.setDayChooser(dayChooser);
 		monthChooser.addPropertyChangeListener(this);
 		yearChooser.setDayChooser(dayChooser);
