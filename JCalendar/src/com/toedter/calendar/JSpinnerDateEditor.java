@@ -107,6 +107,7 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 		super.setLocale(locale);
 		dateFormatter = (SimpleDateFormat) DateFormat.getDateInstance(
 				DateFormat.MEDIUM, locale);
+		setEditor(new JSpinner.DateEditor(this, dateFormatter.toPattern()));
 		setDateFormatString(dateFormatter.toPattern());
 	}
 
