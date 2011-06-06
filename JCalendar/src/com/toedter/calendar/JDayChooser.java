@@ -33,12 +33,11 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-
 import java.text.DateFormatSymbols;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -110,7 +109,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 
 	protected int maxDayCharacters;
 
-	protected List<IDateEvaluator> dateEvaluators;
+	protected List dateEvaluators;
 
 	/**
 	 * Default JDayChooser constructor.
@@ -129,7 +128,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 		setName("JDayChooser");
 		setBackground(Color.blue);
 
-		dateEvaluators = new ArrayList<IDateEvaluator>(1);
+		dateEvaluators = new ArrayList(1);
 
 		this.weekOfYearVisible = weekOfYearVisible;
 		locale = Locale.getDefault();
@@ -391,7 +390,9 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 				days[i + n + 7].setEnabled(true);
 			}
 
-			for (IDateEvaluator dateEvaluator : dateEvaluators) {
+			Iterator iterator = dateEvaluators.iterator(); 
+			while (iterator.hasNext()) {
+				IDateEvaluator dateEvaluator = (IDateEvaluator) iterator.next();
 				if (dateEvaluator.isSpecial(day)) {
 					days[i + n + 7].setForeground(dateEvaluator
 							.getSpecialForegroundColor());
