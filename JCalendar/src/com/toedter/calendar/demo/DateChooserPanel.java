@@ -58,13 +58,16 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 
 		components = new JComponent[5];
 		components[0] = new JDateChooser();
+		((JDateChooser)components[0]).getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
+		((JDateChooser)components[0]).getJCalendar().getDayChooser().addDateEvaluator(new TestDateEvaluator());
+
 		components[1] = new JDateChooser(new Date());
 		components[2] = new JDateChooser(null, null, null,
 				new JSpinnerDateEditor());
 		components[3] = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
 		components[4] = new DemoTable();
 
-		addEntry("Default", components[0], gridbag);
+		addEntry("Default (with date evaluation)", components[0], gridbag);
 		addEntry("Default with date set", components[1], gridbag);
 		addEntry("Spinner Editor", components[2], gridbag);
 		addEntry("Explicite date pattern and mask", components[3], gridbag);

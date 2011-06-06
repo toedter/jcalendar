@@ -568,7 +568,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 
 								JDateChooser dateChooser = new JDateChooser(
 										date);
-
+								
 								dateChooser
 										.addPropertyChangeListener(new PropertyChangeListener() {
 											public void propertyChange(

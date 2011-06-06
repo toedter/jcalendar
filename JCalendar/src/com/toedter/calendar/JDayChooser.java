@@ -36,8 +36,10 @@ import java.awt.event.MouseListener;
 
 import java.text.DateFormatSymbols;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.JButton;
@@ -108,6 +110,8 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 
 	protected int maxDayCharacters;
 
+	protected List<IDateEvaluator> dateEvaluators;
+
 	/**
 	 * Default JDayChooser constructor.
 	 */
@@ -124,6 +128,9 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	public JDayChooser(boolean weekOfYearVisible) {
 		setName("JDayChooser");
 		setBackground(Color.blue);
+
+		dateEvaluators = new ArrayList<IDateEvaluator>(1);
+
 		this.weekOfYearVisible = weekOfYearVisible;
 		locale = Locale.getDefault();
 		days = new JButton[49];
@@ -214,12 +221,13 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 		if (weekOfYearVisible) {
 			add(weekPanel, BorderLayout.WEST);
 		}
+
 		initialized = true;
 		updateUI();
 	}
 
 	/**
-	 * Initilizes the locale specific names for the days of the week.
+	 * Initializes the locale specific names for the days of the week.
 	 */
 	protected void init() {
 		JButton testButton = new JButton();
@@ -383,6 +391,25 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 				days[i + n + 7].setEnabled(true);
 			}
 
+			for (IDateEvaluator dateEvaluator : dateEvaluators) {
+				if (dateEvaluator.isSpecial(day)) {
+					days[i + n + 7].setForeground(dateEvaluator
+							.getSpecialForegroundColor());
+					days[i + n + 7].setBackground(dateEvaluator
+							.getSpecialBackroundColor());
+					days[i + n + 7].setToolTipText(dateEvaluator.getSpecialTooltip());
+					days[i + n + 7].setEnabled(true);
+				} 
+				if (dateEvaluator.isInvalid(day)){
+					days[i + n + 7].setForeground(dateEvaluator
+							.getInvalidForegroundColor());
+					days[i + n + 7].setBackground(dateEvaluator
+							.getInvalidBackroundColor());
+					days[i + n + 7].setToolTipText(dateEvaluator.getInvalidTooltip());
+					days[i + n + 7].setEnabled(false);
+				}
+			}
+
 			n++;
 			tmpCalendar.add(Calendar.DATE, 1);
 			day = tmpCalendar.getTime();
@@ -503,7 +530,7 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 	public void setMonth(int month) {
 		calendar.set(Calendar.MONTH, month);
 		int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
+
 		if (day > maxDays) {
 			day = maxDays;
 		}
@@ -1053,4 +1080,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 			super.paint(g);
 		}
 	};
+
+	public void addDateEvaluator(IDateEvaluator dateEvaluator) {
+		dateEvaluators.add(dateEvaluator);
+	}
+
+	public void removeDateEvaluator(IDateEvaluator dateEvaluator) {
+		dateEvaluators.remove(dateEvaluator);
+	}
 }
