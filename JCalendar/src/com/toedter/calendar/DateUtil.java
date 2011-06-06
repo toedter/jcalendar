@@ -157,7 +157,7 @@ public class DateUtil {
 		maxCal.set(Calendar.MINUTE, 0);
 		maxCal.set(Calendar.SECOND, 0);
 		maxCal.set(Calendar.MILLISECOND, 0);
-
+		
 		return !(calendar.before(minCal) || calendar.after(maxCal));
 	}
 

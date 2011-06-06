@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
@@ -41,6 +42,7 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 		DateUtil dateUtil = new DateUtil();
 		setMinSelectableDate(dateUtil.getMinSelectableDate());
 		setMaxSelectableDate(dateUtil.getMaxSelectableDate());
+		((JSpinner.DateEditor)getEditor()).getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 		addChangeListener(this);
 	}
 
