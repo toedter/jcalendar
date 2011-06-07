@@ -307,7 +307,11 @@ public class JDateChooser extends JPanel implements ActionListener,
 			if (popup.isVisible()) {
 				dateSelected = true;
 				popup.setVisible(false);
-				setDate(jcalendar.getCalendar().getTime());
+				if ((Integer)evt.getNewValue() > 0) {
+					setDate(jcalendar.getCalendar().getTime());
+				} else {
+					setDate(null);
+				}
 			}
 		} else if (evt.getPropertyName().equals("date")) {
 			if (evt.getSource() == dateEditor) {

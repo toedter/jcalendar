@@ -24,6 +24,9 @@ package com.toedter.calendar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Calendar;
@@ -31,6 +34,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -61,12 +65,10 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 
 	private JPanel monthYearPanel;
 
+	private JPanel specialButtonPanel;
+
 	/** the year chooser */
 	protected JYearChooser yearChooser;
-
-	protected Date minSelectableDate;
-
-	protected Date maxSelectableDate;
 
 	/**
 	 * Default JCalendar constructor.
@@ -206,6 +208,26 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		yearChooser.addPropertyChangeListener(this);
 		add(monthYearPanel, BorderLayout.NORTH);
 		add(dayChooser, BorderLayout.CENTER);
+
+		specialButtonPanel = new JPanel();
+		specialButtonPanel.setLayout(new GridLayout(1,2));
+		JButton todayButton = new JButton("Today");
+		todayButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				setDate(new Date());
+			}
+		});
+		specialButtonPanel.add(todayButton);
+		JButton nullDateButton = new JButton("Null Date");
+		nullDateButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				dayChooser.firePropertyChange("day", 0, -1);
+			}
+		});
+		specialButtonPanel.add(nullDateButton);
+		// add(specialButtonPanel, BorderLayout.SOUTH);
 
 		// Set the initialized flag before setting the calendar. This will
 		// cause the other components to be updated properly.
@@ -570,7 +592,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	 * @param date
 	 *            the new date.
 	 * @throws NullPointerException -
-	 *             if tha date is null
+	 *             if the date is null
 	 */
 	public void setDate(Date date) {
 		Date oldDate = calendar.getTime();
