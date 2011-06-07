@@ -19,7 +19,7 @@ UPDATES
 JCalendar is updated from time to time.
 Check the web site to stay informed about the updates:
   http://www.toedter.com
-  http://max-server.myftp.org/trac/jcalendar
+  https://max-server.myftp.org/trac/jcalendar
 
 =======================================================================
 CONTENTS
@@ -28,10 +28,10 @@ At the top level you find this file and a text version of the LGPL
 license. Please read the file "index.html" in the doc directory.
 
 This distribution contains several sub-directories.
-They are listed and descibed below:
+They are listed and described below:
 
   bin\             contains a launch script for the JCalendar
-                   demo application for Windows XP/2000/NT/98.
+                   demo application for Windows 7/Vista/XP/2000/NT/98.
   lib\             contains the software binaries (jar files) for
                    JCalendar, JUnit and the JGoodies Looks Look & Feel.
   doc              contains HTML documentation (start with index.html).
