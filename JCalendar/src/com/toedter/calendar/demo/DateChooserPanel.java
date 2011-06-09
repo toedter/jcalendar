@@ -56,22 +56,25 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 
 		setLayout(gridbag);
 
-		components = new JComponent[5];
+		components = new JComponent[6];
 		components[0] = new JDateChooser();
-		((JDateChooser)components[0]).getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
-		((JDateChooser)components[0]).getJCalendar().getDayChooser().addDateEvaluator(new TestDateEvaluator());
+		components[1] = new JDateChooser();
+		((JDateChooser)components[1]).getJCalendar().getDayChooser().addDateEvaluator(new BirthdayEvaluator());
+		((JDateChooser)components[1]).getJCalendar().getDayChooser().addDateEvaluator(new TestDateEvaluator());
+		((JDateChooser)components[1]).getJCalendar().setTodayButtonVisible(true);
 
-		components[1] = new JDateChooser(new Date());
-		components[2] = new JDateChooser(null, null, null,
+		components[2] = new JDateChooser(new Date());
+		components[3] = new JDateChooser(null, null, null,
 				new JSpinnerDateEditor());
-		components[3] = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
-		components[4] = new DemoTable();
+		components[4] = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
+		components[5] = new DemoTable();
 
-		addEntry("Default (with date evaluation)", components[0], gridbag);
-		addEntry("Default with date set", components[1], gridbag);
-		addEntry("Spinner Editor", components[2], gridbag);
-		addEntry("Explicite date pattern and mask", components[3], gridbag);
-		addEntry("Table with date editors", components[4], gridbag);
+		addEntry("Default", components[0], gridbag);
+		addEntry("Default (with addons)", components[1], gridbag);
+		addEntry("Default with date set", components[2], gridbag);
+		addEntry("Spinner Editor", components[3], gridbag);
+		addEntry("Explicite date pattern and mask", components[4], gridbag);
+		addEntry("Table with date editors", components[5], gridbag);
 	}
 
 	private void addEntry(String text, JComponent component, GridBagLayout grid) {
