@@ -832,7 +832,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	/**
 	 * Sets the Null Date button text.
 	 * 
-	 * @param nullDateText
+	 * @param nullDateButtonText
 	 *            the new text
 	 */
 	public void setNullDateButtonText(String nullDateButtonText) {
