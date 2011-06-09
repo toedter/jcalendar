@@ -748,7 +748,11 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		if (isTodayButtonVisible) {
 			String text = todayButtonText;
 			if (text == null && resourceBundle != null) {
-				text = resourceBundle.getString("todayButton.text");
+				try {
+					text = resourceBundle.getString("todayButton.text");
+				} catch (Exception e) {
+					// ignore, fall back to set texts or defaults
+				}
 			}
 			if (text == null) {
 				text = defaultTodayButtonText;
@@ -760,7 +764,11 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		if (isNullDateButtonVisible) {
 			String text = nullDateButtonText;
 			if (text == null && resourceBundle != null) {
-				text = resourceBundle.getString("nullDateButton.text");
+				try {
+					text = resourceBundle.getString("nullDateButton.text");
+				} catch (Exception e) {
+					// ignore, fall back to set texts or defaults
+				}
 			}
 			if (text == null) {
 				text = defaultNullDateButtonText;
