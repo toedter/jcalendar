@@ -67,6 +67,7 @@
 			<fileset dir="${src.dir}">
 				<patternset>
 					<include name="**/*.gif" />
+					<include name="**/*.properties" />
 					<include name="**/classlist" />
 				</patternset>
 			</fileset>
