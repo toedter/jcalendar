@@ -32,6 +32,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -54,6 +55,10 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	private final JPanel specialButtonPanel;
 	private boolean isTodayButtonVisible;
 	private boolean isNullDateButtonVisible;
+	private final String defaultTodayButtonText = "Today";
+	private final String defaultNullDateButtonText = "No Date";
+	private String todayButtonText;
+	private String nullDateButtonText;
 
 	/** the day chooser */
 	protected JDayChooser dayChooser;
@@ -215,15 +220,14 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		add(dayChooser, BorderLayout.CENTER);
 
 		specialButtonPanel = new JPanel();
-		specialButtonPanel.setLayout(new GridLayout(1, 2));
-		todayButton = new JButton("Today");
+		todayButton = new JButton();
 		todayButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				setDate(new Date());
 			}
 		});
-		nullDateButton = new JButton("Null Date");
+		nullDateButton = new JButton();
 		nullDateButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -470,6 +474,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 			locale = l;
 			dayChooser.setLocale(locale);
 			monthChooser.setLocale(locale);
+			relayoutSpecialButtonPanel();
 			firePropertyChange("locale", oldLocale, locale);
 		}
 	}
@@ -728,15 +733,107 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	}
 
 	private void relayoutSpecialButtonPanel() {
+		ResourceBundle resourceBundle = null;
+
+		try {
+			resourceBundle = ResourceBundle.getBundle(
+					"com.toedter.calendar.jcalendar", locale);
+		} catch (Exception e) {
+			// ignore, fall back to set texts or defaults
+			System.out.println(e.getMessage());
+		}
+
 		specialButtonPanel.removeAll();
+		int buttonCount = 0;
+		if (isTodayButtonVisible) {
+			String text = todayButtonText;
+			if (text == null && resourceBundle != null) {
+				text = resourceBundle.getString("todayButton.text");
+			}
+			if (text == null) {
+				text = defaultTodayButtonText;
+			}
+			todayButton.setText(text);
+			specialButtonPanel.add(todayButton);
+			buttonCount++;
+		}
+		if (isNullDateButtonVisible) {
+			String text = nullDateButtonText;
+			if (text == null && resourceBundle != null) {
+				text = resourceBundle.getString("nullDateButton.text");
+			}
+			if (text == null) {
+				text = defaultNullDateButtonText;
+			}
+			nullDateButton.setText(text);
+			specialButtonPanel.add(nullDateButton);
+			buttonCount++;
+		}
+
+		specialButtonPanel.setLayout(new GridLayout(1, buttonCount));
 		if (isTodayButtonVisible) {
 			specialButtonPanel.add(todayButton);
 		}
 		if (isNullDateButtonVisible) {
 			specialButtonPanel.add(nullDateButton);
 		}
+
 		specialButtonPanel.setVisible(isNullDateButtonVisible
 				|| isTodayButtonVisible);
+
+		todayButton.invalidate();
+		todayButton.repaint();
+		nullDateButton.invalidate();
+		nullDateButton.repaint();
+		specialButtonPanel.invalidate();
 		specialButtonPanel.doLayout();
+		specialButtonPanel.repaint();
+		invalidate();
+		repaint();
+	}
+
+	/**
+	 * @return the text of the Today button
+	 */
+	public String getTodayButtonText() {
+		return todayButtonText;
+	}
+
+	/**
+	 * Sets the Today button text.
+	 * 
+	 * @param todayButtonText
+	 *            the new text
+	 */
+	public void setTodayButtonText(String todayButtonText) {
+		if (todayButtonText != null & todayButtonText.trim().length() == 0) {
+			this.todayButtonText = null;
+		} else {
+			this.todayButtonText = todayButtonText;
+		}
+		relayoutSpecialButtonPanel();
+	}
+
+	/**
+	 * @return the text of the Null Date button
+	 */
+	public String getNullDateButtonText() {
+		return nullDateButtonText;
+	}
+
+	/**
+	 * Sets the Null Date button text.
+	 * 
+	 * @param nullDateText
+	 *            the new text
+	 */
+	public void setNullDateButtonText(String nullDateButtonText) {
+		if (nullDateButtonText != null
+				& nullDateButtonText.trim().length() == 0) {
+			this.nullDateButtonText = null;
+		} else {
+			this.nullDateButtonText = nullDateButtonText;
+		}
+		relayoutSpecialButtonPanel();
 	}
 }

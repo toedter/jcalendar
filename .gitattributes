@@ -106,6 +106,8 @@ JCalendar/src/com/toedter/calendar/images/JYearChooserColor16.gif -text
 JCalendar/src/com/toedter/calendar/images/JYearChooserColor32.gif -text
 JCalendar/src/com/toedter/calendar/images/JYearChooserMono16.gif -text
 JCalendar/src/com/toedter/calendar/images/JYearChooserMono32.gif -text
+JCalendar/src/com/toedter/calendar/jcalendar_de.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_en.properties -text
 JCalendar/src/com/toedter/components/GenericBeanInfo.java -text
 JCalendar/src/com/toedter/components/JLocaleChooser.java -text
 JCalendar/src/com/toedter/components/JLocaleChooserBeanInfo.java -text

@@ -394,8 +394,8 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 		frame.getContentPane().add(demo);
 		frame.pack();
 		frame.setBounds(200, 200,
-				(int) frame.getPreferredSize().getWidth() + 20, (int) frame
-						.getPreferredSize().getHeight() + 180);
+				(int) frame.getPreferredSize().getWidth() + 40, (int) frame
+						.getPreferredSize().getHeight() + 250);
 		frame.setVisible(true);
 	}
 
