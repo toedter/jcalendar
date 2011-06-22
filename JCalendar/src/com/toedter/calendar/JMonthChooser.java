@@ -149,7 +149,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	}
 
 	/**
-	 * Is invoked if the state of the spnner changes.
+	 * Is invoked if the state of the spinner changes.
 	 * 
 	 * @param e
 	 *            the change event.

@@ -108,6 +108,10 @@ JCalendar/src/com/toedter/calendar/images/JYearChooserMono16.gif -text
 JCalendar/src/com/toedter/calendar/images/JYearChooserMono32.gif -text
 JCalendar/src/com/toedter/calendar/jcalendar_de.properties -text
 JCalendar/src/com/toedter/calendar/jcalendar_en.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_es.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_fi.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_fr.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_zh_TW.properties -text
 JCalendar/src/com/toedter/components/GenericBeanInfo.java -text
 JCalendar/src/com/toedter/components/JLocaleChooser.java -text
 JCalendar/src/com/toedter/components/JLocaleChooserBeanInfo.java -text
@@ -115,6 +119,7 @@ JCalendar/src/com/toedter/components/JSpinField.java -text
 JCalendar/src/com/toedter/components/JSpinFieldBeanInfo.java -text
 JCalendar/src/com/toedter/components/JTitlePanel.java -text
 JCalendar/src/com/toedter/components/LocaleEditor.java -text
+JCalendar/src/com/toedter/components/UTF8ResourceBundle.java -text
 JCalendar/src/com/toedter/components/images/JLocaleChooserColor16.gif -text
 JCalendar/src/com/toedter/components/images/JLocaleChooserColor32.gif -text
 JCalendar/src/com/toedter/components/images/JLocaleChooserMono16.gif -text

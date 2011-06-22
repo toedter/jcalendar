@@ -39,6 +39,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.toedter.components.UTF8ResourceBundle;
+
 /**
  * JCalendar is a bean for entering a date by choosing the year, month and day.
  * 
@@ -736,7 +738,7 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		ResourceBundle resourceBundle = null;
 
 		try {
-			resourceBundle = ResourceBundle.getBundle(
+			resourceBundle = UTF8ResourceBundle.getBundle(
 					"com.toedter.calendar.jcalendar", locale);
 		} catch (Exception e) {
 			// ignore, fall back to set texts or defaults
