@@ -112,6 +112,9 @@ JCalendar/src/com/toedter/calendar/jcalendar_es.properties -text
 JCalendar/src/com/toedter/calendar/jcalendar_fi.properties -text
 JCalendar/src/com/toedter/calendar/jcalendar_fr.properties -text
 JCalendar/src/com/toedter/calendar/jcalendar_nl.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_pl.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_pt_BR.properties -text
+JCalendar/src/com/toedter/calendar/jcalendar_sr.properties -text
 JCalendar/src/com/toedter/calendar/jcalendar_zh_TW.properties -text
 JCalendar/src/com/toedter/components/GenericBeanInfo.java -text
 JCalendar/src/com/toedter/components/JLocaleChooser.java -text
