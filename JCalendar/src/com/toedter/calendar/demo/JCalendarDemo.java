@@ -181,9 +181,15 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
 				UIManager.installLookAndFeel("JGoodies Plastic 3D",
 						"com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
 			}
-			FontSet fontSet = FontSets.createDefaultFontSet(new Font("arial unicode MS",
-					Font.PLAIN, 12)
-					);
+			String os = System.getProperty("os.name");
+			FontSet fontSet = null;
+			if (os.startsWith("Windows")) {
+				fontSet = FontSets.createDefaultFontSet(new Font(
+						"arial unicode MS", Font.PLAIN, 12));
+			} else {
+				fontSet = FontSets.createDefaultFontSet(new Font(
+						"arial unicode", Font.PLAIN, 12));				
+			}
 			FontPolicy fixedPolicy = FontPolicies.createFixedPolicy(fontSet);
 			PlasticLookAndFeel.setFontPolicy(fixedPolicy);
 
