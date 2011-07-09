@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>JCalendar Java Bean, a Java Date Chooser</title>
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+	<table style="background-color: rgb(255, 255, 255); width: 589px"
+		border="0" bordercolor="#ffffff" cellpadding="1">
+		<tbody>
+			<tr>
+				<td colspan="4" align="center" bgcolor="#ffffff">
+					<h1>
+						<font color="#003366"><b>JCalendar New and Noteworthy</b> </font>
+					</h1>
+					<p>
+						&copy; Kai Toedter @COPYRIGHTYEAR@<br> Version @VERSION@<br>
+						@MODIFIED@<font face="Verdana, Arial, Helvetica, sans-serif"><br>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr align="left">
+				<td colspan="4"
+					style="vertical-align: top; background-color: rgb(255, 255, 255);">
+					<font color="#003366"><br> <h1>Version 1.4</h1> </font> </font><font color="#003366"><b>Extra Buttons for
+							&quot;Today&quot; and &quot;No Date&quot;</b> </font><b><br> </b>JCalendar
+					provides 2 new methods for setting the today button and/or null
+					date button visible. These 2 buttons are localized by default, but
+					you could set your own labels if you don't like the default
+					translations.<br>
+				<br> <img src="images/1.4/special-buttons.png"><br>
+					<br> <font color="#003366"><b>Date Evaluators</b> </font><b><br>
+				</b>Withe the interface IDateEvaluator you can add evaluators that
+					decide if a date is special or invalid. Invalid dates can not be
+					chosen. Both, special and invalid dates can have specific
+					foregrounds and backgrounds. In the picture below, day 4 and 5 anr
+					invalid and day 6 and 7 are special. The special days can provide a
+					tooptip that indicate why they are special.<br>
+				<br> <img src="images/1.4/date-evaluators.png"><br>
+				<br> <font color="#003366"><b>Look &amp; Feel</b> </font><b><br>
+				</b>Now JGoodies Looks 2.4.1 is included. The demo now uses different
+					font for the Plastic Look &amp; Feel so that unicode characters are
+					displayed correctly. Also Nimbus Look &amp; Feel is supported
+					better.<br>
+				<br> <font color="#003366"><b>Fixed Bugs</b> </font><b><br>
+				</b>- Bug in focus handling fixed<br>- Bug when selecting last day
+					of a month and then change the month fixed<br>
+				<font color="#003366"><h1>Oder Versions</h1> </font><br> 1.3.2:<br>
+						- Many bug fixes (thanks to all forum posters)<br> - Min/Max
+						selectable dates now in the date editor interface<br> -
+						Improvements regarding property change listeners (better null date
+						support)<br> - New method "cleanup" in JDateChooser<br> <br>
+						1.3.1:<br> - UI & Look & Feel improvements (especially
+						Windows L&F)<br> - JCalendar supports a date range of
+						selectable dates<br> - JDayChooser can now limit the number
+						of characters in day Names (e.g. Mo instead of Mon) <br>
+						<br>1.3.0:<br> - Many bug fixes (thanks to all forum posters)<br>
+						- Better handling of null dates in JDateChooser<br> -
+						Introduction of the interface IDateEditor<br> -
+						JTextFieldDateEditor (the default editor) supports custom date
+						patterns and masks<br> - JSpinnerDateEditor is an
+						implementation of IDateEditor based on a JSpinner<br> -
+						JDateChooser Table editor (including table demo)<br> - Both
+						the zip and the jar files contain the version in the name, e.g.
+						jcalendar-3.1.0.jar<br> <br>1.2.2:<br> - Bug in
+						DateChooser.setModel fixed (thanks to Martin Pietruschka)<br>
+						- NullPointer exception bug on DateChooser.setDate fixed (thanks
+						to Aleksey Gureev and others).<br> <br>1.2.1:<br> -
+						JDateChooser bug fixed (sometimes the date was 1 day ahead of the
+						selected date, many thanks<br> &nbsp;&nbsp; to Mark Brown and
+						all the others who reported this bug).<br> - JDateChooser
+						improvements for better usability in persistence frameworks like
+						Oracle's ADF/BC4J<br> &nbsp;&nbsp; (thanks to Mark Brown).<br>
+						<br>1.2:<br> - Many small improvements and bug fixes, thanks to
+						many comments of JCalendar users<br> - A new JDateChooser
+						bean, which allows to be used as an editable date field and a
+						calendar image, &nbsp;&nbsp;&nbsp;that pops up a JCalendar for
+						choosing the date.<br> - An optional "week of year" panel in
+						JDayChooser<br> - Better customization of most beans<br>
+						- Improvements in all BeanInfos<br> - Bundling with my
+						favorite Look and Feel: JGoodies Looks (<a
+						href="http://www.jgoodies.com/">www.jgoodies.com</a>)<br>
+						</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

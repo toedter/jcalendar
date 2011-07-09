@@ -127,6 +127,7 @@
 		</copy>
 		<copy todir="${dist.dir}/${doc.dir}/images">
 			<fileset dir="${doc.dir}/images" />
+			<fileset dir="${doc.dir}/images/1.4" />
 		</copy>
 
 		<copy todir="${dist.dir}" filtering="yes">
@@ -138,6 +139,7 @@
 		<copy file="${doc.dir}/license.html" todir="${dist.dir}/${doc.dir}/" filtering="no" />
 		<copy file="${doc.dir}/index.html" todir="${dist.dir}/${doc.dir}/" filtering="yes" />
 		<copy file="${doc.dir}/demo.html" todir="${dist.dir}/${doc.dir}/" filtering="yes" />
+		<copy file="${doc.dir}/new.html" todir="${dist.dir}/${doc.dir}/" filtering="yes" />
 		<copy file="${doc.dir}/style.css" todir="${dist.dir}/${doc.dir}/" filtering="no" />
 
 		<!-- create a zip file -->
