@@ -10,7 +10,7 @@
 	<!-- PROPERTIES                                                            -->
 	<!-- ===================================================================== -->
 
-	<property name="version" value="1.4" />
+	<property name="version" value="1.4.1" />
 	<property name="modified" value="07/09/2011" />
 	<property name="copyright.year" value="1999 - 2011" />
 	<property name="looks.jar" value="jgoodies-looks-2.4.1.jar" />
