@@ -121,6 +121,8 @@ JCalendar/.settings/org.eclipse.jdt.core.prefs -text
 JCalendar/.settings/org.eclipse.jdt.ui.prefs -text
 JCalendar/bin/runJCalendarDemo.bat -text
 JCalendar/doc/demo.html -text
+JCalendar/doc/images/1.4/date-evaluators.png -text
+JCalendar/doc/images/1.4/special-buttons.png -text
 JCalendar/doc/images/3plusstars.gif -text
 JCalendar/doc/images/JCalendar.gif -text
 JCalendar/doc/images/JCalendarColor16.gif -text
