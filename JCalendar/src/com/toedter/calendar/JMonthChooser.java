@@ -24,6 +24,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormatSymbols;
@@ -105,12 +106,13 @@ public class JMonthChooser extends JPanel implements ItemListener,
 			spinner = new JSpinner() {
 				private static final long serialVersionUID = 1L;
 
-				private JTextField textField = new JTextField();
+				private final JTextField textField = new JTextField();
 
+				@Override
 				public Dimension getPreferredSize() {
 					Dimension size = super.getPreferredSize();
-					return new Dimension(size.width, textField
-							.getPreferredSize().height);
+					return new Dimension(size.width,
+							textField.getPreferredSize().height);
 				}
 			};
 			spinner.addChangeListener(this);
@@ -154,6 +156,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * @param e
 	 *            the change event.
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		SpinnerNumberModel model = (SpinnerNumberModel) ((JSpinner) e
 				.getSource()).getModel();
@@ -198,6 +201,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * @param e
 	 *            the item event
 	 */
+	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
 			int index = comboBox.getSelectedIndex();
@@ -293,6 +297,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * 
 	 * @see #setLocale
 	 */
+	@Override
 	public Locale getLocale() {
 		return locale;
 	}
@@ -305,6 +310,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * 
 	 * @see #getLocale
 	 */
+	@Override
 	public void setLocale(Locale l) {
 		if (!initialized) {
 			super.setLocale(l);
@@ -320,6 +326,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * @param enabled
 	 *            the new enabled value
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
 		comboBox.setEnabled(enabled);
@@ -336,7 +343,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * @return the combo box
 	 */
 	public Component getComboBox() {
-		return this.comboBox;
+		return comboBox;
 	}
 
 	/**
@@ -360,11 +367,13 @@ public class JMonthChooser extends JPanel implements ItemListener,
 		return hasSpinner;
 	}
 
-    /**
-     * Sets the font for this component.
-     *
-     * @param font the desired <code>Font</code> for this component
-     */
+	/**
+	 * Sets the font for this component.
+	 * 
+	 * @param font
+	 *            the desired <code>Font</code> for this component
+	 */
+	@Override
 	public void setFont(Font font) {
 		if (comboBox != null) {
 			comboBox.setFont(font);
@@ -377,6 +386,7 @@ public class JMonthChooser extends JPanel implements ItemListener,
 	 * 
 	 * @see javax.swing.JPanel#updateUI()
 	 */
+	@Override
 	public void updateUI() {
 		final JSpinner testSpinner = new JSpinner();
 		if (spinner != null) {
@@ -386,6 +396,14 @@ public class JMonthChooser extends JPanel implements ItemListener,
 				spinner.setBorder(new EmptyBorder(0, 0, 0, 0));
 			}
 		}
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		if ("Nimbus".equals(UIManager.getLookAndFeel().getID())) {
+			getParent().repaint(); // fixes repaint bug in Nimbus L&F
+		}
+		super.paintComponent(g);
 	}
 
 	/**
