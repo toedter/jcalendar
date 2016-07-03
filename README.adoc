@@ -1,0 +1,12 @@
+= JCalendar
+
+This is my "old" JCalendar, a Java date picker based on Swing.
+You find more detailed information at http://toedter.com/jcalendar/
+
+image:jcalendar.png[Screenshot]
+
+This project will not be updated anymore but might be still useful.
+
+== License
+
+LGPL v2.1, see https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html
