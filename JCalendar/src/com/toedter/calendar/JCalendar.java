@@ -624,6 +624,16 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	public Date getDate() {
 		return new Date(calendar.getTimeInMillis());
 	}
+	
+	/**
+	 * Returns a LocalDate object.
+	 * 
+	 * @return a localdate object constructed from the calendar property.
+	 */
+	public LocalDate getLocalDate() {
+		Date date = new Date(calendar.getTimeInMillis());
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
 
 	/**
 	 * Sets the date. Fires the property change "date".
@@ -646,6 +656,19 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 		dayChooser.setDay(day);
 
 		firePropertyChange("date", oldDate, date);
+	}
+	
+	/**
+	 * Sets the localdate. Fires the property change "date".
+	 * 
+	 * @param date
+	 *            the new date.
+	 * @throws NullPointerException
+	 *             - if the date is null
+	 */
+	public void setLocalDate(LocalDate localdate) {
+		Date date = Date.from(localdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		setDate(date);
 	}
 
 	/**
