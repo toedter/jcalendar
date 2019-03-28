@@ -439,6 +439,16 @@ public class JDateChooser extends JPanel implements ActionListener,
 	public Date getDate() {
 		return dateEditor.getDate();
 	}
+	
+	/**
+	 * Returns the localdate. If the JDateChooser is started with a null date and no
+	 * date was set by the user, null is returned.
+	 * 
+	 * @return the current localdate
+	 */
+	public LocalDate getLocalDate() {
+		return dateEditor.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
 
 	/**
 	 * Sets the date. Fires the property change "date" if date != null.
@@ -451,6 +461,17 @@ public class JDateChooser extends JPanel implements ActionListener,
 		if (getParent() != null) {
 			getParent().invalidate();
 		}
+	}
+	
+	/**
+	 * Sets the localdate. Fires the property change "date" if date != null.
+	 * 
+	 * @param localdate
+	 *            the new localdate.
+	 */
+	public void setLocalDate(LocalDate localdate) {
+		Date date = Date.from(localdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		setDate(date);
 	}
 
 	/**
