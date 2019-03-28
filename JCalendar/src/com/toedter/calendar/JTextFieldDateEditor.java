@@ -29,6 +29,8 @@ import java.awt.event.FocusListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -59,6 +61,8 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 	private static final long serialVersionUID = -8901842591101625304L;
 
 	protected Date date;
+	
+	protected LocalDate localdate;
 
 	protected SimpleDateFormat dateFormatter;
 
@@ -212,6 +216,25 @@ public class JTextFieldDateEditor extends JFormattedTextField implements IDateEd
 		this.datePattern = dateFormatter.toPattern();
 		setToolTipText(this.datePattern);
 		setDate(date, false);
+	}
+	
+	/**
+	 * Get the local date (>= Java 8)
+	 * @return the local date
+	 */
+	public LocalDate getLocalDate() {
+		Date date = getDate();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		return localDate;
+	}
+
+	/**
+	 * Set the local date (>= Java 8)
+	 * @param localdate The local date
+	 */
+	public void setLocalDate(LocalDate localdate) {
+		Date date = Date.from(localdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		setDate(date);
 	}
 
 	/*

@@ -29,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -97,6 +99,16 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	public JCalendar(Date date) {
 		this(date, null, true, true);
 	}
+	
+	/**
+	 * JCalendar constructor which allows the initial local date to be set.
+	 * 
+	 * @param localDate
+	 *            the local date
+	 */
+	public JCalendar(LocalDate localDate) {
+		this(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+	}
 
 	/**
 	 * JCalendar constructor which allows the initial calendar to be set.
@@ -142,6 +154,20 @@ public class JCalendar extends JPanel implements PropertyChangeListener {
 	 */
 	public JCalendar(Date date, boolean monthSpinner) {
 		this(date, null, monthSpinner, true);
+	}
+	
+	/**
+	 * JCalendar constructor specifying both the initial local date and the month
+	 * spinner type.
+	 * 
+	 * @param localDate
+	 *            the localDate
+	 * @param monthSpinner
+	 *            false, if no month spinner should be used
+	 */
+	public JCalendar(LocalDate localDate, boolean monthSpinner) {
+		this(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+				null, monthSpinner, true);
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class DateChooserPanel extends JPanel implements PropertyChangeListener {
 				true);
 
 		components[2] = new JDateChooser(new Date());
-		components[3] = new JDateChooser(null, null, null,
+		components[3] = new JDateChooser(null, new Date(), null,
 				new JSpinnerDateEditor());
 		components[4] = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
 		components[5] = new DemoTable();

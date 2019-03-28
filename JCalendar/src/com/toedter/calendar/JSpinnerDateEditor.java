@@ -4,6 +4,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 
@@ -111,6 +113,19 @@ public class JSpinnerDateEditor extends JSpinner implements IDateEditor,
 				DateFormat.MEDIUM, locale);
 		setEditor(new JSpinner.DateEditor(this, dateFormatter.toPattern()));
 		setDateFormatString(dateFormatter.toPattern());
+	}
+	
+	@Override
+	public LocalDate getLocalDate() {
+		Date date = getDate();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		return localDate;
+	}
+
+	@Override
+	public void setLocalDate(LocalDate localdate) {
+		Date date = Date.from(localdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		setDate(date);
 	}
 
 	/*

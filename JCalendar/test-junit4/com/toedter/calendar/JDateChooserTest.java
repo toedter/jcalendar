@@ -77,7 +77,7 @@ public class JDateChooserTest {
 
 	@Test
 	public void testDateDateFormateStringConstructor() {
-		jDateChooser = new JDateChooser(null, null);
+		jDateChooser = new JDateChooser(new Date(), null);
 		String defaultFormat = ((SimpleDateFormat) DateFormat
 				.getDateInstance(DateFormat.MEDIUM)).toPattern();
 
@@ -244,7 +244,7 @@ public class JDateChooserTest {
 
 	@Test
 	public void testNullDateWithSpinnerEditor() {
-		new JDateChooser(new JCalendar(), null, "", new JSpinnerDateEditor());
+		new JDateChooser(new JCalendar(), new Date(), "", new JSpinnerDateEditor());
 	}
 
 	@Test

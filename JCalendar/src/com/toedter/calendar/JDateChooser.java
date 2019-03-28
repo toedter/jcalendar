@@ -29,6 +29,8 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -80,7 +82,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 * is empty.
 	 */
 	public JDateChooser() {
-		this(null, null, null, null);
+		this(null, new Date(), null, null);
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            JTextFieldDateEditor is used.
 	 */
 	public JDateChooser(IDateEditor dateEditor) {
-		this(null, null, null, dateEditor);
+		this(null, new Date(), null, dateEditor);
 	}
 
 	/**
@@ -102,6 +104,16 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 */
 	public JDateChooser(Date date) {
 		this(date, null);
+	}
+	
+	/**
+	 * Creates a new JDateChooser.
+	 * 
+	 * @param localDate
+	 *            the local date or null
+	 */
+	public JDateChooser(LocalDate localDate) {
+		this(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 	}
 
 	/**
@@ -115,6 +127,19 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 */
 	public JDateChooser(Date date, String dateFormatString) {
 		this(date, dateFormatString, null);
+	}
+	
+	/**
+	 * Creates a new JDateChooser.
+	 * 
+	 * @param localDate
+	 *            the local date or null
+	 * @param dateFormatString
+	 *            the date format string or null (then MEDIUM SimpleDateFormat
+	 *            format is used)
+	 */
+	public JDateChooser(LocalDate localDate, String dateFormatString) {
+		this(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), dateFormatString, null);
 	}
 
 	/**
@@ -133,6 +158,24 @@ public class JDateChooser extends JPanel implements ActionListener,
 			IDateEditor dateEditor) {
 		this(null, date, dateFormatString, dateEditor);
 	}
+	
+	/**
+	 * Creates a new JDateChooser.
+	 * 
+	 * @param localDate
+	 *            the local date or null
+	 * @param dateFormatString
+	 *            the date format string or null (then MEDIUM SimpleDateFormat
+	 *            format is used)
+	 * @param dateEditor
+	 *            the dateEditor to be used used to display the date. if null, a
+	 *            JTextFieldDateEditor is used.
+	 */
+	public JDateChooser(LocalDate localDate, String dateFormatString,
+			IDateEditor dateEditor) {
+		this(null, Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+				dateFormatString, dateEditor);
+	}
 
 	/**
 	 * Creates a new JDateChooser. If the JDateChooser is created with this
@@ -148,7 +191,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the place holder character, e.g. '_'
 	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
-		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
+		this(null, new Date(), datePattern, new JTextFieldDateEditor(datePattern,
 				maskPattern, placeholder));
 	}
 
@@ -272,6 +315,26 @@ public class JDateChooser extends JPanel implements ActionListener,
 		// end of code provided by forum user podiatanapraia
 
 		isInitialized = true;
+	}
+	
+	/**
+	 * Creates a new JDateChooser.
+	 * 
+	 * @param jcal
+	 *            the JCalendar to be used
+	 * @param date
+	 *            the date or null
+	 * @param dateFormatString
+	 *            the date format string or null (then MEDIUM Date format is
+	 *            used)
+	 * @param dateEditor
+	 *            the dateEditor to be used used to display the date. if null, a
+	 *            JTextFieldDateEditor is used.
+	 */
+	public JDateChooser(JCalendar jcal, LocalDate localDate, String dateFormatString,
+			IDateEditor dateEditor) {
+		this(jcal, Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+				dateFormatString, dateEditor);
 	}
 
 	/**

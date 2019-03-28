@@ -21,6 +21,7 @@
 package com.toedter.calendar;
 
 import java.beans.PropertyChangeListener;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
@@ -111,6 +112,24 @@ public interface IDateEditor {
 	 * @param min minimum selectable date
 	 */
 	public void setMinSelectableDate(Date min);
+	
+	
+	/**
+	 * 
+	 * Returns the local date.
+	 * 
+	 * @return the local date
+	 */
+	public LocalDate getLocalDate();
+	
+	/** 
+	 * Sets the date. This should be implemented as a bound property, firing the
+	 * "date" property.
+	 * 
+	 * @param date the local date to set
+	 */           
+	public void setLocalDate(LocalDate date);
+
 
 	/**
 	 * Returns the UI component, e.g. the actual JTextField implementing the
