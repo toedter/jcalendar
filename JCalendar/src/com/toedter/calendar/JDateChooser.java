@@ -82,7 +82,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 * is empty.
 	 */
 	public JDateChooser() {
-		this(null, new Date(), null, null);
+		this(null, null, null, null);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            JTextFieldDateEditor is used.
 	 */
 	public JDateChooser(IDateEditor dateEditor) {
-		this(null, new Date(), null, dateEditor);
+		this(null, null, null, dateEditor);
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 	 *            the place holder character, e.g. '_'
 	 */
 	public JDateChooser(String datePattern, String maskPattern, char placeholder) {
-		this(null, new Date(), datePattern, new JTextFieldDateEditor(datePattern,
+		this(null, null, datePattern, new JTextFieldDateEditor(datePattern,
 				maskPattern, placeholder));
 	}
 
@@ -317,25 +317,6 @@ public class JDateChooser extends JPanel implements ActionListener,
 		isInitialized = true;
 	}
 	
-	/**
-	 * Creates a new JDateChooser.
-	 * 
-	 * @param jcal
-	 *            the JCalendar to be used
-	 * @param date
-	 *            the date or null
-	 * @param dateFormatString
-	 *            the date format string or null (then MEDIUM Date format is
-	 *            used)
-	 * @param dateEditor
-	 *            the dateEditor to be used used to display the date. if null, a
-	 *            JTextFieldDateEditor is used.
-	 */
-	public JDateChooser(JCalendar jcal, LocalDate localDate, String dateFormatString,
-			IDateEditor dateEditor) {
-		this(jcal, Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
-				dateFormatString, dateEditor);
-	}
 
 	/**
 	 * Called when the calendar button was pressed.
